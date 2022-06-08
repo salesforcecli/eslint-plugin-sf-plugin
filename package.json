@@ -1,0 +1,55 @@
+{
+  "name": "eslint-plugin-sf-plugin",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "dependencies": {
+    "@typescript-eslint/utils": "^5.27.0"
+  },
+  "devDependencies": {
+    "@salesforce/prettier-config": "^0.0.2",
+    "@types/eslint": "^8.4.2",
+    "@types/estree": "^0.0.51",
+    "@types/node": "^17.0.40",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-salesforce-license": "^0.1.6",
+    "eslint-config-salesforce-typescript": "^0.2.8",
+    "eslint-plugin-header": "^3.1.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7",
+    "lint-staged": "^13.0.1",
+    "prettier": "^2.6.2",
+    "pretty-quick": "^3.1.3",
+    "typescript": "^4.7.3"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "homepage": "https://github.com/salesforcecli/eslint-plugin-sf-plugin",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "force",
+    "salesforce",
+    "sf",
+    "plugins",
+    "eslint"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
