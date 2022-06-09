@@ -12,13 +12,13 @@ import { flagCrossReferences } from './rules/flagCrossReferences';
 module.exports = {
   configs: {
     recommended: {
-      plugins: ['@salesforce/eslint-plugin-sf-plugin'],
+      plugins: ['@salesforce/sf-plugin'],
       env: ['node'],
       rules: {
-        '@salesforce/eslint-plugin-sf-plugin/no-duplicate-short-characters': 'error',
-        '@salesforce/eslint-plugin-sf-plugin/flag-case': 'error',
-        '@salesforce/eslint-plugin-sf-plugin/no-hardcoded-messages': 'warn',
-        '@salesforce/eslint-plugin-sf-plugin/flag-cross-references': 'error',
+        '@salesforce/sf-plugin/no-duplicate-short-characters': 'error',
+        '@salesforce/sf-plugin/flag-case': 'error',
+        '@salesforce/sf-plugin/no-hardcoded-messages': 'warn',
+        '@salesforce/sf-plugin/flag-cross-references': 'error',
       },
     },
   },
