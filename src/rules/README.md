@@ -2,38 +2,55 @@
 
 Helpful eslint rules for sf plugins.
 
-## Consume
+## Use these rules in a sf plugin
 
 `yarn add --dev eslint-plugin-sf-plugin`
 
-in your `.eslintrc`, add `"plugin:sf-plugin/recommended"` to your`extends` property.  example:
+Then, in your plugin's `.eslintrc.js`, add `"plugin:sf-plugin/recommended"` to your `extends` property.  
+
+example:
 
 ```js
 module.exports = {
-  extends: ['eslint-config-salesforce-typescript', 'eslint-config-salesforce-license', "plugin:sf-plugin/recommended"],
+  extends: ['eslint-config-salesforce-typescript', 'eslint-config-salesforce-license', 'plugin:sf-plugin/recommended'],
 }
 ```
 
-## Developing
+To override how an individual rules behaves, add the plugin name and change the its `rules` value.
 
-Use <https://astexplorer.net/> and choose `@typescript/eslint-parser` from the `</>` dropdown.  This'll give you the AST as the parser sees it.
+```js
+plugins: ['sf-plugin'],
+rules: {
+  'sf-plugin/no-hardcoded-messages': 'error'
+}
+```
 
-copy/paste your TS code in the left panel to see the AST in the right.
+## Add new rules
+
+Use <https://astexplorer.net/> and choose `@typescript/eslint-parser` from the `</>` dropdown.  
+
+This'll give you the AST as the parser sees it.
+
+Copy/paste your TS code in the left panel to see the AST in the right.
 
 * basics of eslint rules: <https://eslint.org/docs/developer-guide/working-with-rules>
 * ts-specific stuff: <https://typescript-eslint.io/docs/development/custom-rules/>
 
-useful posts
+Useful post
 
 * <https://medium.com/bigpicture-one/writing-custom-typescript-eslint-rules-with-unit-tests-for-angular-project-f004482551db>
 
-Be sure to import/export your rule with index.ts and add it the configs sections
+Be sure to import/export your rule from index.ts, and add it the configs section with your recommended setting.
 
-## Testing
+# Testing
+
+## unit testing
 
 `yarn test:watch`.  It's easiest to clone an existing test and modify it.
 
-### exploratory testing/development with a real local sf plugin
+You can write code examples of what's valid/invalid and the errors that invalid code should return.
+
+## exploratory testing/development using a real local sf plugin
 
 from your sf plugin
 
