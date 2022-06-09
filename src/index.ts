@@ -9,7 +9,7 @@ import { flagCasing } from './rules/flagCasing';
 import { extractMessage } from './rules/extractMessage';
 import { flagCrossReferences } from './rules/flagCrossReferences';
 
-export default {
+export = {
   configs: {
     recommended: {
       plugins: ['@salesforce/sf-plugin'],
