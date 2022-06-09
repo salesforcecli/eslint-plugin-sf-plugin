@@ -23,11 +23,8 @@ export = {
   },
   rules: {
     'no-duplicate-short-characters': noDuplicateShortCharacters,
-
     'flag-case': flagCasing,
-
     'no-hardcoded-messages': extractMessage,
-
     'flag-cross-references': flagCrossReferences,
   },
 };

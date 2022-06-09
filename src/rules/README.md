@@ -27,7 +27,7 @@ useful posts
 
 * <https://medium.com/bigpicture-one/writing-custom-typescript-eslint-rules-with-unit-tests-for-angular-project-f004482551db>
 
-be sure to import/export your rule with index.ts and add it the configs sections
+Be sure to import/export your rule with index.ts and add it the configs sections
 
 ## Testing
 
@@ -42,7 +42,7 @@ from your sf plugin
 yarn add --dev file:/absolute/path/to/eslint-plugin-sf-plugin
 ```
 
-include in your `eslint.rc`
+include in the plugin's `eslint.rc`
 
 ```js
 module.exports = {
