@@ -9,11 +9,10 @@ import { flagCasing } from './rules/flagCasing';
 import { extractMessage } from './rules/extractMessage';
 import { flagCrossReferences } from './rules/flagCrossReferences';
 
-module.exports = {
+export default {
   configs: {
     recommended: {
       plugins: ['@salesforce/sf-plugin'],
-      env: ['node'],
       rules: {
         '@salesforce/sf-plugin/no-duplicate-short-characters': 'error',
         '@salesforce/sf-plugin/flag-case': 'error',
