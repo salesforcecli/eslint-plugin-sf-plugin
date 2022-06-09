@@ -2,9 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "target": "es2019",
+    "target": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "module": "commonjs",
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/index.js"]
 }
