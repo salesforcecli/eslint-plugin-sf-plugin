@@ -9,6 +9,7 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
+      - run: yarn install
       - run: yarn build
       - run: yarn test
 
