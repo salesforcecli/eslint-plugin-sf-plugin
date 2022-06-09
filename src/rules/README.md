@@ -21,9 +21,9 @@ be sure to import/export your rule with index.ts
 
 `yarn test:watch`.  It's easiest to clone an existing test and modify it.
 
-### to test in a real local project
+### exploratory testing/development with a real local sf plugin
 
-from your other project
+from your sf plugin
 
 ```shell
 # add to project
@@ -36,10 +36,8 @@ include in your `eslint.rc`
 module.exports = {
   <whatever was already present>
   plugins: ['sf-plugin'],
+    // add any or all rules you need to test with
     rules: {
-      "sf-plugin/no-duplicate-short-characters": "error",
-      "sf-plugin/flag-case": "error",
-      "sf-plugin/no-hardcoded-messages": "warn",
-      "sf-plugin/flag-cross-references": "error",
+      "sf-plugin/flag-case": "error",      
     }
 }
