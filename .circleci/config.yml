@@ -9,8 +9,8 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - yarn build
-      - yarn test
+      - run: yarn build
+      - run: yarn test
 
 workflows:
   version: 2
