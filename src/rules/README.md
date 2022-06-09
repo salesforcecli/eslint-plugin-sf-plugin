@@ -2,6 +2,18 @@
 
 Helpful eslint rules for sf plugins.
 
+## Consume
+
+`yarn add --dev eslint-plugin-sf-plugin`
+
+in your `.eslintrc`, add `"plugin:sf-plugin/recommended"` to your`extends` property.  example:
+
+```js
+module.exports = {
+  extends: ['eslint-config-salesforce-typescript', 'eslint-config-salesforce-license', "plugin:sf-plugin/recommended"],
+}
+```
+
 ## Developing
 
 Use <https://astexplorer.net/> and choose `@typescript/eslint-parser` from the `</>` dropdown.  This'll give you the AST as the parser sees it.
@@ -15,7 +27,7 @@ useful posts
 
 * <https://medium.com/bigpicture-one/writing-custom-typescript-eslint-rules-with-unit-tests-for-angular-project-f004482551db>
 
-be sure to import/export your rule with index.ts
+be sure to import/export your rule with index.ts and add it the configs sections
 
 ## Testing
 

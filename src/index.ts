@@ -12,27 +12,22 @@ import { flagCrossReferences } from './rules/flagCrossReferences';
 export = {
   configs: {
     recommended: {
-      plugins: ['@salesforce/sf-plugin'],
+      plugins: ['sf-plugin'],
       rules: {
-        '@salesforce/sf-plugin/no-duplicate-short-characters': 'error',
-        '@salesforce/sf-plugin/flag-case': 'error',
-        '@salesforce/sf-plugin/no-hardcoded-messages': 'warn',
-        '@salesforce/sf-plugin/flag-cross-references': 'error',
+        'sf-plugin/no-duplicate-short-characters': 'error',
+        'sf-plugin/flag-case': 'error',
+        'sf-plugin/no-hardcoded-messages': 'warn',
+        'sf-plugin/flag-cross-references': 'error',
       },
     },
   },
   rules: {
-    'no-duplicate-short-characters': {
-      create: noDuplicateShortCharacters,
-    },
-    'flag-case': {
-      create: flagCasing,
-    },
-    'no-hardcoded-messages': {
-      create: extractMessage,
-    },
-    'flag-cross-references': {
-      create: flagCrossReferences,
-    },
+    'no-duplicate-short-characters': noDuplicateShortCharacters,
+
+    'flag-case': flagCasing,
+
+    'no-hardcoded-messages': extractMessage,
+
+    'flag-cross-references': flagCrossReferences,
   },
 };
