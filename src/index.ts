@@ -10,6 +10,18 @@ import { extractMessage } from './rules/extractMessage';
 import { flagCrossReferences } from './rules/flagCrossReferences';
 
 module.exports = {
+  configs: {
+    recommended: {
+      plugins: ['@salesforce/eslint-plugin-sf-plugin'],
+      env: ['node'],
+      rules: {
+        '@salesforce/eslint-plugin-sf-plugin/no-duplicate-short-characters': 'error',
+        '@salesforce/eslint-plugin-sf-plugin/flag-case': 'error',
+        '@salesforce/eslint-plugin-sf-plugin/no-hardcoded-messages': 'warn',
+        '@salesforce/eslint-plugin-sf-plugin/flag-cross-references': 'error',
+      },
+    },
+  },
   rules: {
     'no-duplicate-short-characters': {
       create: noDuplicateShortCharacters,
