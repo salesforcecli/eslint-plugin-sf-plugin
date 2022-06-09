@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-sf-plugin",
+  "name": "@salesforce/eslint-plugin-sf-plugin",
   "version": "0.1.0",
   "main": "dist/index.js",
   "engines": {

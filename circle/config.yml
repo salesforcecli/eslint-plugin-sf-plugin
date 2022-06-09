@@ -1,0 +1,39 @@
+version: 2.1
+orbs:
+  release-management: salesforce/npm-release-management@4
+
+jobs:
+  build_and_test:
+    build:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - yarn build
+      - yarn test
+
+workflows:
+  version: 2
+  test-and-release:
+    jobs:
+      - build_and_test
+      - release-management/release-package:
+          github-release: true
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: main
+          context:
+            - release
+  dependabot-automerge:
+    triggers:
+      - schedule:
+          cron: '0 2,5,8,11 * * *'
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - release-management/dependabot-automerge:
+          context: release
