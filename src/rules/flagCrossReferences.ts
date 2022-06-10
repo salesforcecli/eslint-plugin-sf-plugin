@@ -40,7 +40,7 @@ export const flagCrossReferences = ESLintUtils.RuleCreator.withoutDocs({
             .filter(Boolean);
 
           if (
-            flagsNode.type === 'PropertyDefinition' &&
+            flagsNode?.type === 'PropertyDefinition' &&
             flagsNode.key.type === 'Identifier' &&
             flagsNode.value.type === 'ObjectExpression'
           ) {

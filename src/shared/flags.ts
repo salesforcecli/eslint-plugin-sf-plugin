@@ -29,8 +29,8 @@ export const isFlag = (node: TSESTree.Node): boolean =>
 
 export const isFlagsStaticProperty = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.PropertyDefinition &&
-  node.value.type === AST_NODE_TYPES.ObjectExpression &&
+  node.static &&
+  node.value?.type === AST_NODE_TYPES.ObjectExpression &&
   node.key.type === AST_NODE_TYPES.Identifier &&
-  node.key?.name === 'flags' &&
-  node.accessibility === 'public' &&
-  node.static;
+  node.key.name === 'flags' &&
+  node.accessibility === 'public';

@@ -23,6 +23,18 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
+    // non static other definition of flags
+    `
+    export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      dependsOn: ['some-literal']
+    }),
+    'some-literal': Flags.string({}),
+  }
+  private flags: CmdFlags;
+}
+`,
     `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
