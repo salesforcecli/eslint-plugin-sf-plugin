@@ -6,16 +6,16 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
-import { getFlagName, isFlag } from '../shared/flags';
+import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
+export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'Enforce flag cross references for dependOn,exclusive,exactlyOne',
+      description: 'Enforce that flags have a summary property',
       recommended: 'error',
     },
     messages: {
-      message: 'Flag {{flagName}} should be lowercase (use kebab-case to separate words)',
+      message: 'Flags should have a summary property',
     },
     type: 'problem',
     schema: [],
@@ -25,12 +25,16 @@ export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
     return {
       Property(node): void {
         if (isInCommandDirectory(context) && isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-          const flagName = getFlagName(node);
-          if (flagName.toLowerCase() !== flagName) {
+          if (
+            node.value?.type === 'CallExpression' &&
+            node.value.arguments?.[0]?.type === 'ObjectExpression' &&
+            !node.value.arguments[0].properties.some(
+              (property) => property.type === 'Property' && flagPropertyIsNamed(property, 'summary')
+            )
+          ) {
             context.report({
               node,
               messageId: 'message',
-              data: { flagName },
             });
           }
         }

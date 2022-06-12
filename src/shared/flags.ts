@@ -20,6 +20,7 @@ export const getFlagName = (node: TSESTree.Node): string => {
   }
 };
 
+/** Current node is 'foo' : Flags.x({}) */
 export const isFlag = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.Property &&
   node.value?.type === 'CallExpression' &&
@@ -27,6 +28,7 @@ export const isFlag = (node: TSESTree.Node): boolean =>
   node.value?.callee?.object?.type === 'Identifier' &&
   node.value?.callee?.object?.name === 'Flags';
 
+/** Current node is public static flags = */
 export const isFlagsStaticProperty = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.PropertyDefinition &&
   node.static &&
@@ -34,3 +36,16 @@ export const isFlagsStaticProperty = (node: TSESTree.Node): boolean =>
   node.key.type === AST_NODE_TYPES.Identifier &&
   node.key.name === 'flags' &&
   node.accessibility === 'public';
+
+export const flagPropertyIsNamed = (node: TSESTree.Property, name: string): node is TSESTree.Property =>
+  resolveFlagName(node) === name;
+
+/** pass in a flag Property and it gives back the key name/value depending on type */
+export const resolveFlagName = (flag: TSESTree.PropertyComputedName | TSESTree.PropertyNonComputedName): string => {
+  if (flag.key.type === AST_NODE_TYPES.Identifier) {
+    return flag.key.name;
+  }
+  if (flag.key.type === AST_NODE_TYPES.Literal && typeof flag.key.value === 'string') {
+    return flag.key.value;
+  }
+};

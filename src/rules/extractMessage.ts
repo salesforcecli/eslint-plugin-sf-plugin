@@ -6,6 +6,7 @@
  */
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { isFlag } from '../shared/flags';
+import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 
 export const extractMessage = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -24,11 +25,15 @@ export const extractMessage = ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
       Property(node): void {
+        if (!isInCommandDirectory(context)) {
+          return;
+        }
+        const ancestors = context.getAncestors();
         if (
-          node.type === AST_NODE_TYPES.Property &&
           node.key.type === AST_NODE_TYPES.Identifier &&
           (node.key.name === 'summary' || node.key.name === 'description') &&
-          context.getAncestors().some((a) => isFlag(a))
+          ancestors.some((a) => isFlag(a)) &&
+          ancestorsContainsSfCommand(ancestors)
         ) {
           if (node.value.type === 'Literal') {
             context.report({

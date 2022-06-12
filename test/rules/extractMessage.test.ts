@@ -14,7 +14,9 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('no duplicate short characters', extractMessage, {
   valid: [
     // no messages is fine
-    `
+    {
+      filename: 'src/commands/foo.ts',
+      code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -23,8 +25,11 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
+    },
     // summary only
-    `
+    {
+      filename: 'src/commands/foo.ts',
+      code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -33,7 +38,10 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
-    `
+    },
+    {
+      filename: 'src/commands/foo.ts',
+      code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -43,7 +51,10 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
-    `
+    },
+    {
+      filename: 'src/commands/foo.ts',
+      code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -52,9 +63,26 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
+    },
+    // all sorts of violations but not in the commands directory
+    {
+      filename: 'src/foo.ts',
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      description: 'foo',
+      summary: 'foo'
+    }),
+  }
+}
+`,
+    },
   ],
   invalid: [
     {
+      filename: 'src/commands/foo.ts',
+
       errors: [
         {
           messageId: 'message',
@@ -76,6 +104,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           messageId: 'message',
         },
       ],
+      filename: 'src/commands/foo.ts',
+
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -95,6 +125,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           messageId: 'message',
         },
       ],
+      filename: 'src/commands/foo.ts',
+
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {

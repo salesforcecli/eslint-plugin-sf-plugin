@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
+import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlag, isFlagsStaticProperty } from '../shared/flags';
 
 // properties that reference other flags by name
@@ -26,14 +27,19 @@ export const flagCrossReferences = ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
       Property(node): void {
+        if (!isInCommandDirectory(context)) {
+          return;
+        }
+        const ancestors = context.getAncestors();
         if (
           node.key.type === 'Identifier' &&
           node.value.type === 'ArrayExpression' &&
           node.value.elements.every((e) => e.type === 'Literal' && e.raw) &&
           propertyNames.includes(node.key.name) &&
-          context.getAncestors().some((a) => isFlag(a))
+          ancestorsContainsSfCommand(ancestors) &&
+          ancestors.some((a) => isFlag(a))
         ) {
-          const flagsNode = context.getAncestors().find((a) => isFlagsStaticProperty(a));
+          const flagsNode = ancestors.find((a) => isFlagsStaticProperty(a));
 
           const arrayValues = node.value.elements
             .map((e) => (e.type === 'Literal' ? e.value : undefined))
