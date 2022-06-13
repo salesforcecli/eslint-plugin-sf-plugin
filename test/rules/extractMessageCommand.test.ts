@@ -5,24 +5,29 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { extractMessageFlags } from '../../src/rules/extractMessageFlags';
+import { extractMessageCommand } from '../../src/rules/extractMessageCommand';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('no duplicate short characters', extractMessageFlags, {
+ruleTester.run('no hardcoded summary/description on command', extractMessageCommand, {
   valid: [
-    // no messages is fine
     {
       filename: 'src/commands/foo.ts',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      char: 'a'
-    }),
-  }
+  public static readonly description = messages.getMessage('description');
+  public static readonly summary = messages.getMessage('summary');
+}
+`,
+    },
+    // description only
+    {
+      filename: 'src/commands/foo.ts',
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+ public static readonly description = messages.getMessage('description');
 }
 `,
     },
@@ -31,36 +36,17 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: 'src/commands/foo.ts',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: messages.getMessage('foo')
-    }),
-  }
+   public static readonly summary = messages.getMessage('summary');
 }
 `,
     },
+    // not an sf command
     {
-      filename: 'src/commands/foo.ts',
+      filename: 'src/foo.ts',
       code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: messages.getMessage('foo'),
-      description: messages.getMessage('bar')
-    }),
-  }
-}
-`,
-    },
-    {
-      filename: 'src/commands/foo.ts',
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      description: messages.getMessage('bar')
-    }),
-  }
+export default class EnvCreateScratch extends SomethingElse<ScratchCreateResponse> {
+  public static readonly description = 'foo';
+  public static readonly summary = 'bar';
 }
 `,
     },
@@ -69,12 +55,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: 'src/foo.ts',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      description: 'foo',
-      summary: 'foo'
-    }),
-  }
+  public static readonly description = 'foo';
+  public static readonly summary = 'bar';
 }
 `,
     },
@@ -90,29 +72,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: "hardcode"
-    }),
-  }
-}
-`,
-    },
-    {
-      errors: [
-        {
-          messageId: 'message',
-        },
-      ],
-      filename: 'src/commands/foo.ts',
-
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      description: "hardcode"
-    }),
-  }
+ public static readonly description = 'foo';
+ public static readonly summary = messages.getMessage('summary');
 }
 `,
     },
@@ -129,12 +90,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: "hardcode",
-      description: "hardcode, too"
-    }),
-  }
+ public static readonly description = 'foo';
+ public static readonly summary = 'bar';
 }
 `,
     },

@@ -8,7 +8,7 @@ import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { isFlag } from '../shared/flags';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-export const extractMessage = ESLintUtils.RuleCreator.withoutDocs({
+export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use loaded messages and separate files for messages',

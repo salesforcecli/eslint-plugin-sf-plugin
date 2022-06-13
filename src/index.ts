@@ -7,10 +7,11 @@
 import { noDuplicateShortCharacters } from './rules/noDuplicateShortCharacters';
 import { flagSummary } from './rules/flagSummary';
 import { flagCasing } from './rules/flagCasing';
-import { extractMessage } from './rules/extractMessage';
+import { extractMessageFlags } from './rules/extractMessageFlags';
 import { flagCrossReferences } from './rules/flagCrossReferences';
 import { commandSummary } from './rules/commandSummary';
 import { commandExamples } from './rules/commandExamples';
+import { extractMessageCommand } from './rules/extractMessageCommand';
 
 export = {
   configs: {
@@ -22,7 +23,8 @@ export = {
         'sf-plugin/no-duplicate-short-characters': 'error',
         'sf-plugin/flag-case': 'error',
         'sf-plugin/flag-summary': 'error',
-        'sf-plugin/no-hardcoded-messages': 'warn',
+        'sf-plugin/no-hardcoded-messages-flags': 'warn',
+        'sf-plugin/no-hardcoded-messages-commands': 'warn',
         'sf-plugin/flag-cross-references': 'error',
       },
     },
@@ -31,7 +33,8 @@ export = {
     'no-duplicate-short-characters': noDuplicateShortCharacters,
     'flag-case': flagCasing,
     'flag-summary': flagSummary,
-    'no-hardcoded-messages': extractMessage,
+    'no-hardcoded-messages-flags': extractMessageFlags,
+    'no-hardcoded-messages-commands': extractMessageCommand,
     'flag-cross-references': flagCrossReferences,
     'command-summary': commandSummary,
     'command-example': commandExamples,
