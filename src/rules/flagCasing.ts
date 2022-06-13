@@ -21,7 +21,7 @@ export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
       recommended: 'error',
     },
     messages: {
-      message: 'Flag {{flagName}} should be lowercase (use kebab-case to separate words)',
+      message: 'Flag {{flagName}} should be lowercase and use kebab-case to separate words',
     },
     type: 'problem',
     schema: [],
