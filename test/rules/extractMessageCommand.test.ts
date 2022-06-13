@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { extractMessageCommand } from '../../src/rules/extractMessageCommand';
 
@@ -14,7 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('no hardcoded summary/description on command', extractMessageCommand, {
   valid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = messages.getMessage('description');
@@ -24,7 +25,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // description only
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
  public static readonly description = messages.getMessage('description');
@@ -33,7 +34,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // summary only
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
    public static readonly summary = messages.getMessage('summary');
@@ -42,7 +43,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // not an sf command
     {
-      filename: 'src/foo.ts',
+      filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SomethingElse<ScratchCreateResponse> {
   public static readonly description = 'foo';
@@ -52,7 +53,7 @@ export default class EnvCreateScratch extends SomethingElse<ScratchCreateRespons
     },
     // all sorts of violations but not in the commands directory
     {
-      filename: 'src/foo.ts',
+      filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'foo';
@@ -63,7 +64,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
 
       errors: [
         {
@@ -86,7 +87,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           messageId: 'message',
         },
       ],
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
 
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {

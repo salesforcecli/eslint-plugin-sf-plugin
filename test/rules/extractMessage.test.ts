@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { extractMessageFlags } from '../../src/rules/extractMessageFlags';
 
@@ -15,7 +16,7 @@ ruleTester.run('no duplicate short characters', extractMessageFlags, {
   valid: [
     // no messages is fine
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -28,7 +29,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // summary only
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -40,7 +41,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -53,7 +54,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -66,7 +67,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // all sorts of violations but not in the commands directory
     {
-      filename: 'src/foo.ts',
+      filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -81,7 +82,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
 
       errors: [
         {
@@ -104,7 +105,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           messageId: 'message',
         },
       ],
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
 
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -125,7 +126,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           messageId: 'message',
         },
       ],
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
 
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {

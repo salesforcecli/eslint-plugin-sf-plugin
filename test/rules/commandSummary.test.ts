@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { commandSummary } from '../../src/rules/commandSummary';
 
@@ -14,7 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('commandSummary', commandSummary, {
   valid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code:
         // example with different chars
         `
@@ -27,7 +28,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // not an sfCommand
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends somethingElse<ScratchCreateResponse> {
   // stuff
@@ -36,7 +37,7 @@ export default class EnvCreateScratch extends somethingElse<ScratchCreateRespons
     },
     // not an command class
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export abstract class StagedProgress<T> {
   private dataForTheStatus: T;
@@ -46,7 +47,7 @@ export abstract class StagedProgress<T> {
     },
     // not an command directory
     {
-      filename: 'src/shared/.ts',
+      filename: path.normalize('src/shared/.ts'),
       code: `
 export abstract class StagedProgress<T> {
   private dataForTheStatus: T;
@@ -62,7 +63,7 @@ export abstract class StagedProgress<T> {
           messageId: 'summary',
         },
       ],
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'bar'

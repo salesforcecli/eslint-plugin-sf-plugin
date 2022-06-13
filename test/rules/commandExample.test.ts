@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { commandExamples } from '../../src/rules/commandExamples';
 
@@ -33,7 +34,7 @@ export default class EnvCreateScratch extends somethingElse<ScratchCreateRespons
     },
     // violation but in wrong folder
     {
-      filename: 'foo.ts',
+      filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'bar'
@@ -44,7 +45,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'example',

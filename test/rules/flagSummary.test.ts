@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { flagSummary } from '../../src/rules/flagSummary';
 
@@ -14,7 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('flagSummary', flagSummary, {
   valid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -28,7 +29,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
 
     {
-      filename: 'foo.ts',
+      filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -41,7 +42,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'message',
@@ -67,7 +68,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           messageId: 'message',
         },
       ],
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
 
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
