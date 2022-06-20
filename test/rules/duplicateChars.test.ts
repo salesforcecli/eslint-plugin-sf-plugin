@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { noDuplicateShortCharacters } from '../../src/rules/noDuplicateShortCharacters';
 
@@ -15,7 +16,7 @@ ruleTester.run('no duplicate short characters', noDuplicateShortCharacters, {
   valid: [
     // example with different chars
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -32,7 +33,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     // example with some chars not present
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -49,7 +50,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 
     // bad but not in commands directory
     {
-      filename: 'src/foo.ts',
+      filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -73,7 +74,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           data: { flag2: 'alias', flag1: 'some-literal', char: "'a'" },
         },
       ],
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {

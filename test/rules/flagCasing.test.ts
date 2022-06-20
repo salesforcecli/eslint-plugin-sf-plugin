@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import * as path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { flagCasing } from '../../src/rules/flagCasing';
 
@@ -14,7 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('flagCasing', flagCasing, {
   valid: [
     {
-      filename: 'src/commands/foo.ts',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -22,12 +23,11 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     'some-literal': Flags.string({}),
   }
 }
-
 `,
     },
     // wrong case but not in commands directory
     {
-      filename: 'src/foo.ts',
+      filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -46,12 +46,19 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           data: { flagName: 'Alias' },
         },
       ],
-      filename: 'src/commands/foo.ts',
-
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     Alias: Flags.string({}),
+    'some-literal': Flags.string({}),
+  }
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'alias': Flags.string({}),
     'some-literal': Flags.string({}),
   }
 }
@@ -68,13 +75,20 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           data: { flagName: 'some-Literal' },
         },
       ],
-      filename: 'src/commands/foo.ts',
-
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     Alias: Flags.string({}),
     'some-Literal': Flags.string({}),
+  }
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'alias': Flags.string({}),
+    'some-literal': Flags.string({}),
   }
 }
 `,
