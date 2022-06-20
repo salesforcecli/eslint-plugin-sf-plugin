@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   release-management: salesforce/npm-release-management@4
+  win: circleci/windows@4.1
 
 parameters:
   workflow:
