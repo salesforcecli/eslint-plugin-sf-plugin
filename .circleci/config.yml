@@ -21,16 +21,26 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: yarn test
+  build_and_test_windows:
+    executor: win/server-2022
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+      - run: yarn test
 
 workflows:
   version: 2
   test-and-release:
     jobs:
       - build_and_test
+      - build_and_test_windows:
+          requires:
+            - build_and_test
       - release-management/release-package:
           github-release: true
           requires:
-            - build_and_test
+            - build_and_test_windows
           filters:
             branches:
               only: main
