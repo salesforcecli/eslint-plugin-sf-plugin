@@ -27,9 +27,14 @@ workflows:
   test-and-release:
     jobs:
       - build_and_test
+      - release-management/test-package:
+          name: test-package-windows
+          os: windows
+          node_version: lts
       - release-management/release-package:
           github-release: true
           requires:
+            - test-package-windows
             - build_and_test
           filters:
             branches:
