@@ -21,24 +21,23 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: yarn test
-   - release-management/test-package:
-      name: test-package-windows
-      os:
-        - windows
-      node_version:
-        - lts
+
 workflows:
   version: 2
   test-and-release:
     jobs:
       - build_and_test
       - release-management/test-package:
-          requires:
-            - build_and_test
+        name: test-package-windows
+        os:
+          - windows
+        node_version:
+          - lts
       - release-management/release-package:
           github-release: true
           requires:
-            - build_and_test_windows
+            - release-management/test-package
+            - build_and_test
           filters:
             branches:
               only: main
