@@ -13,7 +13,7 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "@typescript-eslint/utils": "^5.27.0"
+    "@typescript-eslint/utils": "^5.30.0"
   },
   "devDependencies": {
     "@salesforce/prettier-config": "^0.0.2",
