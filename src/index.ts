@@ -12,6 +12,7 @@ import { flagCrossReferences } from './rules/flagCrossReferences';
 import { commandSummary } from './rules/commandSummary';
 import { commandExamples } from './rules/commandExamples';
 import { extractMessageCommand } from './rules/extractMessageCommand';
+import { jsonFlag } from './rules/jsonFlag';
 
 export = {
   configs: {
@@ -26,6 +27,7 @@ export = {
         'sf-plugin/no-hardcoded-messages-flags': 'warn',
         'sf-plugin/no-hardcoded-messages-commands': 'warn',
         'sf-plugin/flag-cross-references': 'error',
+        'sf-plugin/json-flag': 'error',
       },
     },
   },
@@ -38,5 +40,6 @@ export = {
     'flag-cross-references': flagCrossReferences,
     'command-summary': commandSummary,
     'command-example': commandExamples,
+    'json-flag': jsonFlag,
   },
 };
