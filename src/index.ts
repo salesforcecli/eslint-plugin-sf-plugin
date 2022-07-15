@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { noDuplicateShortCharacters } from './rules/noDuplicateShortCharacters';
+import { flagMinMaxDefault } from './rules/flagMinMaxDefault';
 import { flagSummary } from './rules/flagSummary';
 import { flagCasing } from './rules/flagCasing';
 import { extractMessageFlags } from './rules/extractMessageFlags';
@@ -28,6 +29,7 @@ export = {
         'sf-plugin/no-hardcoded-messages-commands': 'warn',
         'sf-plugin/flag-cross-references': 'error',
         'sf-plugin/json-flag': 'error',
+        'sf-plugin/flag-min-max-default': 'warn',
       },
     },
   },
@@ -41,5 +43,6 @@ export = {
     'command-summary': commandSummary,
     'command-example': commandExamples,
     'json-flag': jsonFlag,
+    'flag-min-max-default': flagMinMaxDefault,
   },
 };
