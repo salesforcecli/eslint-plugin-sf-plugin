@@ -6,7 +6,7 @@
  */
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
-import { isFlagsStaticProperty, resolveFlagName } from '../shared/flags';
+import { isFlagsStaticProperty, resolveFlagName, flagPropertyIsNamed } from '../shared/flags';
 
 export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -38,12 +38,10 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
               flag.type === 'Property' &&
               flag.value.type === 'CallExpression' &&
               flag.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-              flag.value.arguments?.[0]?.properties.some(
-                (p) => p.type === 'Property' && p.key.type === AST_NODE_TYPES.Identifier && p.key.name === 'char'
-              )
+              flag.value.arguments?.[0]?.properties.some((p) => p.type === 'Property' && flagPropertyIsNamed(p, 'char'))
             ) {
               const charNode = flag.value.arguments[0].properties.find(
-                (p) => p.type === 'Property' && p.key.type === AST_NODE_TYPES.Identifier && p.key.name === 'char'
+                (p) => p.type === 'Property' && flagPropertyIsNamed(p, 'char')
               );
               if (charNode.type === 'Property' && charNode.value.type === AST_NODE_TYPES.Literal) {
                 const char = charNode.value.raw;
