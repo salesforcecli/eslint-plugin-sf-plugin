@@ -6,7 +6,7 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
-import { flagPropertyIsNamed, isFlag } from '../shared/flags';
+import { isFlag } from '../shared/flags';
 
 export const jsonFlag = ESLintUtils.RuleCreator.withoutDocs({
   meta: {

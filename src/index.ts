@@ -14,6 +14,7 @@ import { commandSummary } from './rules/commandSummary';
 import { commandExamples } from './rules/commandExamples';
 import { extractMessageCommand } from './rules/extractMessageCommand';
 import { jsonFlag } from './rules/jsonFlag';
+import { dashH } from './rules/dash-h';
 
 export = {
   configs: {
@@ -23,6 +24,7 @@ export = {
         'sf-plugin/command-summary': 'error',
         'sf-plugin/command-example': 'warn',
         'sf-plugin/no-duplicate-short-characters': 'error',
+        'sf-plugin/no-h-short-char': 'error',
         'sf-plugin/flag-case': 'error',
         'sf-plugin/flag-summary': 'error',
         'sf-plugin/no-hardcoded-messages-flags': 'warn',
@@ -34,6 +36,7 @@ export = {
     },
   },
   rules: {
+    'no-h-short-char': dashH,
     'no-duplicate-short-characters': noDuplicateShortCharacters,
     'flag-case': flagCasing,
     'flag-summary': flagSummary,
