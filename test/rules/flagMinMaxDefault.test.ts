@@ -15,6 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('flagMinMaxDefault', flagMinMaxDefault, {
   valid: [
     {
+      name: 'has min, max, default',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -31,6 +32,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
 
     {
+      name: 'not commands directory',
       filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -47,6 +49,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 
     // duration flags use defaultValue instead of default
     {
+      name: 'correct setup for a Duration flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
