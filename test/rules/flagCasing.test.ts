@@ -15,6 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('flagCasing', flagCasing, {
   valid: [
     {
+      name: 'correct flag casing for hyphenated and non-hyphenated',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -25,8 +26,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // wrong case but not in commands directory
     {
+      name: 'not in commands directory',
       filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -40,6 +41,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'capitalized non-hyphenated flag',
       errors: [
         {
           messageId: 'message',
@@ -65,6 +67,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'both flags are capitalized incorrectly',
       errors: [
         {
           messageId: 'message',

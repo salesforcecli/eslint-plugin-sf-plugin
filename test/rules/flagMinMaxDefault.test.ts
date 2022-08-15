@@ -67,6 +67,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'missing default',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
@@ -84,6 +85,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'missing defaultValue on a duratino flag',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {

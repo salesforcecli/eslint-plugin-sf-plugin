@@ -15,6 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('commandSummary', commandSummary, {
   valid: [
     {
+      name: 'correct summary for a command',
       filename: path.normalize('src/commands/foo.ts'),
       code:
         // example with different chars
@@ -26,8 +27,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // not an sfCommand
     {
+      name: 'not an sf command',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends somethingElse<ScratchCreateResponse> {
@@ -35,8 +36,8 @@ export default class EnvCreateScratch extends somethingElse<ScratchCreateRespons
 }
 `,
     },
-    // not an command class
     {
+      name: 'not an sf command',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export abstract class StagedProgress<T> {
@@ -45,8 +46,8 @@ export abstract class StagedProgress<T> {
 }
   `,
     },
-    // not an command directory
     {
+      name: 'not in the command directory',
       filename: path.normalize('src/shared/.ts'),
       code: `
 export abstract class StagedProgress<T> {
@@ -58,6 +59,7 @@ export abstract class StagedProgress<T> {
   ],
   invalid: [
     {
+      name: 'is missing summary',
       errors: [
         {
           messageId: 'summary',
