@@ -15,6 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('flagSummary', flagSummary, {
   valid: [
     {
+      name: 'flag with a summary',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -29,6 +30,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
 
     {
+      name: 'not in commands directory',
       filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -42,6 +44,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'no summary',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
@@ -60,6 +63,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: '2 flags missing their summary',
       errors: [
         {
           messageId: 'message',

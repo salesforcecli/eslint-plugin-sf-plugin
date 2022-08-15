@@ -14,8 +14,8 @@ const ruleTester = new ESLintUtils.RuleTester({
 
 ruleTester.run('no duplicate short characters', extractMessageFlags, {
   valid: [
-    // no messages is fine
     {
+      name: 'no messages',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -27,8 +27,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // summary only
     {
+      name: 'summary uses messages',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -41,6 +41,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'summary and description use messages',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -54,6 +55,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'description uses messages',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -65,8 +67,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // all sorts of violations but not in the commands directory
     {
+      name: 'not in commands dir',
       filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -82,8 +84,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'hardcoded summary',
       filename: path.normalize('src/commands/foo.ts'),
-
       errors: [
         {
           messageId: 'message',
@@ -100,6 +102,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'hardcoded description',
       errors: [
         {
           messageId: 'message',
@@ -118,6 +121,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: '2 errors when both are hardcoded',
       errors: [
         {
           messageId: 'message',

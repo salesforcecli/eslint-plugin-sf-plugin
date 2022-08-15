@@ -15,6 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('dashH', dashH, {
   valid: [
     {
+      name: 'does not use -h',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -29,6 +30,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'not in commands directory',
       filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -44,6 +46,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'uses -h',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `

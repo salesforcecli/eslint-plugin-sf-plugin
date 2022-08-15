@@ -14,8 +14,8 @@ const ruleTester = new ESLintUtils.RuleTester({
 
 ruleTester.run('no duplicate short characters', noDuplicateShortCharacters, {
   valid: [
-    // example with different chars
     {
+      name: 'all flags use different chars',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -31,8 +31,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 
 `,
     },
-    // example with some chars not present
     {
+      name: 'some flags have no char',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -48,8 +48,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
 
-    // bad but not in commands directory
     {
+      name: 'not in commands dir',
       filename: path.normalize('src/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -68,6 +68,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'repeated -a',
       errors: [
         {
           messageId: 'message',

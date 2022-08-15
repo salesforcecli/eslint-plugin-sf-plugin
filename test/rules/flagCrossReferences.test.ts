@@ -15,6 +15,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run('cross-references exist for dependsOn, exclusive, exactlyOne', flagCrossReferences, {
   valid: [
     {
+      name: 'dependent flag exists',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -27,8 +28,9 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // non static other definition of flags
     {
+      name: 'non-static definition of flags is supported',
+      filename: path.normalize('src/commands/foo.ts'),
       code: `
     export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -42,6 +44,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: '2 exclusive flags that refer to each other',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -57,6 +60,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: '2 exactlyOne flags that refer to each other',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -71,10 +75,9 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // would be invalid except not in commands folder
     {
       filename: path.normalize('src/foo.ts'),
-
+      name: 'anything is ok outside the commands directory',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -88,6 +91,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'exclusive refers to non-existent flag',
       errors: [
         {
           messageId: 'missingFlag',
@@ -108,6 +112,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'dependsOn refers to non-existent flag',
       errors: [
         {
           messageId: 'missingFlag',
@@ -127,6 +132,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'exactlyOne refers to non-existent flag',
       errors: [
         {
           messageId: 'missingFlag',

@@ -14,8 +14,8 @@ const ruleTester = new ESLintUtils.RuleTester({
 
 ruleTester.run('commandExamples', commandExamples, {
   valid: [
-    // example with different chars
     {
+      name: 'correct example for a command',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly summary = 'foo'
@@ -24,16 +24,16 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
-    // not an sfCommand
     {
+      name: 'not an sf command',
       code: `
 export default class EnvCreateScratch extends somethingElse<ScratchCreateResponse> {
   // stuff
 }
 `,
     },
-    // violation but in wrong folder
     {
+      name: 'not in the commands folder',
       filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -45,6 +45,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'is missing examples',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
