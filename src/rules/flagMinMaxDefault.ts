@@ -35,7 +35,10 @@ export const flagMinMaxDefault = ESLintUtils.RuleCreator.withoutDocs({
                 (flagPropertyIsNamed(property, 'min') || flagPropertyIsNamed(property, 'max'))
             ) &&
             !node.value.arguments[0].properties.some(
-              (property) => property.type === 'Property' && flagPropertyIsNamed(property, 'default')
+              (property) =>
+                property.type === 'Property' &&
+                // defaultValue for DurationFlags
+                (flagPropertyIsNamed(property, 'default') || flagPropertyIsNamed(property, 'defaultValue'))
             )
           ) {
             context.report({

@@ -44,6 +44,23 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 
 `,
     },
+
+    // duration flags use defaultValue instead of default
+    {
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.duration({
+      min: 1,
+      max: 5,
+      defaultValue: 2
+    }),
+  }
+}
+
+`,
+    },
   ],
   invalid: [
     {
@@ -51,13 +68,29 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       errors: [
         {
           messageId: 'message',
-          data: { flagName: 'Alias' },
         },
       ],
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.integer({
+      min: 5
+    }),
+  }
+}
+`,
+    },
+    {
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'message',
+        },
+      ],
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: Flags.duration({
       min: 5
     }),
   }
