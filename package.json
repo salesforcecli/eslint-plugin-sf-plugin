@@ -12,6 +12,7 @@
     "README.md",
     "LICENSE.txt"
   ],
+  "repository": "salesforcecli/eslint-plugin-sf-plugin",
   "dependencies": {
     "@typescript-eslint/utils": "^5.27.1"
   },
