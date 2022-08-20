@@ -41,9 +41,3 @@ workflows:
               only: main
           context:
             - release
-  dependabot-automerge:
-    when:
-      equal: [dependabot-automerge, << pipeline.parameters.workflow >>]
-    jobs:
-      - release-management/dependabot-automerge:
-          context: release
