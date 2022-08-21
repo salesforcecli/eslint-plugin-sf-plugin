@@ -921,7 +921,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.27.1", "@typescript-eslint/utils@^5.27.1":
+"@typescript-eslint/utils@5.27.1":
   version "5.27.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.27.1.tgz#b4678b68a94bc3b85bf08f243812a6868ac5128f"
   integrity sha512-mZ9WEn1ZLDaVrhRaYgzbkXBkTPghPFsup8zDbbsYTxC5OmqrFE7skkKS/sraVsLP3TcT3Ki5CSyEFBRkLH/H/w==
@@ -930,6 +930,18 @@
     "@typescript-eslint/scope-manager" "5.27.1"
     "@typescript-eslint/types" "5.27.1"
     "@typescript-eslint/typescript-estree" "5.27.1"
+    eslint-scope "^5.1.1"
+    eslint-utils "^3.0.0"
+
+"@typescript-eslint/utils@^5.33.1":
+  version "5.33.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.33.1.tgz#171725f924fe1fe82bb776522bb85bc034e88575"
+  integrity sha512-uphZjkMaZ4fE8CR4dU7BquOV6u0doeQAr8n6cQenl/poMaIyJtBu8eys5uk6u5HiDH01Mj5lzbJ5SfeDz7oqMQ==
+  dependencies:
+    "@types/json-schema" "^7.0.9"
+    "@typescript-eslint/scope-manager" "5.33.1"
+    "@typescript-eslint/types" "5.33.1"
+    "@typescript-eslint/typescript-estree" "5.33.1"
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
