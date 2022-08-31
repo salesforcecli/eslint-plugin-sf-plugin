@@ -21,12 +21,12 @@ export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
 export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string | null => {
   if (node.type === AST_NODE_TYPES.PropertyDefinition && node.key.type === AST_NODE_TYPES.Identifier) {
     return node.key.name;
-    // @ts-expect-error because ClassProperty isn't type but it's a valid type
+    // @ts-expect-error because ClassProperty isn't typed but it's a valid type
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   } else if (node.type === 'ClassProperty' && node.key.type === AST_NODE_TYPES.Identifier) {
-    // @ts-expect-error because ClassProperty isn't type but it's a valid type
+    // @ts-expect-error because ClassProperty isn't typed but it's a valid type
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return node.key.name as string;
+    return (node.key?.name as string) || null;
   }
   return null;
 };
