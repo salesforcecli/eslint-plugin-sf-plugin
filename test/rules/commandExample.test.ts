@@ -18,8 +18,8 @@ ruleTester.run('commandExamples', commandExamples, {
     {
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static readonly summary = 'foo'
-  public static readonly examples = 'baz'
+  public static readonly summary = message.getMessages('summary');
+  public static readonly examples = message.getMessages('examples');
 
 }
 `,

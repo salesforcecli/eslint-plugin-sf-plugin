@@ -18,8 +18,18 @@ export const ancestorsContainsSfCommand = (ancestors: TSESTree.Node[]): boolean 
 export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
   node.superClass?.type === AST_NODE_TYPES.Identifier && node.superClass.name === 'SfCommand';
 
-export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string =>
-  node.type === 'PropertyDefinition' && node.key.type === AST_NODE_TYPES.Identifier ? node.key.name : undefined;
+export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string | null => {
+  if (node.type === AST_NODE_TYPES.PropertyDefinition && node.key.type === AST_NODE_TYPES.Identifier) {
+    return node.key.name;
+    // @ts-expect-error because ClassProperty isn't type but it's a valid type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  } else if (node.type === 'ClassProperty' && node.key.type === AST_NODE_TYPES.Identifier) {
+    // @ts-expect-error because ClassProperty isn't type but it's a valid type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    return node.key.name as string;
+  }
+  return null;
+};
 
 // we don't care what the types are, really any context will do
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
