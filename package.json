@@ -14,16 +14,16 @@
   ],
   "repository": "salesforcecli/eslint-plugin-sf-plugin",
   "dependencies": {
-    "@typescript-eslint/utils": "^5.41.0"
+    "@typescript-eslint/utils": "^5.44.0"
   },
   "devDependencies": {
     "@salesforce/prettier-config": "^0.0.2",
     "@types/eslint": "^8.4.10",
     "@types/estree": "^0.0.52",
     "@types/jest": "^28.1.7",
-    "@types/node": "^17.0.45",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "@typescript-eslint/parser": "^5.43.0",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
