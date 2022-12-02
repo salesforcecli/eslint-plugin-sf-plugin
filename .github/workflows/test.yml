@@ -14,7 +14,7 @@ jobs:
     needs: yarn-lockfile-check
     uses: salesforcecli/github-workflows/.github/workflows/unitTestsWindows.yml@main
   lint-external:
-    uses: .github/workflows/externalLint.yml
+    uses: ./.github/workflows/externalLint.yml
     needs: [linux-unit-tests]
     strategy:
       fail-fast: false
