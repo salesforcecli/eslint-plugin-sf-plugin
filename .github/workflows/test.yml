@@ -26,3 +26,4 @@ jobs:
     with:
       packageName: 'eslint-plugin-sf-plugin'
       externalProjectGitUrl: ${{ matrix.externalProjectGitUrl }}
+      preBuildCommands: rm -rf test
