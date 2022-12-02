@@ -42,6 +42,7 @@ jobs:
       - run: yarn install  --network-timeout 600000
       - name: swap this dependency for the version on this branch
         run: |
+          yarn remove @salesforce/dev-scripts
           yarn remove ${{ inputs.packageName }}
           yarn add ${{ github.repository }}#${{ github.sha }} --dev
       - name: install/build ${{ inputs.packageName}} in node_modules
