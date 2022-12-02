@@ -38,6 +38,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.nodeVersion }}
+      - run: npm install -g yarn-deduplicate --omit=dev
       - run: git clone ${{ inputs.externalProjectGitUrl}} $(pwd)
       - run: yarn install  --network-timeout 600000
       - name: swap this dependency for the version on this branch
@@ -55,5 +56,5 @@ jobs:
           ${{ inputs.postBuildCommands }}
       - name: preExternalBuildCommands
         run: ${{ inputs.preExternalBuildCommands }}
-      - name: lint project
+      - name: lint
         run: ${{ inputs.command }}
