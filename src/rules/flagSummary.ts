@@ -19,6 +19,7 @@ export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
     },
     type: 'problem',
     schema: [],
+    fixable: 'code',
   },
   defaultOptions: [],
   create(context) {
@@ -32,9 +33,22 @@ export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
               (property) => property.type === 'Property' && flagPropertyIsNamed(property, 'summary')
             )
           ) {
-            context.report({
+            // use the description as the summary if it exists
+            const descriptionProp = node.value.arguments[0].properties.find(
+              (property) => property.type === 'Property' && flagPropertyIsNamed(property, 'description')
+            );
+            const range = descriptionProp && 'key' in descriptionProp ? descriptionProp?.key.range : undefined;
+            return context.report({
               node,
               messageId: 'message',
+              ...(range
+                ? {
+                    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                    fix: (fixer) => {
+                      return fixer.replaceTextRange(range, 'summary');
+                    },
+                  }
+                : {}),
             });
           }
         }
