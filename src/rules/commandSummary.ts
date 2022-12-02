@@ -26,7 +26,7 @@ export const commandSummary = ESLintUtils.RuleCreator.withoutDocs({
         if (isInCommandDirectory(context) && extendsSfCommand(node)) {
           if (!node.body.body.some((member) => getClassPropertyIdentifierName(member) === 'summary')) {
             context.report({
-              node,
+              node: node.id,
               messageId: 'summary',
             });
           }
