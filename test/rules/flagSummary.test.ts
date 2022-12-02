@@ -44,7 +44,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      name: 'no summary',
+      name: 'no summary, autofixed to description',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
@@ -52,6 +52,15 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
           data: { flagName: 'Alias' },
         },
       ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo'
+    }),
+  }
+}
+`,
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
