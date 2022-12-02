@@ -38,15 +38,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.nodeVersion }}
-      - run: npm install -g yarn-deduplicate --omit=dev
       - run: git clone ${{ inputs.externalProjectGitUrl}} $(pwd)
       - run: yarn install  --network-timeout 600000
       - name: swap this dependency for the version on this branch
         run: |
           yarn remove ${{ inputs.packageName }}
-          yarn add ${{ github.repository }}#${{ github.sha }}
-          npx yarn-deduplicate
-          yarn install  --network-timeout 600000
+          yarn add ${{ github.repository }}#${{ github.sha }} --dev
       - name: install/build ${{ inputs.packageName}} in node_modules
         working-directory: node_modules/${{ inputs.packageName }}
         run: |

@@ -26,3 +26,5 @@ jobs:
     with:
       packageName: 'eslint-plugin-sf-plugin'
       externalProjectGitUrl: ${{ matrix.externalProjectGitUrl }}
+      # mocha and jest types collide
+      preBuildCommands: yarn remove @types/mocha
