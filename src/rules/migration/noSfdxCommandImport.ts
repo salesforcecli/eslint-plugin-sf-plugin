@@ -9,7 +9,7 @@ import { isInCommandDirectory } from '../../shared/commands';
 export const noSfdxCommandImport = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'Change import to sfCommand',
+      description: 'Change import and base class from SfdxCommand to sfCommand',
       recommended: 'error',
     },
     messages: {
