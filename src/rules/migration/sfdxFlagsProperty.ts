@@ -6,10 +6,11 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
+
 export const sfdxFlagsProperty = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'Change flag definitions to SfCommmand version',
+      description: 'Change flag definitions to SfCommand version',
       recommended: 'error',
     },
     messages: {

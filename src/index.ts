@@ -19,8 +19,12 @@ import { noSfdxCommandImport } from './rules/migration/noSfdxCommandImport';
 import { sfdxFlagsProperty } from './rules/migration/sfdxFlagsProperty';
 import { useSfCommandFlags } from './rules/migration/useSfCommandFlags';
 import { noThisUx } from './rules/migration/no-this-ux';
+import { noThisOrg } from './rules/migration/noThisOrg';
 import { runMatchesClassType } from './rules/runMatchesClassType';
-
+import { noDeprecatedProperties } from './rules/migration/noDeprecatedProperties';
+import { shouldParseFlags } from './rules/migration/shouldParseFlags';
+import { noThisFlags } from './rules/migration/noThisFlags';
+import { getConnectionWithVersion } from './rules/getConnectionsWithVersion';
 const recommended = {
   plugins: ['sf-plugin'],
   rules: {
@@ -36,6 +40,7 @@ const recommended = {
     'sf-plugin/json-flag': 'error',
     'sf-plugin/flag-min-max-default': 'warn',
     'sf-plugin/run-matches-class-type': 'error',
+    'sf-plugin/get-connection-with-version': 'warn',
   },
 };
 export = {
@@ -49,6 +54,10 @@ export = {
         'sf-plugin/sfdx-flags-property': 'error',
         'sf-plugin/use-sf-command-flags': 'error',
         'sf-plugin/no-this-ux': 'error',
+        'sf-plugin/no-deprecated-properties': 'error',
+        'sf-plugin/should-parse-flags': 'error',
+        'sf-plugin/no-this-org': 'error',
+        'sf-plugin/no-this-flags': 'error',
       },
     },
   },
@@ -69,5 +78,10 @@ export = {
     'sfdx-flags-property': sfdxFlagsProperty,
     'use-sf-command-flags': useSfCommandFlags,
     'no-this-ux': noThisUx,
+    'no-deprecated-properties': noDeprecatedProperties,
+    'should-parse-flags': shouldParseFlags,
+    'no-this-org': noThisOrg,
+    'no-this-flags': noThisFlags,
+    'get-connection-with-version': getConnectionWithVersion,
   },
 };

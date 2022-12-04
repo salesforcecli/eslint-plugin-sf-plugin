@@ -15,6 +15,9 @@ export const isClassDeclaration = (node: TSESTree.Node): node is TSESTree.ClassD
 export const ancestorsContainsSfCommand = (ancestors: TSESTree.Node[]): boolean =>
   ancestors.some((a) => isClassDeclaration(a) && extendsSfCommand(a));
 
+export const getSfCommand = (ancestors: TSESTree.Node[]): TSESTree.ClassDeclaration | undefined =>
+  ancestors.find((a) => isClassDeclaration(a) && extendsSfCommand(a)) as TSESTree.ClassDeclaration;
+
 export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
   node.superClass?.type === AST_NODE_TYPES.Identifier && node.superClass.name === 'SfCommand';
 
@@ -24,5 +27,18 @@ export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): str
 // we don't care what the types are, really any context will do
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isInCommandDirectory = (context: RuleContext<any, any>): boolean => {
-  return context.getPhysicalFilename().includes(`${sep}commands${sep}`); // not an sfCommand
+  return context.getPhysicalFilename().includes(`src${sep}commands${sep}`); // not an sfCommand
 };
+
+export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement =>
+  node.body.body.find(
+    (b) =>
+      b.type === 'MethodDefinition' &&
+      b.kind === 'method' &&
+      b.computed === false &&
+      b.accessibility === 'public' &&
+      b.static === false &&
+      b.override === false &&
+      b.key.type === 'Identifier' &&
+      b.key.name === 'run'
+  );

@@ -51,7 +51,7 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
                   charFlagMap.set(char, flagName);
                 } else {
                   context.report({
-                    node,
+                    node: charNode,
                     messageId: 'message',
                     data: {
                       flag1: flagName,
