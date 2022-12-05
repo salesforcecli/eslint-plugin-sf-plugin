@@ -37,15 +37,12 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
                 if (
                   flag.type === AST_NODE_TYPES.Property &&
                   flag.value.type === AST_NODE_TYPES.CallExpression &&
-                  flag.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-                  flag.value.arguments?.[0]?.properties.some(
-                    (p) => p.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(p, 'char')
-                  )
+                  flag.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
                 ) {
                   const charNode = flag.value.arguments[0].properties.find(
                     (p) => p.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(p, 'char')
                   );
-                  if (charNode.type === AST_NODE_TYPES.Property && charNode.value.type === AST_NODE_TYPES.Literal) {
+                  if (charNode?.type === AST_NODE_TYPES.Property && charNode.value.type === AST_NODE_TYPES.Literal) {
                     const char = charNode.value.raw;
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     const flagName = resolveFlagName(flag);
