@@ -22,49 +22,52 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      PropertyDefinition(node): void {
-        // is "public static flags" property
-        if (
-          isInCommandDirectory(context) &&
-          node.value?.type === AST_NODE_TYPES.ObjectExpression &&
-          isFlagsStaticProperty(node) &&
-          ancestorsContainsSfCommand(context.getAncestors())
-        ) {
-          const charFlagMap = new Map();
-          node.value.properties.forEach((flag) => {
-            // only if it has a char prop
+    return isInCommandDirectory(context)
+      ? {
+          PropertyDefinition(node): void {
+            // is "public static flags" property
             if (
-              flag.type === 'Property' &&
-              flag.value.type === 'CallExpression' &&
-              flag.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-              flag.value.arguments?.[0]?.properties.some((p) => p.type === 'Property' && flagPropertyIsNamed(p, 'char'))
+              ancestorsContainsSfCommand(context.getAncestors()) &&
+              node.value?.type === AST_NODE_TYPES.ObjectExpression &&
+              isFlagsStaticProperty(node)
             ) {
-              const charNode = flag.value.arguments[0].properties.find(
-                (p) => p.type === 'Property' && flagPropertyIsNamed(p, 'char')
-              );
-              if (charNode.type === 'Property' && charNode.value.type === AST_NODE_TYPES.Literal) {
-                const char = charNode.value.raw;
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const flagName = resolveFlagName(flag);
-                if (!charFlagMap.has(char)) {
-                  charFlagMap.set(char, flagName);
-                } else {
-                  context.report({
-                    node: charNode,
-                    messageId: 'message',
-                    data: {
-                      flag1: flagName,
-                      flag2: charFlagMap.get(char),
-                      char,
-                    },
-                  });
+              const charFlagMap = new Map();
+              node.value.properties.forEach((flag) => {
+                // only if it has a char prop
+                if (
+                  flag.type === AST_NODE_TYPES.Property &&
+                  flag.value.type === AST_NODE_TYPES.CallExpression &&
+                  flag.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
+                  flag.value.arguments?.[0]?.properties.some(
+                    (p) => p.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(p, 'char')
+                  )
+                ) {
+                  const charNode = flag.value.arguments[0].properties.find(
+                    (p) => p.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(p, 'char')
+                  );
+                  if (charNode.type === AST_NODE_TYPES.Property && charNode.value.type === AST_NODE_TYPES.Literal) {
+                    const char = charNode.value.raw;
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    const flagName = resolveFlagName(flag);
+                    if (!charFlagMap.has(char)) {
+                      charFlagMap.set(char, flagName);
+                    } else {
+                      context.report({
+                        node: charNode,
+                        messageId: 'message',
+                        data: {
+                          flag1: flagName,
+                          flag2: charFlagMap.get(char),
+                          char,
+                        },
+                      });
+                    }
+                  }
                 }
-              }
+              });
             }
-          });
+          },
         }
-      },
-    };
+      : {};
   },
 });

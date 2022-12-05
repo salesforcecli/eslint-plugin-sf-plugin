@@ -7,6 +7,7 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
+import { MembersExpressionIsThisDotFoo } from '../../shared/expressions';
 
 const spinnerMigration = new Map([
   ['startSpinner', 'this.spinner.start'],
@@ -29,52 +30,46 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      MemberExpression(node): void {
-        if (
-          isInCommandDirectory(context) &&
-          node.type === AST_NODE_TYPES.MemberExpression &&
-          node.object?.type === AST_NODE_TYPES.MemberExpression &&
-          node.object?.object?.type === AST_NODE_TYPES.ThisExpression &&
-          node.object?.property?.type === AST_NODE_TYPES.Identifier &&
-          node.object?.property?.name === 'ux' &&
-          ancestorsContainsSfCommand(context.getAncestors())
-        ) {
-          // spinner cases
-          if (node.property.type === 'Identifier' && spinnerMigration.has(node.property.name)) {
-            // all other this.ux cases
-            const toRemove = node;
-            const original = node.property.name;
-            context.report({
-              node,
-              messageId: 'spinner',
-              fix: (fixer) => {
-                return fixer.replaceText(toRemove, spinnerMigration.get(original));
-              },
-            });
-          } else if (node.property.type === 'Identifier' && node.property.name === 'logJson') {
-            // this.ux.logJson => this.styledJson
-            const toRemove = node;
-            context.report({
-              node,
-              messageId: 'spinner',
-              fix: (fixer) => {
-                return fixer.replaceText(toRemove, 'this.styledJSON');
-              },
-            });
-          } else {
-            // all other this.ux cases
-            const toRemove = node.object;
-            context.report({
-              node,
-              messageId: 'message',
-              fix: (fixer) => {
-                return fixer.replaceText(toRemove, 'this');
-              },
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          MemberExpression(node): void {
+            if (MembersExpressionIsThisDotFoo(node, 'ux') && ancestorsContainsSfCommand(context.getAncestors())) {
+              // spinner cases
+              if (node.property.type === AST_NODE_TYPES.Identifier && spinnerMigration.has(node.property.name)) {
+                // all other this.ux cases
+                const toRemove = node;
+                const original = node.property.name;
+                context.report({
+                  node,
+                  messageId: 'spinner',
+                  fix: (fixer) => {
+                    return fixer.replaceText(toRemove, spinnerMigration.get(original));
+                  },
+                });
+              } else if (node.property.type === AST_NODE_TYPES.Identifier && node.property.name === 'logJson') {
+                // this.ux.logJson => this.styledJson
+                const toRemove = node;
+                context.report({
+                  node,
+                  messageId: 'message',
+                  fix: (fixer) => {
+                    return fixer.replaceText(toRemove, 'this.styledJSON');
+                  },
+                });
+              } else {
+                // all other this.ux cases
+                const toRemove = node.object;
+                context.report({
+                  node,
+                  messageId: 'message',
+                  fix: (fixer) => {
+                    return fixer.replaceText(toRemove, 'this');
+                  },
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

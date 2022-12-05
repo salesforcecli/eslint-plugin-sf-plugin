@@ -24,23 +24,24 @@ export const getConnectionWithVersion = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      CallExpression(node): void {
-        if (
-          isInCommandDirectory(context) &&
-          node.type === AST_NODE_TYPES.CallExpression &&
-          node.arguments.length === 0 &&
-          node.callee?.type === AST_NODE_TYPES.MemberExpression &&
-          node.callee.property.type === AST_NODE_TYPES.Identifier &&
-          node.callee.property?.name === 'getConnection' &&
-          ancestorsContainsSfCommand(context.getAncestors())
-        ) {
-          context.report({
-            node: node.callee.property,
-            messageId: 'addVersion',
-          });
+    return isInCommandDirectory(context)
+      ? {
+          CallExpression(node): void {
+            if (
+              node.type === AST_NODE_TYPES.CallExpression &&
+              node.arguments.length === 0 &&
+              node.callee?.type === AST_NODE_TYPES.MemberExpression &&
+              node.callee.property.type === AST_NODE_TYPES.Identifier &&
+              node.callee.property?.name === 'getConnection' &&
+              ancestorsContainsSfCommand(context.getAncestors())
+            ) {
+              context.report({
+                node: node.callee.property,
+                messageId: 'addVersion',
+              });
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

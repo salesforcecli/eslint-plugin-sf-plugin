@@ -7,6 +7,7 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, getRunMethod, getSfCommand, isInCommandDirectory } from '../../shared/commands';
+import { MembersExpressionIsThisDotFoo } from '../../shared/expressions';
 
 export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -27,75 +28,72 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      MemberExpression(node): void {
-        if (
-          isInCommandDirectory(context) &&
-          node.type === AST_NODE_TYPES.MemberExpression &&
-          node.object?.type === AST_NODE_TYPES.ThisExpression &&
-          node.property?.type === AST_NODE_TYPES.Identifier &&
-          node.property?.name === 'flags' &&
-          ancestorsContainsSfCommand(context.getAncestors())
-        ) {
-          // it's ok if there's a this.org on the class...
-          const classAbove = getSfCommand(context.getAncestors());
-          const runMethod = getRunMethod(classAbove);
+    return isInCommandDirectory(context)
+      ? {
+          MemberExpression(node): void {
+            if (MembersExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context.getAncestors())) {
+              // it's ok if there's a this.org on the class...
+              const classAbove = getSfCommand(context.getAncestors());
+              const runMethod = getRunMethod(classAbove);
 
-          if (
-            classAbove &&
-            classAbove.body.body.find(
-              (b) =>
-                b.type === 'PropertyDefinition' &&
-                b.key.type === 'Identifier' &&
-                b.key.name === 'flags' &&
-                b.static === false
-            )
-          ) {
-            // ...as long as it's been set in the run method
-            const flagsParse =
-              runMethod.type === 'MethodDefinition'
-                ? runMethod.value.body.body.find(
-                    (b) => b.type === 'VariableDeclaration' && context.getSourceCode().getText(b).includes('this.parse')
-                  )
-                : undefined;
-            const source = context.getSourceCode().getText();
-            if (!source.includes('this.flags = ')) {
-              context.report({
-                node,
-                messageId: 'instanceProp',
-                fix: (fixer) => {
-                  return fixer.insertTextAfter(flagsParse, 'this.flags = flags;');
-                },
-              });
+              if (
+                classAbove &&
+                classAbove.body.body.find(
+                  (b) =>
+                    b.type === AST_NODE_TYPES.PropertyDefinition &&
+                    b.key.type === AST_NODE_TYPES.Identifier &&
+                    b.key.name === 'flags' &&
+                    b.static === false
+                )
+              ) {
+                // ...as long as it's been set in the run method
+                const flagsParse =
+                  runMethod.type === AST_NODE_TYPES.MethodDefinition
+                    ? runMethod.value.body.body.find(
+                        (b) =>
+                          b.type === AST_NODE_TYPES.VariableDeclaration &&
+                          context.getSourceCode().getText(b).includes('this.parse')
+                      )
+                    : undefined;
+                const source = context.getSourceCode().getText();
+                if (!source.includes('this.flags = ')) {
+                  context.report({
+                    node,
+                    messageId: 'instanceProp',
+                    fix: (fixer) => {
+                      return fixer.insertTextAfter(flagsParse, 'this.flags = flags;');
+                    },
+                  });
+                }
+              } else {
+                // we have no this.flags.  Make one, or use flags
+                context.report({
+                  node,
+                  messageId: 'noThisFlags',
+                  suggest: [
+                    {
+                      messageId: 'useFlags',
+                      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                      fix: (fixer) => {
+                        return fixer.replaceText(node, 'flags');
+                      },
+                    },
+                    {
+                      messageId: 'instanceProp',
+                      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                      fix: (fixer) => {
+                        return fixer.insertTextBefore(
+                          runMethod,
+                          `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
+                        );
+                      },
+                    },
+                  ],
+                });
+              }
             }
-          } else {
-            // we have no this.flags.  Make one, or use flags
-            context.report({
-              node,
-              messageId: 'noThisFlags',
-              suggest: [
-                {
-                  messageId: 'useFlags',
-                  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                  fix: (fixer) => {
-                    return fixer.replaceText(node, 'flags');
-                  },
-                },
-                {
-                  messageId: 'instanceProp',
-                  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                  fix: (fixer) => {
-                    return fixer.insertTextBefore(
-                      runMethod,
-                      `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
-                    );
-                  },
-                },
-              ],
-            });
-          }
+          },
         }
-      },
-    };
+      : {};
   },
 });

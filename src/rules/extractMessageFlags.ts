@@ -23,26 +23,25 @@ export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      Property(node): void {
-        if (!isInCommandDirectory(context)) {
-          return;
+    return isInCommandDirectory(context)
+      ? {
+          Property(node): void {
+            const ancestors = context.getAncestors();
+            if (
+              node.key.type === AST_NODE_TYPES.Identifier &&
+              (node.key.name === 'summary' || node.key.name === 'description') &&
+              ancestors.some((a) => isFlag(a)) &&
+              ancestorsContainsSfCommand(ancestors)
+            ) {
+              if (node.value.type === AST_NODE_TYPES.Literal) {
+                context.report({
+                  node,
+                  messageId: 'message',
+                });
+              }
+            }
+          },
         }
-        const ancestors = context.getAncestors();
-        if (
-          node.key.type === AST_NODE_TYPES.Identifier &&
-          (node.key.name === 'summary' || node.key.name === 'description') &&
-          ancestors.some((a) => isFlag(a)) &&
-          ancestorsContainsSfCommand(ancestors)
-        ) {
-          if (node.value.type === 'Literal') {
-            context.report({
-              node,
-              messageId: 'message',
-            });
-          }
-        }
-      },
-    };
+      : {};
   },
 });

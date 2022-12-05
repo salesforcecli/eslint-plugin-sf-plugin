@@ -22,28 +22,32 @@ export const dashH = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      Property(node): void {
-        // is a flag
-        if (isInCommandDirectory(context) && isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-          if (
-            node.value?.type === 'CallExpression' &&
-            node.value.arguments?.[0]?.type === 'ObjectExpression' &&
-            node.value.arguments[0].properties.find(
-              (property) =>
-                property.type === 'Property' &&
-                flagPropertyIsNamed(property, 'char') &&
-                property.value.type === AST_NODE_TYPES.Literal &&
-                property.value.value === 'h'
-            )
-          ) {
-            context.report({
-              node,
-              messageId: 'message',
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          Property(node): void {
+            // is a flag
+            if (
+              isFlag(node) &&
+              ancestorsContainsSfCommand(context.getAncestors()) &&
+              node.value?.type === AST_NODE_TYPES.CallExpression &&
+              node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
+            ) {
+              const hChar = node.value.arguments[0].properties.find(
+                (property) =>
+                  property.type === AST_NODE_TYPES.Property &&
+                  flagPropertyIsNamed(property, 'char') &&
+                  property.value.type === AST_NODE_TYPES.Literal &&
+                  property.value.value === 'h'
+              );
+              if (hChar) {
+                context.report({
+                  node: hChar,
+                  messageId: 'message',
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

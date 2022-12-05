@@ -22,7 +22,9 @@ export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
   node.superClass?.type === AST_NODE_TYPES.Identifier && node.superClass.name === 'SfCommand';
 
 export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string =>
-  node.type === 'PropertyDefinition' && node.key.type === AST_NODE_TYPES.Identifier ? node.key.name : undefined;
+  node.type === AST_NODE_TYPES.PropertyDefinition && node.key.type === AST_NODE_TYPES.Identifier
+    ? node.key.name
+    : undefined;
 
 // we don't care what the types are, really any context will do
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,12 +35,12 @@ export const isInCommandDirectory = (context: RuleContext<any, any>): boolean =>
 export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement =>
   node.body.body.find(
     (b) =>
-      b.type === 'MethodDefinition' &&
+      b.type === AST_NODE_TYPES.MethodDefinition &&
       b.kind === 'method' &&
       b.computed === false &&
       b.accessibility === 'public' &&
       b.static === false &&
       b.override === false &&
-      b.key.type === 'Identifier' &&
+      b.key.type === AST_NODE_TYPES.Identifier &&
       b.key.name === 'run'
   );

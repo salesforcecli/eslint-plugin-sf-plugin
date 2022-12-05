@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
@@ -22,32 +22,34 @@ export const flagMinMaxDefault = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      Property(node): void {
-        if (isInCommandDirectory(context) && isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-          if (
-            node.value?.type === 'CallExpression' &&
-            node.value.arguments?.[0]?.type === 'ObjectExpression' &&
-            // has min/max
-            node.value.arguments[0].properties.some(
-              (property) =>
-                property.type === 'Property' &&
-                (flagPropertyIsNamed(property, 'min') || flagPropertyIsNamed(property, 'max'))
-            ) &&
-            !node.value.arguments[0].properties.some(
-              (property) =>
-                property.type === 'Property' &&
-                // defaultValue for DurationFlags
-                (flagPropertyIsNamed(property, 'default') || flagPropertyIsNamed(property, 'defaultValue'))
-            )
-          ) {
-            context.report({
-              node,
-              messageId: 'message',
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          Property(node): void {
+            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
+              if (
+                node.value?.type === AST_NODE_TYPES.CallExpression &&
+                node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
+                // has min/max
+                node.value.arguments[0].properties.some(
+                  (property) =>
+                    property.type === AST_NODE_TYPES.Property &&
+                    (flagPropertyIsNamed(property, 'min') || flagPropertyIsNamed(property, 'max'))
+                ) &&
+                !node.value.arguments[0].properties.some(
+                  (property) =>
+                    property.type === AST_NODE_TYPES.Property &&
+                    // defaultValue for DurationFlags
+                    (flagPropertyIsNamed(property, 'default') || flagPropertyIsNamed(property, 'defaultValue'))
+                )
+              ) {
+                context.report({
+                  node,
+                  messageId: 'message',
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

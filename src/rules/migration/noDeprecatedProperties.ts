@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../../shared/commands';
 export const noDeprecatedProperties = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -21,32 +21,34 @@ export const noDeprecatedProperties = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      PropertyDefinition(node): void {
-        if (isInCommandDirectory(context) && ancestorsContainsSfCommand(context.getAncestors())) {
-          if (
-            node.key.type === 'Identifier' &&
-            [
-              'requiresUsername',
-              'supportUsername',
-              'supportsDevhubUsername',
-              'requiresDevhubUsername',
-              'varargs',
-            ].includes(node.key.name)
-          ) {
-            context.report({
-              node,
-              messageId: 'property',
-              data: {
-                property: node.key.name,
-              },
-              fix: (fixer) => {
-                return fixer.remove(node);
-              },
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          PropertyDefinition(node): void {
+            if (ancestorsContainsSfCommand(context.getAncestors())) {
+              if (
+                node.key.type === AST_NODE_TYPES.Identifier &&
+                [
+                  'requiresUsername',
+                  'supportUsername',
+                  'supportsDevhubUsername',
+                  'requiresDevhubUsername',
+                  'varargs',
+                ].includes(node.key.name)
+              ) {
+                context.report({
+                  node,
+                  messageId: 'property',
+                  data: {
+                    property: node.key.name,
+                  },
+                  fix: (fixer) => {
+                    return fixer.remove(node);
+                  },
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

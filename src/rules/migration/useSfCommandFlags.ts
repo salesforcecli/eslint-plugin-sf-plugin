@@ -23,30 +23,31 @@ export const useSfCommandFlags = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      Property(node): void {
-        if (
-          isInCommandDirectory(context) &&
-          node.type === AST_NODE_TYPES.Property &&
-          node.value?.type === 'CallExpression' &&
-          node.value?.callee?.type === 'MemberExpression' &&
-          node.value?.callee?.object?.type === 'Identifier' &&
-          node.value?.callee?.object?.name === 'flags' &&
-          ancestorsContainsSfCommand(context.getAncestors())
-        ) {
-          const range = node.value.callee.object.range;
-          context.report({
-            node,
-            messageId: 'message',
-            fix: (fixer) => {
-              // TS isn't using the type narrowing done above.
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore, eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-              return fixer.replaceTextRange(range, 'Flags');
-            },
-          });
+    return isInCommandDirectory(context)
+      ? {
+          Property(node): void {
+            if (
+              node.type === AST_NODE_TYPES.Property &&
+              node.value?.type === AST_NODE_TYPES.CallExpression &&
+              node.value?.callee?.type === AST_NODE_TYPES.MemberExpression &&
+              node.value?.callee?.object?.type === AST_NODE_TYPES.Identifier &&
+              node.value?.callee?.object?.name === 'flags' &&
+              ancestorsContainsSfCommand(context.getAncestors())
+            ) {
+              const range = node.value.callee.object.range;
+              context.report({
+                node,
+                messageId: 'message',
+                fix: (fixer) => {
+                  // TS isn't using the type narrowing done above.
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore, eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+                  return fixer.replaceTextRange(range, 'Flags');
+                },
+              });
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

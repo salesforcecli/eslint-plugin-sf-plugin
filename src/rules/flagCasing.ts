@@ -29,22 +29,24 @@ export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      Property(node): void {
-        if (isInCommandDirectory(context) && isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-          const flagName = getFlagName(node);
-          if (toLowerKebabCase(flagName) !== flagName) {
-            context.report({
-              node,
-              messageId: 'message',
-              data: { flagName },
-              fix: (fixer) => {
-                return fixer.replaceText(node.key, `'${toLowerKebabCase(flagName)}'`);
-              },
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          Property(node): void {
+            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
+              const flagName = getFlagName(node);
+              if (toLowerKebabCase(flagName) !== flagName) {
+                context.report({
+                  node,
+                  messageId: 'message',
+                  data: { flagName },
+                  fix: (fixer) => {
+                    return fixer.replaceText(node.key, `'${toLowerKebabCase(flagName)}'`);
+                  },
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });
