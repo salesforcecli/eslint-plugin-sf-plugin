@@ -37,12 +37,6 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
               MemberExpressionContainsMemberExpressionThisDotFoo(node, 'ux') &&
               ancestorsContainsSfCommand(context.getAncestors())
             ) {
-              // eslint-disable-next-line no-console
-              // console.log(`property type is ${node.property.type}`);
-              // if (node.property.type === AST_NODE_TYPES.Identifier) {
-              //   // eslint-disable-next-line no-console
-              //   console.log(`property name is ${node.property.name}`);
-              // }
               // spinner cases
               if (node.property.type === AST_NODE_TYPES.Identifier && spinnerMigration.has(node.property.name)) {
                 const toRemove = node;
@@ -57,8 +51,6 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
               } else if (node.property.type === AST_NODE_TYPES.Identifier && node.property.name === 'logJson') {
                 // this.ux.logJson => this.styledJson
                 const toRemove = node;
-                // eslint-disable-next-line no-console
-                console.log(`I want to remove ${context.getSourceCode().getText(toRemove)} and replace it with 'this'`);
 
                 context.report({
                   node,
