@@ -28,6 +28,7 @@ rules: {
 ## Use these rules to migrate a plugin based on sfdxCommand to use sfCommand
 
 `yarn add @salesforce/sf-plugins-core`
+`yarn add --dev eslint-plugin-sf-plugin`
 
 [`migration` includes all of the `recommended` rules, so you don't have to include both]
 
