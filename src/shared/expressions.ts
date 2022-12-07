@@ -6,8 +6,15 @@
  */
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 
-export const MembersExpressionIsThisDotFoo = (node: TSESTree.Node, name: string): boolean =>
+export const MemberExpressionIsThisDotFoo = (node: TSESTree.Node, name: string): boolean =>
   node.type === AST_NODE_TYPES.MemberExpression &&
   node.object?.type === AST_NODE_TYPES.ThisExpression &&
   node.property?.type === AST_NODE_TYPES.Identifier &&
   node.property?.name === name;
+
+export const MemberExpressionContainsMemberExpressionThisDotFoo = (node: TSESTree.Node, name: string): boolean =>
+  node.type === AST_NODE_TYPES.MemberExpression &&
+  node.object?.type === AST_NODE_TYPES.MemberExpression &&
+  node.object?.object.type === AST_NODE_TYPES.ThisExpression &&
+  node.object?.property?.type === AST_NODE_TYPES.Identifier &&
+  node.object?.property?.name === name;

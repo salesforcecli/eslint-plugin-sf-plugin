@@ -7,7 +7,7 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
-import { MembersExpressionIsThisDotFoo } from '../../shared/expressions';
+import { MemberExpressionContainsMemberExpressionThisDotFoo } from '../../shared/expressions';
 
 const spinnerMigration = new Map([
   ['startSpinner', 'this.spinner.start'],
@@ -33,10 +33,18 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           MemberExpression(node): void {
-            if (MembersExpressionIsThisDotFoo(node, 'ux') && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (
+              MemberExpressionContainsMemberExpressionThisDotFoo(node, 'ux') &&
+              ancestorsContainsSfCommand(context.getAncestors())
+            ) {
+              // eslint-disable-next-line no-console
+              // console.log(`property type is ${node.property.type}`);
+              // if (node.property.type === AST_NODE_TYPES.Identifier) {
+              //   // eslint-disable-next-line no-console
+              //   console.log(`property name is ${node.property.name}`);
+              // }
               // spinner cases
               if (node.property.type === AST_NODE_TYPES.Identifier && spinnerMigration.has(node.property.name)) {
-                // all other this.ux cases
                 const toRemove = node;
                 const original = node.property.name;
                 context.report({
@@ -49,6 +57,9 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
               } else if (node.property.type === AST_NODE_TYPES.Identifier && node.property.name === 'logJson') {
                 // this.ux.logJson => this.styledJson
                 const toRemove = node;
+                // eslint-disable-next-line no-console
+                console.log(`I want to remove ${context.getSourceCode().getText(toRemove)} and replace it with 'this'`);
+
                 context.report({
                   node,
                   messageId: 'message',
@@ -58,12 +69,12 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
                 });
               } else {
                 // all other this.ux cases
-                const toRemove = node.object;
+                const toRemove = node;
                 context.report({
                   node,
                   messageId: 'message',
                   fix: (fixer) => {
-                    return fixer.replaceText(toRemove, 'this');
+                    return fixer.replaceText(toRemove, `this.${context.getSourceCode().getText(node.property)}`);
                   },
                 });
               }

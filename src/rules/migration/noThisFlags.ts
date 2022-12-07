@@ -7,7 +7,7 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, getRunMethod, getSfCommand, isInCommandDirectory } from '../../shared/commands';
-import { MembersExpressionIsThisDotFoo } from '../../shared/expressions';
+import { MemberExpressionIsThisDotFoo } from '../../shared/expressions';
 
 export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -31,7 +31,7 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           MemberExpression(node): void {
-            if (MembersExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context.getAncestors())) {
               // it's ok if there's a this.org on the class...
               const classAbove = getSfCommand(context.getAncestors());
               const runMethod = getRunMethod(classAbove);
