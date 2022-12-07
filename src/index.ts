@@ -25,6 +25,8 @@ import { noDeprecatedProperties } from './rules/migration/noDeprecatedProperties
 import { shouldParseFlags } from './rules/migration/shouldParseFlags';
 import { noThisFlags } from './rules/migration/noThisFlags';
 import { getConnectionWithVersion } from './rules/getConnectionsWithVersion';
+import { noOclifFlagsCommandImport } from './rules/noOclifFlagsCommandImport';
+
 const recommended = {
   plugins: ['sf-plugin'],
   rules: {
@@ -41,6 +43,7 @@ const recommended = {
     'sf-plugin/flag-min-max-default': 'warn',
     'sf-plugin/run-matches-class-type': 'error',
     'sf-plugin/get-connection-with-version': 'warn',
+    'sf-plugin/no-oclif-flags-command-import': 'error',
   },
 };
 export = {
@@ -83,5 +86,6 @@ export = {
     'no-this-org': noThisOrg,
     'no-this-flags': noThisFlags,
     'get-connection-with-version': getConnectionWithVersion,
+    'no-oclif-flags-command-import': noOclifFlagsCommandImport,
   },
 };
