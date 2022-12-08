@@ -72,6 +72,36 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'summary, but longDescription should be description',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'longDescription',
+          data: { flagName: 'Alias' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      description: 'bar'
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      longDescription: 'bar'
+    }),
+  }
+}
+`,
+    },
+    {
       name: '2 flags missing their summary',
       errors: [
         {
