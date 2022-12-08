@@ -26,6 +26,7 @@ import { shouldParseFlags } from './rules/migration/shouldParseFlags';
 import { noThisFlags } from './rules/migration/noThisFlags';
 import { getConnectionWithVersion } from './rules/getConnectionsWithVersion';
 import { noOclifFlagsCommandImport } from './rules/noOclifFlagsCommandImport';
+import { noBuiltinFlags } from './rules/migration/noBuiltinFlags';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -61,6 +62,7 @@ export = {
         'sf-plugin/should-parse-flags': 'error',
         'sf-plugin/no-this-org': 'error',
         'sf-plugin/no-this-flags': 'error',
+        'sf-plugin/no-builtin-flags': 'error',
       },
     },
   },
@@ -87,5 +89,6 @@ export = {
     'no-this-flags': noThisFlags,
     'get-connection-with-version': getConnectionWithVersion,
     'no-oclif-flags-command-import': noOclifFlagsCommandImport,
+    'no-builtin-flags': noBuiltinFlags,
   },
 };
