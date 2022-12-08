@@ -65,5 +65,24 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }
 `,
     },
+    {
+      name: 'builtin flag with no arguments',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [{ messageId: 'message' }],
+      code: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public static flags = {
+    verbose: Flags.builtin(),
+  }
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public static flags = {
+    verbose: Flags.boolean(),
+  }
+}
+`,
+    },
   ],
 });
