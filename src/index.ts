@@ -27,23 +27,25 @@ import { noThisFlags } from './rules/migration/noThisFlags';
 import { getConnectionWithVersion } from './rules/getConnectionsWithVersion';
 import { noOclifFlagsCommandImport } from './rules/noOclifFlagsCommandImport';
 import { noBuiltinFlags } from './rules/migration/noBuiltinFlags';
+import { dashO } from './rules/dash-o';
 
 const recommended = {
   plugins: ['sf-plugin'],
   rules: {
-    'sf-plugin/command-summary': 'error',
     'sf-plugin/command-example': 'warn',
+    'sf-plugin/flag-min-max-default': 'warn',
+    'sf-plugin/no-hardcoded-messages-flags': 'warn',
+    'sf-plugin/no-hardcoded-messages-commands': 'warn',
+    'sf-plugin/get-connection-with-version': 'warn',
+    'sf-plugin/dash-o': 'warn',
+    'sf-plugin/command-summary': 'error',
     'sf-plugin/no-duplicate-short-characters': 'error',
     'sf-plugin/no-h-short-char': 'error',
     'sf-plugin/flag-case': 'error',
     'sf-plugin/flag-summary': 'error',
-    'sf-plugin/no-hardcoded-messages-flags': 'warn',
-    'sf-plugin/no-hardcoded-messages-commands': 'warn',
     'sf-plugin/flag-cross-references': 'error',
     'sf-plugin/json-flag': 'error',
-    'sf-plugin/flag-min-max-default': 'warn',
     'sf-plugin/run-matches-class-type': 'error',
-    'sf-plugin/get-connection-with-version': 'warn',
     'sf-plugin/no-oclif-flags-command-import': 'error',
   },
 };
@@ -90,5 +92,6 @@ export = {
     'get-connection-with-version': getConnectionWithVersion,
     'no-oclif-flags-command-import': noOclifFlagsCommandImport,
     'no-builtin-flags': noBuiltinFlags,
+    'dash-o': dashO,
   },
 };
