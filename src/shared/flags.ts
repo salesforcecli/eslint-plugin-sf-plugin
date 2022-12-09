@@ -23,9 +23,9 @@ export const getFlagName = (node: TSESTree.Node): string => {
 /** Current node is 'foo' : Flags.x({}) */
 export const isFlag = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.Property &&
-  node.value?.type === 'CallExpression' &&
-  node.value?.callee?.type === 'MemberExpression' &&
-  node.value?.callee?.object?.type === 'Identifier' &&
+  node.value?.type === AST_NODE_TYPES.CallExpression &&
+  node.value?.callee?.type === AST_NODE_TYPES.MemberExpression &&
+  node.value?.callee?.object?.type === AST_NODE_TYPES.Identifier &&
   node.value?.callee?.object?.name === 'Flags';
 
 /** Current node is public static flags = */

@@ -21,16 +21,19 @@ ruleTester.run('no duplicate short characters', noDuplicateShortCharacters, {
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      char: 'a'
+      char: 'a',
+      aliases: ['d']
     }),
     'some-literal': Flags.string({
-      char: 'b'
+      char: 'b',
+      aliases: ['c']
     }),
   }
 }
 
 `,
     },
+
     {
       name: 'some flags have no char',
       filename: path.normalize('src/commands/foo.ts'),
@@ -68,22 +71,116 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      name: 'repeated -a',
+      name: 'character was already used as a character',
       errors: [
         {
-          messageId: 'message',
-          data: { flag2: 'alias', flag1: 'some-literal', char: "'a'" },
+          messageId: 'charCollision',
+          data: { flag2: 'foo', flag1: 'some-literal', char: 'a' },
         },
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    alias: Flags.string({
+    foo: Flags.string({
       char: 'a'
     }),
     'some-literal': Flags.string({
       char: 'a'
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'character was already used as an alias',
+      errors: [
+        {
+          messageId: 'charCollision',
+          data: { flag2: 'foo', flag1: 'some-literal', char: 'b' },
+        },
+      ],
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: Flags.string({
+      char: 'a',
+      aliases: ['b']
+    }),
+    'some-literal': Flags.string({
+      char: 'b'
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'alias already used as an alias',
+      errors: [
+        {
+          messageId: 'aliasCollision',
+          data: { flag2: 'foo', flag1: 'some-literal', alias: 'c' },
+        },
+      ],
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: Flags.string({
+      char: 'a',
+      aliases: ['c']
+    }),
+    'some-literal': Flags.string({
+      char: 'b',
+      aliases: ['c']
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'alias already used as a flag',
+      errors: [
+        {
+          messageId: 'aliasCollision',
+          data: { flag2: 'foo', flag1: 'some-literal', alias: 'foo' },
+        },
+      ],
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: Flags.string({
+      char: 'a',
+      aliases: ['c']
+    }),
+    'some-literal': Flags.string({
+      char: 'b',
+      aliases: ['foo']
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'flag already used as an alias',
+      errors: [
+        {
+          messageId: 'flagCollision',
+          data: { flag2: 'foo', flag1: 'some-literal', alias: 'foo' },
+        },
+      ],
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: Flags.string({
+      char: 'a',
+      aliases: ['some-literal']
+    }),
+    'some-literal': Flags.string({
+      char: 'b',
     }),
   }
 }

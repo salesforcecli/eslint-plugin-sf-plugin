@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { extendsSfCommand, getClassPropertyIdentifierName, isInCommandDirectory } from '../shared/commands';
 
 const propertiesYouShouldntHardCode = ['description', 'summary'];
@@ -24,22 +24,24 @@ export const extractMessageCommand = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      ClassDeclaration(node): void {
-        // verify it extends SfCommand
-        if (isInCommandDirectory(context) && extendsSfCommand(node)) {
-          node.body.body
-            .filter((prop) => propertiesYouShouldntHardCode.includes(getClassPropertyIdentifierName(prop)))
-            .forEach((prop) => {
-              if (prop.type === 'PropertyDefinition' && prop.value.type === 'Literal') {
-                context.report({
-                  node,
-                  messageId: 'message',
+    return isInCommandDirectory(context)
+      ? {
+          ClassDeclaration(node): void {
+            // verify it extends SfCommand
+            if (extendsSfCommand(node)) {
+              node.body.body
+                .filter((prop) => propertiesYouShouldntHardCode.includes(getClassPropertyIdentifierName(prop)))
+                .forEach((prop) => {
+                  if (prop.type === AST_NODE_TYPES.PropertyDefinition && prop.value.type === AST_NODE_TYPES.Literal) {
+                    context.report({
+                      node: prop,
+                      messageId: 'message',
+                    });
+                  }
                 });
-              }
-            });
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

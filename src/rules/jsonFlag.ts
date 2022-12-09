@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlag } from '../shared/flags';
 
@@ -22,17 +22,19 @@ export const jsonFlag = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      Property(node): void {
-        if (isInCommandDirectory(context) && isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-          if (node.key.type === 'Identifier' && node.key.name === 'json') {
-            context.report({
-              node,
-              messageId: 'message',
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          Property(node): void {
+            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
+              if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'json') {
+                context.report({
+                  node,
+                  messageId: 'message',
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

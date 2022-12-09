@@ -20,18 +20,20 @@ export const commandExamples = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    return {
-      ClassDeclaration(node): void {
-        // verify it extends SfCommand
-        if (isInCommandDirectory(context) && extendsSfCommand(node)) {
-          if (!node.body.body.some((member) => getClassPropertyIdentifierName(member) === 'examples')) {
-            context.report({
-              node,
-              messageId: 'example',
-            });
-          }
+    return isInCommandDirectory(context)
+      ? {
+          ClassDeclaration(node): void {
+            // verify it extends SfCommand
+            if (extendsSfCommand(node)) {
+              if (!node.body.body.some((member) => getClassPropertyIdentifierName(member) === 'examples')) {
+                context.report({
+                  node: node.id,
+                  messageId: 'example',
+                });
+              }
+            }
+          },
         }
-      },
-    };
+      : {};
   },
 });

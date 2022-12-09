@@ -8,14 +8,15 @@ import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const dashH = ESLintUtils.RuleCreator.withoutDocs({
+export const dashO = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'do not allow creation of a flag with short char -h',
-      recommended: 'error',
+      description: 'warn on a flag that uses -o',
+      recommended: 'warn',
     },
     messages: {
-      message: '-h is reserved for help.  Choose a different short character',
+      message:
+        '-o is usually used by target-org.  For consistency, choose a different short character if you plan to connect to an org',
     },
     type: 'problem',
     schema: [],
@@ -30,6 +31,11 @@ export const dashH = ESLintUtils.RuleCreator.withoutDocs({
               isFlag(node) &&
               ancestorsContainsSfCommand(context.getAncestors()) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
+              node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
+              node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
+              node.value.callee.property.type === AST_NODE_TYPES.Identifier &&
+              !node.value.callee.property.name.toLowerCase().includes('org') &&
+              !node.value.callee.property.name.toLowerCase().includes('hub') &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {
               const hChar = node.value.arguments[0].properties.find(
@@ -37,7 +43,7 @@ export const dashH = ESLintUtils.RuleCreator.withoutDocs({
                   property.type === AST_NODE_TYPES.Property &&
                   flagPropertyIsNamed(property, 'char') &&
                   property.value.type === AST_NODE_TYPES.Literal &&
-                  property.value.value === 'h'
+                  property.value.value === 'o'
               );
               if (hChar) {
                 context.report({

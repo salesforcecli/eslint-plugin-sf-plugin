@@ -13,3 +13,20 @@ jobs:
   windows-unit-tests:
     needs: yarn-lockfile-check
     uses: salesforcecli/github-workflows/.github/workflows/unitTestsWindows.yml@main
+  lint-external:
+    uses: ./.github/workflows/externalLint.yml
+    needs: [linux-unit-tests]
+    strategy:
+      fail-fast: false
+      matrix:
+        externalProjectGitUrl:
+          - https://github.com/salesforcecli/plugin-deploy-retrieve
+          - https://github.com/salesforcecli/plugin-env
+          - https://github.com/salesforcecli/plugin-settings
+          - https://github.com/salesforcecli/plugin-login
+          - https://github.com/salesforcecli/plugin-sobject
+          - https://github.com/salesforcecli/plugin-dev
+    with:
+      packageName: 'eslint-plugin-sf-plugin'
+      externalProjectGitUrl: ${{ matrix.externalProjectGitUrl }}
+      preBuildCommands: yarn remove @types/jest
