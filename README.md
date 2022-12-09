@@ -67,10 +67,15 @@ You can write code examples of what's valid/invalid and the errors that invalid 
 
 ## exploratory testing/development using a real local sf plugin
 
-from your sf plugin
+To begin, and each time you make a change to the eslint-plugin,
 
-```shell
-# add to project
+```bash
+# in eslint-plugin-sf-plugin
+yarn build
+```
+
+```bash
+# in your sf plugin
 yarn add --dev file:/absolute/path/to/eslint-plugin-sf-plugin
 ```
 
@@ -80,9 +85,9 @@ include in the plugin's `eslint.rc`
 module.exports = {
   <whatever was already present>
   plugins: ['sf-plugin'],
-    // add any or all rules you need to test with
-    rules: {
-      "sf-plugin/flag-case": "error",
-    }
+  // add any or all rules you need to test with
+  rules: {
+    "sf-plugin/flag-case": "error",
+  }
 }
 ```
