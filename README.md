@@ -27,6 +27,8 @@ rules: {
 
 ## Use these rules to migrate a plugin based on sfdxCommand to use sfCommand
 
+> These eslint rules are experimental and cause significant code changes. Please use with caution and test changes thoroughly
+
 `yarn add @salesforce/sf-plugins-core`
 `yarn add --dev eslint-plugin-sf-plugin`
 
