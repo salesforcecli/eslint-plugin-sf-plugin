@@ -42,7 +42,7 @@ export const noSfdxCommandImport = ESLintUtils.RuleCreator.withoutDocs({
                 node,
                 messageId: 'import',
                 fix: (fixer) => {
-                  return fixer.replaceText(node, "import {Flags, SfCommand} from '@salesforce/sf-plugins-core'");
+                  return fixer.replaceText(node, "import {Flags, SfCommand} from '@salesforce/sf-plugins-core';");
                 },
               });
             }
