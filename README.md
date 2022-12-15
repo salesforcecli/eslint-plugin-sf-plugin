@@ -29,8 +29,10 @@ rules: {
 
 > These eslint rules are experimental and cause significant code changes. Please use with caution and test changes thoroughly
 
-`yarn add @salesforce/sf-plugins-core`
-`yarn add --dev eslint-plugin-sf-plugin`
+``` shell
+yarn add @salesforce/sf-plugins-core
+yarn add --dev eslint-plugin-sf-plugin
+```
 
 [`migration` includes all of the `recommended` rules, so you don't have to include both]
 
