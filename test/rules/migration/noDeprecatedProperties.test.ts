@@ -63,7 +63,6 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
         { messageId: 'property', data: { property: 'supportsDevhubUsername' } },
         { messageId: 'property', data: { property: 'requiresDevhubUsername' } },
         { messageId: 'property', data: { property: 'varargs' } },
-        { messageId: 'property', data: { property: 'requiresProject' } },
       ],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
@@ -81,7 +80,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
   
   
   
-  
+  public static readonly requiresProject = true;
 }`,
     },
   ],
