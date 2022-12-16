@@ -1,8 +1,160 @@
-# Changelog
+## [1.2.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.1...1.2.2) (2022-12-16)
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## 1.1.0 (2022-08-15)
+### Bug Fixes
+
+* requiresProject ([1fca5bd](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/1fca5bd7816984a73186e2373bd4a5734870ee9d))
+
+
+
+## [1.2.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.7...1.2.1) (2022-12-09)
+
+
+
+# [1.2.0-beta.7](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.6...1.2.0-beta.7) (2022-12-09)
+
+
+### Bug Fixes
+
+* cause prerelease ([7e33b8e](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/7e33b8eea13588dc253ffff2b530ee29b21b8341))
+
+
+
+# [1.2.0-beta.6](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.5...1.2.0-beta.6) (2022-12-08)
+
+
+### Features
+
+* detect duplicate aliases ([5ed9a39](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/5ed9a39f4df9d161f30920f0f2b8f601db1a0775))
+
+
+
+# [1.2.0-beta.5](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.4...1.2.0-beta.5) (2022-12-08)
+
+
+### Features
+
+* also handle requiresProject ([9a4dd96](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/9a4dd96a250df64222c8eeefab2cac22a2435550))
+* no builtin boolean flags ([f3aadc8](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/f3aadc80d33440bb8fb4d7272b1ff6c623ff67ef))
+
+
+
+# [1.2.0-beta.4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.3...1.2.0-beta.4) (2022-12-08)
+
+
+### Features
+
+* handle longDescription ([b2fca2d](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/b2fca2d2af4c1bf1310a356555f668998af78d5a))
+
+
+
+# [1.2.0-beta.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.2...1.2.0-beta.3) (2022-12-07)
+
+
+### Bug Fixes
+
+* proper replacements on this.ux ([1a134ab](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/1a134ab17b8cb6346040e8c3667ba05ad339b667))
+
+
+### Features
+
+* stop oclif/command or flags import ([8f87695](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/8f876955a86003db1fa6a97532f64d484b0d0f35))
+
+
+
+# [1.2.0-beta.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.0-beta.1...1.2.0-beta.2) (2022-12-05)
+
+
+### Bug Fixes
+
+* cause release ([03a0d41](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/03a0d41fb18c3bf261cd7013509f416fb2b2a5a1))
+* cause release ([69fa0b7](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/69fa0b7b2189240df9bdc3bc2abe89c4df6181c8))
+* don't do charnode twice ([902dfe1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/902dfe1e807959655f3b67ed2d3b6449afa58e6c))
+* only underline the class identifier, not the entire class ([2db9e7d](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/2db9e7d40911750f10d6284fd5080fc7980c384d))
+
+
+### Features
+
+* migration rules ([c0cd575](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/c0cd57501f6c0588ff2ba2e6a86e4f43bfd35e51))
+
+
+### Performance Improvements
+
+* don't return rules when outside of commands dir ([fbc44d1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/fbc44d113b2413d26b4a5f958444956c3c0b32c0))
+
+
+
+# [1.2.0-beta.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.1.5...1.2.0-beta.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* description on import/base rule ([fdbaa54](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/fdbaa54d8cf7a54859b00d3a35d416903d493077))
+
+
+### Features
+
+* sfdx migration helpers ([fea79bb](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/fea79bb330c82185dc98c76242d7f7ccf77829c6))
+
+
+
+## [1.1.5](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.1.4...1.1.5) (2022-10-30)
+
+
+### Bug Fixes
+
+* **deps:** bump @typescript-eslint/utils from 5.40.1 to 5.41.0 ([68c5c50](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/68c5c50fc14da604bd7d17b0729fbd36cc8b9557))
+
+
+
+## [1.1.4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.1.3...1.1.4) (2022-10-22)
+
+
+### Bug Fixes
+
+* **deps:** bump @typescript-eslint/utils from 5.40.0 to 5.40.1 ([b862d98](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/b862d98d00a15d10f1eb31bf456326a5edcfa941))
+
+
+
+## [1.1.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.1.2...1.1.3) (2022-10-15)
+
+
+### Bug Fixes
+
+* **deps:** bump @typescript-eslint/utils from 5.39.0 to 5.40.0 ([ddeedc6](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/ddeedc62c3bb31cb51c522612485768d0023b625))
+
+
+
+## [1.1.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.1.1...1.1.2) (2022-10-08)
+
+
+### Bug Fixes
+
+* **deps:** bump @typescript-eslint/utils from 5.38.1 to 5.39.0 ([ba80bda](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/ba80bda50525bb29140b27594ede388ce032ca80))
+
+
+
+## [1.1.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/v1.1.0...1.1.1) (2022-09-23)
+
+
+### Bug Fixes
+
+* **deps:** bump @typescript-eslint/utils from 5.36.1 to 5.38.0 ([a4ee673](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/a4ee6734a94d03eed3e628e32e10d7e3f1ccf5cf))
+
+
+
+# [1.1.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/d2b7a12505c7a8056f839352a33fea4a022ec5a9...v1.1.0) (2022-08-15)
+
+
+### Bug Fixes
+
+* cause release ([a9051f3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/a9051f3b89eb6f255558c1ad65ceca3c3e1a9f6e))
+* correct validation for duration flags's default value ([9fd41be](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/9fd41bee7f610b2a547e9d6545f560d889c03d9e))
+* force release ([2824a62](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/2824a620f52084b6a7b6fa98b6eadc40e287dfd6))
+* module.exports from outermost ([c6e2670](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/c6e2670c997936e70246313ab62c2fd2e2b42b39))
+* plugin naming conventions with namespace ([fff3db3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/fff3db3c68c607fefcb0ca7f6199f874190425f0))
+* ts exports ([8dc541f](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/8dc541f03d48b0f457b161e4ccff31984511fbfc))
+* unit tests ([c8f55d9](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/c8f55d990dbd94df5793eb0de367b2cb90b64f13))
 
 
 ### Features
@@ -24,12 +176,4 @@ All notable changes to this project will be documented in this file. See [standa
 * publish a config ([d2b7a12](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/d2b7a12505c7a8056f839352a33fea4a022ec5a9))
 
 
-### Bug Fixes
 
-* cause release ([a9051f3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/a9051f3b89eb6f255558c1ad65ceca3c3e1a9f6e))
-* correct validation for duration flags's default value ([9fd41be](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/9fd41bee7f610b2a547e9d6545f560d889c03d9e))
-* force release ([2824a62](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/2824a620f52084b6a7b6fa98b6eadc40e287dfd6))
-* module.exports from outermost ([c6e2670](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/c6e2670c997936e70246313ab62c2fd2e2b42b39))
-* plugin naming conventions with namespace ([fff3db3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/fff3db3c68c607fefcb0ca7f6199f874190425f0))
-* ts exports ([8dc541f](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/8dc541f03d48b0f457b161e4ccff31984511fbfc))
-* unit tests ([c8f55d9](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/c8f55d990dbd94df5793eb0de367b2cb90b64f13))
