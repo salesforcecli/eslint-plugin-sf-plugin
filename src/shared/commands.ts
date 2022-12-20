@@ -32,15 +32,15 @@ export const isInCommandDirectory = (context: RuleContext<any, any>): boolean =>
   return context.getPhysicalFilename().includes(`src${sep}commands${sep}`); // not an sfCommand
 };
 
+export const isRunMethod = (node: TSESTree.Node): boolean =>
+  node.type === AST_NODE_TYPES.MethodDefinition &&
+  node.kind === 'method' &&
+  node.computed === false &&
+  node.accessibility === 'public' &&
+  node.static === false &&
+  node.override === false &&
+  node.key.type === AST_NODE_TYPES.Identifier &&
+  node.key.name === 'run';
+
 export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement =>
-  node.body.body.find(
-    (b) =>
-      b.type === AST_NODE_TYPES.MethodDefinition &&
-      b.kind === 'method' &&
-      b.computed === false &&
-      b.accessibility === 'public' &&
-      b.static === false &&
-      b.override === false &&
-      b.key.type === AST_NODE_TYPES.Identifier &&
-      b.key.name === 'run'
-  );
+  node.body.body.find((b) => isRunMethod(b));

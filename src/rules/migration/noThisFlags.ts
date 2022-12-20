@@ -6,7 +6,13 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
-import { ancestorsContainsSfCommand, getRunMethod, getSfCommand, isInCommandDirectory } from '../../shared/commands';
+import {
+  ancestorsContainsSfCommand,
+  getRunMethod,
+  getSfCommand,
+  isInCommandDirectory,
+  isRunMethod,
+} from '../../shared/commands';
 import { MemberExpressionIsThisDotFoo } from '../../shared/expressions';
 
 export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
@@ -32,7 +38,7 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           MemberExpression(node): void {
             if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context.getAncestors())) {
-              // it's ok if there's a this.org on the class...
+              // it's ok if there's a this.flags on the class...
               const classAbove = getSfCommand(context.getAncestors());
               const runMethod = getRunMethod(classAbove);
 
@@ -66,30 +72,42 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                   });
                 }
               } else {
-                // we have no this.flags.  Make one, or use flags
-                context.report({
-                  node,
-                  messageId: 'noThisFlags',
-                  suggest: [
-                    {
-                      messageId: 'useFlags',
-                      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                      fix: (fixer) => {
-                        return fixer.replaceText(node, 'flags');
-                      },
+                // we have no this.flags.
+                // in run method, convert to parsed flags value.
+                if (context.getAncestors().some((b) => isRunMethod(b))) {
+                  context.report({
+                    node,
+                    messageId: 'noThisFlags',
+                    fix: (fixer) => {
+                      return fixer.replaceText(node, 'flags');
                     },
-                    {
-                      messageId: 'instanceProp',
-                      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                      fix: (fixer) => {
-                        return fixer.insertTextBefore(
-                          runMethod,
-                          `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
-                        );
+                  });
+                } else {
+                  // otherwise, your options are: Make one, or use flags
+                  context.report({
+                    node,
+                    messageId: 'noThisFlags',
+                    suggest: [
+                      {
+                        messageId: 'useFlags',
+                        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                        fix: (fixer) => {
+                          return fixer.replaceText(node, 'flags');
+                        },
                       },
-                    },
-                  ],
-                });
+                      {
+                        messageId: 'instanceProp',
+                        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                        fix: (fixer) => {
+                          return fixer.insertTextBefore(
+                            runMethod,
+                            `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
+                          );
+                        },
+                      },
+                    ],
+                  });
+                }
               }
             }
           },
