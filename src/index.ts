@@ -28,6 +28,7 @@ import { getConnectionWithVersion } from './rules/getConnectionsWithVersion';
 import { noOclifFlagsCommandImport } from './rules/noOclifFlagsCommandImport';
 import { noBuiltinFlags } from './rules/migration/noBuiltinFlags';
 import { dashO } from './rules/dash-o';
+import { readOnlyProperties } from './rules/readOnlyProperties';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -47,6 +48,7 @@ const recommended = {
     'sf-plugin/json-flag': 'error',
     'sf-plugin/run-matches-class-type': 'error',
     'sf-plugin/no-oclif-flags-command-import': 'error',
+    'sf-plugin/read-only-properties': 'warning',
   },
 };
 export = {
@@ -93,5 +95,6 @@ export = {
     'no-oclif-flags-command-import': noOclifFlagsCommandImport,
     'no-builtin-flags': noBuiltinFlags,
     'dash-o': dashO,
+    'read-only-properties': readOnlyProperties,
   },
 };
