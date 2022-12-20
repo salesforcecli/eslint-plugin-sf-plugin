@@ -1,4 +1,4 @@
-# Do not allow creation of json flag (`sf-plugin/json-flag`)
+# Do not allow creation of json flag (`sf-plugin/no-json-flag`)
 
 💼 This rule is enabled in the following configs: ✈️ `migration`, ✅ `recommended`.
 

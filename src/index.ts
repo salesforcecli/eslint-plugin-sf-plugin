@@ -13,7 +13,7 @@ import { flagCrossReferences } from './rules/flag-cross-references';
 import { commandSummary } from './rules/command-summary';
 import { commandExamples } from './rules/command-example';
 import { extractMessageCommand } from './rules/extract-message-command';
-import { jsonFlag } from './rules/json-flag';
+import { jsonFlag } from './rules/no-json-flag';
 import { dashH } from './rules/dash-h';
 import { noSfdxCommandImport } from './rules/migration/no-sfdx-command-import';
 import { sfdxFlagsProperty } from './rules/migration/sfdx-flags-property';
@@ -44,7 +44,7 @@ const recommended = {
     'sf-plugin/flag-case': 'error',
     'sf-plugin/flag-summary': 'error',
     'sf-plugin/flag-cross-references': 'error',
-    'sf-plugin/json-flag': 'error',
+    'sf-plugin/no-json-flag': 'error',
     'sf-plugin/run-matches-class-type': 'error',
     'sf-plugin/no-oclif-flags-command-import': 'error',
   },
@@ -79,7 +79,7 @@ export = {
     'flag-cross-references': flagCrossReferences,
     'command-summary': commandSummary,
     'command-example': commandExamples,
-    'json-flag': jsonFlag,
+    'no-json-flag': jsonFlag,
     'flag-min-max-default': flagMinMaxDefault,
     'no-sfdx-command-import': noSfdxCommandImport,
     'sfdx-flags-property': sfdxFlagsProperty,

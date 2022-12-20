@@ -11,7 +11,7 @@ import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 export const dashH = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'do not allow creation of a flag with short char -h',
+      description: 'Do not allow creation of a flag with short char -h',
       recommended: 'error',
     },
     messages: {

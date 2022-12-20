@@ -63,13 +63,13 @@ module.exports = {
 | [flag-min-max-default](docs/rules/flag-min-max-default.md)                     | Enforce that flags with min/max values have a default value                                   |      | ✈️ ✅ |    |    |
 | [flag-summary](docs/rules/flag-summary.md)                                     | Enforce that flags have a summary property and that longDescription is renamed to description | ✈️ ✅ |      | 🔧 |    |
 | [get-connection-with-version](docs/rules/get-connection-with-version.md)       | Calls to getConnection should pass in a version                                               |      | ✈️ ✅ |    |    |
-| [json-flag](docs/rules/json-flag.md)                                           | do not allow creation of json flag                                                            | ✈️ ✅ |      |    |    |
 | [no-builtin-flags](docs/rules/no-builtin-flags.md)                             | Handling for sfdxCommand's flags.builtin                                                      | ✈️   |      | 🔧 |    |
 | [no-deprecated-properties](docs/rules/no-deprecated-properties.md)             | Removes non-existent properties left over from SfdxCommand                                    | ✈️   |      | 🔧 |    |
 | [no-duplicate-short-characters](docs/rules/no-duplicate-short-characters.md)   | Prevent duplicate use of short characters or conflicts between aliases and flags              | ✈️ ✅ |      |    |    |
 | [no-h-short-char](docs/rules/no-h-short-char.md)                               | do not allow creation of a flag with short char -h                                            | ✈️ ✅ |      |    |    |
 | [no-hardcoded-messages-commands](docs/rules/no-hardcoded-messages-commands.md) | Use loaded messages and separate files for messages                                           |      | ✈️ ✅ |    |    |
 | [no-hardcoded-messages-flags](docs/rules/no-hardcoded-messages-flags.md)       | Use loaded messages and separate files for messages                                           |      | ✈️ ✅ |    |    |
+| [no-json-flag](docs/rules/no-json-flag.md)                                     | Do not allow creation of json flag                                                            | ✈️ ✅ |      |    |    |
 | [no-oclif-flags-command-import](docs/rules/no-oclif-flags-command-import.md)   | Change import of flags and Command from oclif to use sf-plugins-core                          | ✈️ ✅ |      | 🔧 |    |
 | [no-sfdx-command-import](docs/rules/no-sfdx-command-import.md)                 | Change import and base class from SfdxCommand to sfCommand                                    | ✈️   |      | 🔧 |    |
 | [no-this-flags](docs/rules/no-this-flags.md)                                   | Fix references to this.org (property on SfdxCommand)                                          | ✈️   |      | 🔧 | 💡 |

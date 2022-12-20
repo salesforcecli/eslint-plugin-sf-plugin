@@ -11,7 +11,7 @@ import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/c
 export const useSfCommandFlags = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'use Flags export from sf-plugins-core',
+      description: 'Use Flags export from sf-plugins-core',
       recommended: 'error',
     },
     messages: {

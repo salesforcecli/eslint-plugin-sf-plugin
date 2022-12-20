@@ -11,7 +11,7 @@ import { isFlag } from '../shared/flags';
 export const jsonFlag = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'do not allow creation of json flag',
+      description: 'Do not allow creation of json flag',
       recommended: 'error',
     },
     messages: {

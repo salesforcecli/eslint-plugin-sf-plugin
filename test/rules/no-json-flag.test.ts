@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { jsonFlag } from '../../src/rules/json-flag';
+import { jsonFlag } from '../../src/rules/no-json-flag';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
