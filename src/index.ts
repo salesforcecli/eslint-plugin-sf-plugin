@@ -4,29 +4,29 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { noDuplicateShortCharacters } from './rules/noDuplicateShortCharacters';
-import { flagMinMaxDefault } from './rules/flagMinMaxDefault';
-import { flagSummary } from './rules/flagSummary';
-import { flagCasing } from './rules/flagCasing';
-import { extractMessageFlags } from './rules/extractMessageFlags';
-import { flagCrossReferences } from './rules/flagCrossReferences';
-import { commandSummary } from './rules/commandSummary';
-import { commandExamples } from './rules/commandExamples';
-import { extractMessageCommand } from './rules/extractMessageCommand';
-import { jsonFlag } from './rules/jsonFlag';
+import { noDuplicateShortCharacters } from './rules/no-duplicate-short-characters';
+import { flagMinMaxDefault } from './rules/flag-min-max-default';
+import { flagSummary } from './rules/flag-summary';
+import { flagCasing } from './rules/flag-casing';
+import { extractMessageFlags } from './rules/extract-message-flags';
+import { flagCrossReferences } from './rules/flag-cross-references';
+import { commandSummary } from './rules/command-summary';
+import { commandExamples } from './rules/command-example';
+import { extractMessageCommand } from './rules/extract-message-command';
+import { jsonFlag } from './rules/json-flag';
 import { dashH } from './rules/dash-h';
-import { noSfdxCommandImport } from './rules/migration/noSfdxCommandImport';
-import { sfdxFlagsProperty } from './rules/migration/sfdxFlagsProperty';
-import { useSfCommandFlags } from './rules/migration/useSfCommandFlags';
+import { noSfdxCommandImport } from './rules/migration/no-sfdx-command-import';
+import { sfdxFlagsProperty } from './rules/migration/sfdx-flags-property';
+import { useSfCommandFlags } from './rules/migration/use-sf-command-flags';
 import { noThisUx } from './rules/migration/no-this-ux';
-import { noThisOrg } from './rules/migration/noThisOrg';
-import { runMatchesClassType } from './rules/runMatchesClassType';
-import { noDeprecatedProperties } from './rules/migration/noDeprecatedProperties';
-import { shouldParseFlags } from './rules/migration/shouldParseFlags';
-import { noThisFlags } from './rules/migration/noThisFlags';
-import { getConnectionWithVersion } from './rules/getConnectionsWithVersion';
-import { noOclifFlagsCommandImport } from './rules/noOclifFlagsCommandImport';
-import { noBuiltinFlags } from './rules/migration/noBuiltinFlags';
+import { noThisOrg } from './rules/migration/no-this-org';
+import { runMatchesClassType } from './rules/run-matches-class-type';
+import { noDeprecatedProperties } from './rules/migration/no-deprecated-properties';
+import { shouldParseFlags } from './rules/migration/should-parse-flags';
+import { noThisFlags } from './rules/migration/no-this-flags';
+import { getConnectionWithVersion } from './rules/get-connections-with-version';
+import { noOclifFlagsCommandImport } from './rules/no-oclif-flags-command-import';
+import { noBuiltinFlags } from './rules/migration/no-builtin-flags';
 import { dashO } from './rules/dash-o';
 
 const recommended = {

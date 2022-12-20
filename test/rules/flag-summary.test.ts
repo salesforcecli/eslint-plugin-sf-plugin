@@ -4,81 +4,115 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import * as path from 'path';
+import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { flagCasing } from '../../src/rules/flagCasing';
+import { flagSummary } from '../../src/rules/flag-summary';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('flagCasing', flagCasing, {
+ruleTester.run('flagSummary', flagSummary, {
   valid: [
     {
-      name: 'correct flag casing for hyphenated and non-hyphenated',
+      name: 'flag with a summary',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    alias: Flags.string({}),
-    'some-literal': Flags.string({}),
+    alias: Flags.string({
+      summary: 'foo'
+    }),
   }
 }
+
 `,
     },
+
     {
       name: 'not in commands directory',
-      filename: path.normalize('src/foo.ts'),
+      filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    Alias: Flags.string({}),
-    'some-literal': Flags.string({}),
+    alias: Flags.string({}),
   }
 }
+
 `,
     },
   ],
   invalid: [
     {
-      name: 'capitalized non-hyphenated flag',
+      name: 'no summary, autofixed to description',
+      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'message',
           data: { flagName: 'Alias' },
         },
       ],
-      filename: path.normalize('src/commands/foo.ts'),
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    Alias: Flags.string({}),
-    'some-literal': Flags.string({}),
-  }
-}
-`,
       output: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    'alias': Flags.string({}),
-    'some-literal': Flags.string({}),
+    alias: Flags.string({
+      summary: 'foo'
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      description: 'foo'
+    }),
   }
 }
 `,
     },
     {
-      name: 'both flags are capitalized incorrectly',
+      name: 'summary, but longDescription should be description',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'longDescription',
+          data: { flagName: 'Alias' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      description: 'bar'
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      longDescription: 'bar'
+    }),
+  }
+}
+`,
+    },
+    {
+      name: '2 flags missing their summary',
       errors: [
         {
           messageId: 'message',
-          data: { flagName: 'Alias' },
         },
         {
           messageId: 'message',
-          data: { flagName: 'some-Literal' },
         },
       ],
       filename: path.normalize('src/commands/foo.ts'),
+
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
@@ -87,14 +121,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
-      output: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    'alias': Flags.string({}),
-    'some-literal': Flags.string({}),
-  }
-}
-`,
+      output: null,
     },
   ],
 });

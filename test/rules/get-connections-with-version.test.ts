@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { getConnectionWithVersion } from '../../src/rules/getConnectionsWithVersion';
+import { getConnectionWithVersion } from '../../src/rules/get-connections-with-version';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

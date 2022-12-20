@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { noSfdxCommandImport } from '../../../src/rules/migration/noSfdxCommandImport';
+import { noSfdxCommandImport } from '../../../src/rules/migration/no-sfdx-command-import';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

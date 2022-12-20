@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { runMatchesClassType } from '../../src/rules/runMatchesClassType';
+import { runMatchesClassType } from '../../src/rules/run-matches-class-type';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
@@ -51,6 +51,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
   }
 }
 `,
+      output: null,
     },
     {
       name: 'unknown on class will change to match Run method',

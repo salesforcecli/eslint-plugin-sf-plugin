@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { noOclifFlagsCommandImport } from '../../src/rules/noOclifFlagsCommandImport';
+import { noOclifFlagsCommandImport } from '../../src/rules/no-oclif-flags-command-import';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

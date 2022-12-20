@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { flagMinMaxDefault } from '../../src/rules/flagMinMaxDefault';
+import { flagMinMaxDefault } from '../../src/rules/flag-min-max-default';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

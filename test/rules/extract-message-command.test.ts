@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { extractMessageCommand } from '../../src/rules/extractMessageCommand';
+import { extractMessageCommand } from '../../src/rules/extract-message-command';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

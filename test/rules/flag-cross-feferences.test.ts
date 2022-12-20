@@ -6,106 +6,96 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { extractMessageFlags } from '../../src/rules/extractMessageFlags';
+import { flagCrossReferences } from '../../src/rules/flag-cross-references';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('no duplicate short characters', extractMessageFlags, {
+ruleTester.run('cross-references exist for dependsOn, exclusive, exactlyOne', flagCrossReferences, {
   valid: [
     {
-      name: 'no messages',
+      name: 'dependent flag exists',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      char: 'a'
+      dependsOn: ['some-literal']
+    }),
+    'some-literal': Flags.string({}),
+  }
+}
+`,
+    },
+    {
+      name: 'non-static definition of flags is supported',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+    export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      dependsOn: ['some-literal']
+    }),
+    'some-literal': Flags.string({}),
+  }
+  private flags: CmdFlags;
+}
+`,
+    },
+    {
+      name: '2 exclusive flags that refer to each other',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      exclusive: ['some-literal']
+    }),
+    'some-literal': Flags.string({
+      exclusive: ['alias']
     }),
   }
 }
 `,
     },
     {
-      name: 'summary uses messages',
+      name: '2 exactlyOne flags that refer to each other',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      summary: messages.getMessage('foo')
+      exactlyOne: ['some-literal', 'alias']
+    }),
+    'some-literal': Flags.string({
+      exactlyOne: ['some-literal', 'alias']
     }),
   }
 }
 `,
     },
     {
-      name: 'summary and description use messages',
-      filename: path.normalize('src/commands/foo.ts'),
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: messages.getMessage('foo'),
-      description: messages.getMessage('bar')
-    }),
-  }
-}
-`,
-    },
-    {
-      name: 'description uses messages',
-      filename: path.normalize('src/commands/foo.ts'),
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      description: messages.getMessage('bar')
-    }),
-  }
-}
-`,
-    },
-    {
-      name: 'not in commands dir',
       filename: path.normalize('src/foo.ts'),
+      name: 'anything is ok outside the commands directory',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      description: 'foo',
-      summary: 'foo'
+      exclusive: ['noflag']
     }),
+    'some-literal': Flags.string({ }),
   }
-}
-`,
+}`,
     },
   ],
   invalid: [
     {
-      name: 'hardcoded summary',
-      filename: path.normalize('src/commands/foo.ts'),
+      name: 'exclusive refers to non-existent flag',
       errors: [
         {
-          messageId: 'message',
-        },
-      ],
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: "hardcode"
-    }),
-  }
-}
-`,
-    },
-    {
-      name: 'hardcoded description',
-      errors: [
-        {
-          messageId: 'message',
+          messageId: 'missingFlag',
+          data: { flagName: 'noflag' },
         },
       ],
       filename: path.normalize('src/commands/foo.ts'),
@@ -114,31 +104,55 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      description: "hardcode"
+      exclusive: ['noflag']
     }),
+    'some-literal': Flags.string({ }),
   }
 }
 `,
     },
     {
-      name: '2 errors when both are hardcoded',
+      name: 'dependsOn refers to non-existent flag',
       errors: [
         {
-          messageId: 'message',
-        },
-        {
-          messageId: 'message',
+          messageId: 'missingFlag',
+          data: { flagName: 'noflag' },
         },
       ],
       filename: path.normalize('src/commands/foo.ts'),
-
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      summary: "hardcode",
-      description: "hardcode, too"
+      dependsOn: ['noflag']
     }),
+    'some-literal': Flags.string({ }),
+  }
+}
+`,
+    },
+    {
+      name: 'exactlyOne refers to non-existent flag',
+      errors: [
+        {
+          messageId: 'missingFlag',
+          data: { flagName: 'noflag' },
+        },
+        {
+          messageId: 'missingFlag',
+          data: { flagName: 'noflag' },
+        },
+      ],
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      exactlyOne: ['noflag', 'some-literal']
+    }),
+    'some-literal': Flags.string({
+      exactlyOne: ['noflag', 'some-literal']
+     }),
   }
 }
 `,

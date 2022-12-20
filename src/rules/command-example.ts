@@ -6,7 +6,11 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { extendsSfCommand, getClassPropertyIdentifierName, isInCommandDirectory } from '../shared/commands';
-export const commandExamples = ESLintUtils.RuleCreator.withoutDocs({
+
+const createRule = ESLintUtils.RuleCreator((name) => `https://example.com/rule/${name}`);
+
+export const commandExamples = createRule({
+  name: 'command-example',
   meta: {
     docs: {
       description: 'Ensure commands have a summary, description, and examples',

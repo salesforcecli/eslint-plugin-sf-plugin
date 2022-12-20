@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { shouldParseFlags } from '../../../src/rules/migration/shouldParseFlags';
+import { shouldParseFlags } from '../../../src/rules/migration/should-parse-flags';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

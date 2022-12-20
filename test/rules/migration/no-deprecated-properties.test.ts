@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { noDeprecatedProperties } from '../../../src/rules/migration/noDeprecatedProperties';
+import { noDeprecatedProperties } from '../../../src/rules/migration/no-deprecated-properties';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

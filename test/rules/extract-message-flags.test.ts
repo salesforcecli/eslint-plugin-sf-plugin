@@ -6,103 +6,122 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { flagSummary } from '../../src/rules/flagSummary';
+import { extractMessageFlags } from '../../src/rules/extract-message-flags';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('flagSummary', flagSummary, {
+ruleTester.run('no duplicate short characters', extractMessageFlags, {
   valid: [
     {
-      name: 'flag with a summary',
+      name: 'no messages',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
+      char: 'a'
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'summary uses messages',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: messages.getMessage('foo')
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'summary and description use messages',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: messages.getMessage('foo'),
+      description: messages.getMessage('bar')
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'description uses messages',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      description: messages.getMessage('bar')
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'not in commands dir',
+      filename: path.normalize('src/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      description: 'foo',
       summary: 'foo'
     }),
   }
 }
-
-`,
-    },
-
-    {
-      name: 'not in commands directory',
-      filename: path.normalize('foo.ts'),
-      code: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({}),
-  }
-}
-
 `,
     },
   ],
   invalid: [
     {
-      name: 'no summary, autofixed to description',
+      name: 'hardcoded summary',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'message',
-          data: { flagName: 'Alias' },
         },
       ],
-      output: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: 'foo'
-    }),
-  }
-}
-`,
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      description: 'foo'
+      summary: "hardcode"
     }),
   }
 }
 `,
     },
     {
-      name: 'summary, but longDescription should be description',
-      filename: path.normalize('src/commands/foo.ts'),
+      name: 'hardcoded description',
       errors: [
         {
-          messageId: 'longDescription',
-          data: { flagName: 'Alias' },
+          messageId: 'message',
         },
       ],
-      output: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static flags = {
-    alias: Flags.string({
-      summary: 'foo',
-      description: 'bar'
-    }),
-  }
-}
-`,
+      filename: path.normalize('src/commands/foo.ts'),
+
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      summary: 'foo',
-      longDescription: 'bar'
+      description: "hardcode"
     }),
   }
 }
 `,
     },
     {
-      name: '2 flags missing their summary',
+      name: '2 errors when both are hardcoded',
       errors: [
         {
           messageId: 'message',
@@ -116,8 +135,10 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    Alias: Flags.string({}),
-    'some-Literal': Flags.string({}),
+    alias: Flags.string({
+      summary: "hardcode",
+      description: "hardcode, too"
+    }),
   }
 }
 `,

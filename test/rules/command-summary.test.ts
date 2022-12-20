@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { commandSummary } from '../../src/rules/commandSummary';
+import { commandSummary } from '../../src/rules/command-summary';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
@@ -71,6 +71,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly examples = 'baz'
 }
 `,
+      output: null,
     },
     {
       name: 'is missing summary but has description so it gets fixed',

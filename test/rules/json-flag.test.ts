@@ -6,33 +6,35 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { useSfCommandFlags } from '../../../src/rules/migration/useSfCommandFlags';
+import { jsonFlag } from '../../src/rules/json-flag';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('useSfCommandFlags', useSfCommandFlags, {
+ruleTester.run('jsonFlag', jsonFlag, {
   valid: [
     {
-      name: 'sf flags',
+      name: 'flags without json',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static readonly flags = {
-    foo: Flags.boolean()
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo'
+    }),
   }
 }
 
 `,
     },
     {
-      name: 'Not in commands dir',
+      name: 'not in command directory',
       filename: path.normalize('foo.ts'),
       code: `
-export default class EnvCreateScratch extends SfCommand<string> {
-  public static flagsConfig: FlagsConfig = {
-    foo: flags.boolean()
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    json: Flags.boolean({}),
   }
 }
 
@@ -41,20 +43,15 @@ export default class EnvCreateScratch extends SfCommand<string> {
   ],
   invalid: [
     {
-      name: 'sfdx style lowercase flags',
+      name: 'has a flag named "json"',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
-    foo: flags.boolean()
-  }
-}
-`,
-      output: `
-export default class EnvCreateScratch extends SfCommand<Foo> {
-  public static flags = {
-    foo: Flags.boolean()
+    json: Flags.boolean({
+      description: 'foo'
+    }),
   }
 }
 `,

@@ -29,6 +29,8 @@
     "eslint-config-salesforce": "^0.1.6",
     "eslint-config-salesforce-license": "^0.1.6",
     "eslint-config-salesforce-typescript": "^0.2.8",
+    "eslint-doc-generator": "^1.1.0",
+    "eslint-plugin-eslint-plugin": "^5.0.7",
     "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^39.6.4",
@@ -44,9 +46,10 @@
   "scripts": {
     "build": "tsc -p .",
     "build:watch": "tsc -p tsconfig.json --watch",
-    "lint": "yarn eslint",
+    "lint": "yarn eslint .",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "docs": "eslint-doc-generator"
   },
   "homepage": "https://github.com/salesforcecli/eslint-plugin-sf-plugin",
   "publishConfig": {
