@@ -6,6 +6,7 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleFix, RuleFixer } from '@typescript-eslint/utils/dist/ts-eslint';
 import { ancestorsContainsSfCommand, getRunMethod, getSfCommand, isInCommandDirectory } from '../../shared/commands';
 import { MemberExpressionIsThisDotFoo } from '../../shared/expressions';
 
@@ -35,7 +36,6 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
               // it's ok if there's a this.org on the class...
               const classAbove = getSfCommand(context.getAncestors());
               const runMethod = getRunMethod(classAbove);
-
               if (
                 classAbove &&
                 classAbove.body.body.find(
@@ -58,30 +58,27 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
                 if (!source.includes('this.org = ')) {
                   context.report({
                     node,
-                    messageId: 'instanceProp',
+                    messageId: 'setThisOrg',
                     fix: (fixer) => {
                       return fixer.insertTextAfter(flagsParse, "this.org = flags['target-org'];");
                     },
                   });
                 }
               } else {
-                // we have no this.flags.  Make one, or use the parsed flags
                 context.report({
                   node,
                   messageId: 'noThisOrg',
                   suggest: [
                     {
                       messageId: 'useFlags',
-                      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                      fix: (fixer) => {
+                      fix: (fixer: RuleFixer): RuleFix => {
                         return fixer.replaceText(node, "flags['target-org']");
                       },
                     },
                     {
                       messageId: 'instanceProp',
-                      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                      fix: (fixer) => {
-                        return fixer.insertTextBefore(runMethod, 'private org: Org;\r');
+                      fix: (fixer: RuleFixer): RuleFix => {
+                        return fixer.insertTextBefore(runMethod, 'private org: Org;\n');
                       },
                     },
                   ],
