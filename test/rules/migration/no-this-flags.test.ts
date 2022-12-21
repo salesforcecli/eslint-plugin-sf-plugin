@@ -66,6 +66,35 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       output: null,
     },
     {
+      name: 'sets this.flags',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [{ messageId: 'instanceProp' }],
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: flags.string({ char: 'f', description: 'foo flag' }),
+  }
+  private flags: Interfaces.InferredFlags<typeof ScratchCreateResponse.flags>;
+  public async run(): Promise<ScratchCreateResponse> {
+    const {flags} = await this.parse(EnvCreateScratch);
+    console.log(this.flags)
+  }
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: flags.string({ char: 'f', description: 'foo flag' }),
+  }
+  private flags: Interfaces.InferredFlags<typeof ScratchCreateResponse.flags>;
+  public async run(): Promise<ScratchCreateResponse> {
+    const {flags} = await this.parse(EnvCreateScratch);this.flags = flags;
+    console.log(this.flags)
+  }
+}
+`,
+    },
+    {
       name: 'uses this.flags in run (autofix)',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'noThisFlags' }],

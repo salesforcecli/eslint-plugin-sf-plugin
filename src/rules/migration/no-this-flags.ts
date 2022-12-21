@@ -6,6 +6,7 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
 import {
   ancestorsContainsSfCommand,
   getRunMethod,
@@ -90,15 +91,13 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                     suggest: [
                       {
                         messageId: 'useFlags',
-                        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                        fix: (fixer) => {
+                        fix: (fixer): RuleFix => {
                           return fixer.replaceText(node, 'flags');
                         },
                       },
                       {
                         messageId: 'instanceProp',
-                        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                        fix: (fixer) => {
+                        fix: (fixer): RuleFix => {
                           return fixer.insertTextBefore(
                             runMethod,
                             `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
