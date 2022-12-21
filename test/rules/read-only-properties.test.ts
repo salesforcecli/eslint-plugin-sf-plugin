@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { readOnlyProperties } from '../../src/rules/readOnlyProperties';
+import { readOnlyProperties } from '../../src/rules/read-only-properties';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

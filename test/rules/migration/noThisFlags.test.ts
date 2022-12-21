@@ -6,7 +6,7 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { noThisFlags } from '../../../src/rules/migration/noThisFlags';
+import { noThisFlags } from '../../../src/rules/migration/no-this-flags';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',

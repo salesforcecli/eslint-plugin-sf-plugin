@@ -28,7 +28,7 @@ import { getConnectionWithVersion } from './rules/get-connections-with-version';
 import { noOclifFlagsCommandImport } from './rules/no-oclif-flags-command-import';
 import { noBuiltinFlags } from './rules/migration/no-builtin-flags';
 import { dashO } from './rules/dash-o';
-import { readOnlyProperties } from './rules/readOnlyProperties';
+import { readOnlyProperties } from './rules/read-only-properties';
 
 const recommended = {
   plugins: ['sf-plugin'],
