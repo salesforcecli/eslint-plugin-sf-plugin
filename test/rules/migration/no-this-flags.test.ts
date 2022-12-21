@@ -63,6 +63,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
+      output: null,
     },
     {
       name: 'uses this.flags in run (autofix)',
