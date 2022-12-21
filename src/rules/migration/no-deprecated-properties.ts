@@ -33,6 +33,7 @@ export const noDeprecatedProperties = ESLintUtils.RuleCreator.withoutDocs({
                   'supportsDevhubUsername',
                   'requiresDevhubUsername',
                   'varargs',
+                  'args',
                 ].includes(node.key.name)
               ) {
                 context.report({
