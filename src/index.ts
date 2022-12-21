@@ -30,6 +30,7 @@ import { noBuiltinFlags } from './rules/migration/no-builtin-flags';
 import { dashO } from './rules/dash-o';
 import { readOnlyProperties } from './rules/read-only-properties';
 import { noTimeFlags } from './rules/migration/no-time-flags';
+import { idFlagSuggestions } from './rules/id-flag-suggestions';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -49,7 +50,8 @@ const recommended = {
     'sf-plugin/no-json-flag': 'error',
     'sf-plugin/run-matches-class-type': 'error',
     'sf-plugin/no-oclif-flags-command-import': 'error',
-    'sf-plugin/read-only-properties': 'warning',
+    'sf-plugin/read-only-properties': 'warn',
+    'sf-plugin/id-flag-suggestions': 'warn',
   },
 };
 export = {
@@ -99,5 +101,6 @@ export = {
     'dash-o': dashO,
     'read-only-properties': readOnlyProperties,
     'no-time-flags': noTimeFlags,
+    'id-flag-suggestions': idFlagSuggestions,
   },
 };

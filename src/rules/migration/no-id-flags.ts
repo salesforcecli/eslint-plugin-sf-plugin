@@ -8,20 +8,18 @@ import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
 import { isFlag } from '../../shared/flags';
 
-const timeFlags = ['seconds', 'minutes', 'milliseconds'];
-
-export const noTimeFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const noIdFlags = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'Migrate time flags to Flags.duration',
+      description: 'Change Id flag to salesforceId',
       recommended: 'error',
     },
     messages: {
-      message: 'flags for {{time}} should use the Flags.duration (and specify the unit)',
+      message: 'Id flags are not available on sfCommand.  Use salesforceId instead',
     },
     type: 'problem',
-    fixable: 'code',
     schema: [],
+    fixable: 'code',
   },
   defaultOptions: [],
   create(context) {
@@ -31,23 +29,17 @@ export const noTimeFlags = ESLintUtils.RuleCreator.withoutDocs({
             if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
               if (
                 (node.key.type === AST_NODE_TYPES.Identifier || node.key.type === AST_NODE_TYPES.Literal) &&
-                node.value.type === AST_NODE_TYPES.CallExpression &&
-                node.value.callee.type === AST_NODE_TYPES.MemberExpression &&
-                node.value.callee.property.type === AST_NODE_TYPES.Identifier &&
-                timeFlags.includes(node.value.callee.property.name)
+                node.value?.type === AST_NODE_TYPES.CallExpression &&
+                node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
+                node.value.callee.property?.type === AST_NODE_TYPES.Identifier &&
+                node.value.callee.property.name === 'id'
               ) {
-                const original = context.getSourceCode().getText(node);
-                const unit = node.value.callee.property.name;
-                const fixed = original
-                  .replace(`Flags.${unit}({`, `Flags.duration({ unit: '${unit}',`)
-                  .replace('default:', 'defaultValue:')
-                  .replace(new RegExp(`Duration.${unit}\\((.*)\\)`, 'g'), '$1');
+                const toReplace = node.value.callee.property;
                 context.report({
-                  node,
+                  node: node.value.callee.property,
                   messageId: 'message',
-                  data: { time: node.value.callee.property.name },
                   fix: (fixer) => {
-                    return fixer.replaceText(node, fixed);
+                    return fixer.replaceText(toReplace, 'salesforceId');
                   },
                 });
               }
