@@ -29,6 +29,7 @@ import { noOclifFlagsCommandImport } from './rules/no-oclif-flags-command-import
 import { noBuiltinFlags } from './rules/migration/no-builtin-flags';
 import { dashO } from './rules/dash-o';
 import { readOnlyProperties } from './rules/read-only-properties';
+import { noTimeFlags } from './rules/migration/no-time-flags';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -67,6 +68,7 @@ export = {
         'sf-plugin/no-this-org': 'error',
         'sf-plugin/no-this-flags': 'error',
         'sf-plugin/no-builtin-flags': 'error',
+        'sf-plugin/no-time-flags': 'error',
       },
     },
   },
@@ -96,5 +98,6 @@ export = {
     'no-builtin-flags': noBuiltinFlags,
     'dash-o': dashO,
     'read-only-properties': readOnlyProperties,
+    'no-time-flags': noTimeFlags,
   },
 };
