@@ -70,6 +70,7 @@ module.exports = {
 | [no-h-short-char](docs/rules/no-h-short-char.md)                               | Do not allow creation of a flag with short char -h                                            | ✈️ ✅ |      |    |    |
 | [no-hardcoded-messages-commands](docs/rules/no-hardcoded-messages-commands.md) | Use loaded messages and separate files for messages                                           |      | ✈️ ✅ |    |    |
 | [no-hardcoded-messages-flags](docs/rules/no-hardcoded-messages-flags.md)       | Use loaded messages and separate files for messages                                           |      | ✈️ ✅ |    |    |
+| [no-id-flags](docs/rules/no-id-flags.md)                                       | Change Id flag to salesforceId                                                                | ✈️   |      | 🔧 |    |
 | [no-json-flag](docs/rules/no-json-flag.md)                                     | Do not allow creation of json flag                                                            | ✈️ ✅ |      |    |    |
 | [no-oclif-flags-command-import](docs/rules/no-oclif-flags-command-import.md)   | Change import of flags and Command from oclif to use sf-plugins-core                          | ✈️ ✅ |      | 🔧 |    |
 | [no-sfdx-command-import](docs/rules/no-sfdx-command-import.md)                 | Change import and base class from SfdxCommand to sfCommand                                    | ✈️   |      | 🔧 |    |

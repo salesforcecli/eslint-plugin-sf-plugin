@@ -31,6 +31,7 @@ import { dashO } from './rules/dash-o';
 import { readOnlyProperties } from './rules/read-only-properties';
 import { noTimeFlags } from './rules/migration/no-time-flags';
 import { idFlagSuggestions } from './rules/id-flag-suggestions';
+import { noIdFlags } from './rules/migration/no-id-flags';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -71,6 +72,7 @@ export = {
         'sf-plugin/no-this-flags': 'error',
         'sf-plugin/no-builtin-flags': 'error',
         'sf-plugin/no-time-flags': 'error',
+        'sf-plugin/no-id-flags': 'error',
       },
     },
   },
@@ -102,5 +104,6 @@ export = {
     'read-only-properties': readOnlyProperties,
     'no-time-flags': noTimeFlags,
     'id-flag-suggestions': idFlagSuggestions,
+    'no-id-flags': noIdFlags,
   },
 };
