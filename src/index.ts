@@ -33,6 +33,7 @@ import { noTimeFlags } from './rules/migration/no-time-flags';
 import { idFlagSuggestions } from './rules/id-flag-suggestions';
 import { noIdFlags } from './rules/migration/no-id-flags';
 import { noFilepathFlags } from './rules/migration/no-filepath-flags';
+import { noNumberFlags } from './rules/migration/no-number-flags';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -107,5 +108,6 @@ export = {
     'id-flag-suggestions': idFlagSuggestions,
     'no-id-flags': noIdFlags,
     'no-filepath-flags': noFilepathFlags,
+    'no-number-flags': noNumberFlags,
   },
 };
