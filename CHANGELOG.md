@@ -1,3 +1,22 @@
+# [1.3.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.3...1.3.0) (2022-12-22)
+
+
+### Bug Fixes
+
+* suggestion not working as expected for adding private prop for org ([cf4beea](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/cf4beea44d80bbb1479467a81df1c22ad0d3de33))
+
+
+### Features
+
+* autofix this.flags inside run method ([94fab3b](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/94fab3b1e2e4d906556fc296faeb99219aa1db98))
+* convert time flags ([d8e39c3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/d8e39c3f0f6461ec53eff224655c6de76c745e2a))
+* deprecate args ([041f704](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/041f7047e35729c8cfb21606cf1d91302add7372))
+* following naming/casing conventions, add docs ([fb75e49](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/fb75e49f10e9cd65eba53a8a47e03f7cb9be18a7))
+* migration of and suggestions for id flags ([bfbf6c4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/bfbf6c41af97699aca332de90838d75467c5d4ca))
+* readonly properties for static class (ex: summary) ([7b60766](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/7b60766acc917d7dd71852483f454cad26b38d5d))
+
+
+
 ## [1.2.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.2...1.2.3) (2022-12-18)
 
 
