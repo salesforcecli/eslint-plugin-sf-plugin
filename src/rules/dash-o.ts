@@ -11,7 +11,7 @@ import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 export const dashO = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'warn on a flag that uses -o',
+      description: 'Warn on a flag that uses -o',
       recommended: 'warn',
     },
     messages: {
