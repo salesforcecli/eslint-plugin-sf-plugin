@@ -32,6 +32,7 @@ import { readOnlyProperties } from './rules/read-only-properties';
 import { noTimeFlags } from './rules/migration/no-time-flags';
 import { idFlagSuggestions } from './rules/id-flag-suggestions';
 import { noIdFlags } from './rules/migration/no-id-flags';
+import { noFilepathFlags } from './rules/migration/no-filepath-flags';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -105,5 +106,6 @@ export = {
     'no-time-flags': noTimeFlags,
     'id-flag-suggestions': idFlagSuggestions,
     'no-id-flags': noIdFlags,
+    'no-filepath-flags': noFilepathFlags,
   },
 };
