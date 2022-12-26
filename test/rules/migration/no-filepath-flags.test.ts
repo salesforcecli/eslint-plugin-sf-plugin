@@ -6,21 +6,21 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { noIdFlags } from '../../../src/rules/migration/no-id-flags';
+import { noFilepathFlags } from '../../../src/rules/migration/no-filepath-flags';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('noIdFlags', noIdFlags, {
+ruleTester.run('noFilepathFlags', noFilepathFlags, {
   valid: [
     {
-      name: 'salesforceId flag',
+      name: 'filepath flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    verbose: Flags.salesforceId({
+    verbose: Flags.file({
       summary: 'foo'
     }),
   }
@@ -34,7 +34,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    verbose: Flags.id({}),
+    verbose: Flags.filepath({}),
   }
 }
 
@@ -43,13 +43,13 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
-      name: 'id flag',
+      name: 'filepath flag',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
-    verbose: Flags.id({
+    verbose: Flags.filepath({
       summary: 'foo'
     }),
   }
@@ -58,7 +58,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       output: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
-    verbose: Flags.salesforceId({
+    verbose: Flags.file({
       summary: 'foo'
     }),
   }

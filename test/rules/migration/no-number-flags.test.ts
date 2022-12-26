@@ -6,21 +6,21 @@
  */
 import path from 'path';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { noIdFlags } from '../../../src/rules/migration/no-id-flags';
+import { noNumberFlags } from '../../../src/rules/migration/no-number-flags';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('noIdFlags', noIdFlags, {
+ruleTester.run('noNumberFlags', noNumberFlags, {
   valid: [
     {
-      name: 'salesforceId flag',
+      name: 'integer flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    verbose: Flags.salesforceId({
+    verbose: Flags.integer({
       summary: 'foo'
     }),
   }
@@ -34,7 +34,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
-    verbose: Flags.id({}),
+    verbose: Flags.integer({}),
   }
 }
 
@@ -49,7 +49,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
-    verbose: Flags.id({
+    verbose: Flags.number({
       summary: 'foo'
     }),
   }
@@ -58,7 +58,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       output: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
-    verbose: Flags.salesforceId({
+    verbose: Flags.integer({
       summary: 'foo'
     }),
   }
