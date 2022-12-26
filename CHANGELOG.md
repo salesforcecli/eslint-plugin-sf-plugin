@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.3.0...1.3.1) (2022-12-26)
+
+
+### Bug Fixes
+
+* add filepath -> file conversion ([#117](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/117)) ([0de381c](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/0de381cf12c1f090c80f940e1b2f9644be7e1dc7))
+
+
+
 # [1.3.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.2.3...1.3.0) (2022-12-22)
 
 
