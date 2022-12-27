@@ -32,7 +32,6 @@ export const dashO = ESLintUtils.RuleCreator.withoutDocs({
               ancestorsContainsSfCommand(context.getAncestors()) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
-              node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
               node.value.callee.property.type === AST_NODE_TYPES.Identifier &&
               !node.value.callee.property.name.toLowerCase().includes('org') &&
               !node.value.callee.property.name.toLowerCase().includes('hub') &&
