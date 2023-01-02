@@ -27,14 +27,7 @@ export const noDeprecatedProperties = ESLintUtils.RuleCreator.withoutDocs({
             if (ancestorsContainsSfCommand(context.getAncestors())) {
               if (
                 node.key.type === AST_NODE_TYPES.Identifier &&
-                [
-                  'requiresUsername',
-                  'supportUsername',
-                  'supportsDevhubUsername',
-                  'requiresDevhubUsername',
-                  'varargs',
-                  'args',
-                ].includes(node.key.name)
+                ['supportsDevhubUsername', 'varargs', 'args'].includes(node.key.name)
               ) {
                 context.report({
                   node,

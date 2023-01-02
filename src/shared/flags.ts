@@ -29,7 +29,7 @@ export const isFlag = (node: TSESTree.Node): boolean =>
   node.value?.callee?.object?.name === 'Flags';
 
 /** Current node is public static flags = */
-export const isFlagsStaticProperty = (node: TSESTree.Node): boolean =>
+export const isFlagsStaticProperty = (node: TSESTree.Node): node is TSESTree.PropertyDefinition =>
   node.type === AST_NODE_TYPES.PropertyDefinition &&
   node.static &&
   node.value?.type === AST_NODE_TYPES.ObjectExpression &&
@@ -47,5 +47,13 @@ export const resolveFlagName = (flag: TSESTree.PropertyComputedName | TSESTree.P
   }
   if (flag.key.type === AST_NODE_TYPES.Literal && typeof flag.key.value === 'string') {
     return flag.key.value;
+  }
+};
+
+export const getFlagsStaticPropertyFromCommandClass = (
+  classDeclaration: TSESTree.ClassDeclaration
+): TSESTree.PropertyDefinition | undefined => {
+  if (classDeclaration.body.type === AST_NODE_TYPES.ClassBody) {
+    return classDeclaration.body.body.find(isFlagsStaticProperty);
   }
 };

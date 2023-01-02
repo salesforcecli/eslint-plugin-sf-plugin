@@ -44,3 +44,13 @@ export const isRunMethod = (node: TSESTree.Node): boolean =>
 
 export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement =>
   node.body.body.find((b) => isRunMethod(b));
+
+export const getSfImportFromProgram = (node: TSESTree.Node): TSESTree.ImportDeclaration | undefined => {
+  if (node.type === AST_NODE_TYPES.Program) {
+    return node.body.find(isImportDeclaration);
+  }
+};
+
+const isImportDeclaration = (item: TSESTree.ProgramStatement): item is TSESTree.ImportDeclaration => {
+  return item.type === AST_NODE_TYPES.ImportDeclaration;
+};
