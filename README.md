@@ -76,11 +76,11 @@ module.exports = {
 | [no-number-flags](docs/rules/no-number-flags.md)                               | Change number flag to integer                                                                 |      |      | 🔧 |    |
 | [no-oclif-flags-command-import](docs/rules/no-oclif-flags-command-import.md)   | Change import of flags and Command from oclif to use sf-plugins-core                          | ✈️ ✅ |      | 🔧 |    |
 | [no-sfdx-command-import](docs/rules/no-sfdx-command-import.md)                 | Change import and base class from SfdxCommand to sfCommand                                    | ✈️   |      | 🔧 |    |
-| [no-split-examples](docs/rules/no-split-examples.md)                           | Arrays of messags should use getMessages instead of getMessage followed by EOL splitting      | ✈️ ✅ |      | 🔧 |    |
 | [no-this-flags](docs/rules/no-this-flags.md)                                   | Fix references to this.org (property on SfdxCommand)                                          | ✈️   |      | 🔧 | 💡 |
 | [no-this-org](docs/rules/no-this-org.md)                                       | Fix references to this.org (property on SfdxCommand)                                          | ✈️   |      | 🔧 | 💡 |
 | [no-this-ux](docs/rules/no-this-ux.md)                                         | SfCommand does not have a ux property                                                         | ✈️   |      | 🔧 |    |
 | [no-time-flags](docs/rules/no-time-flags.md)                                   | Migrate time flags to Flags.duration                                                          | ✈️   |      | 🔧 |    |
+| [no-username-properties](docs/rules/no-username-properties.md)                 | Convert requiresUsername and supportusername to username flags                                | ✈️   |      | 🔧 |    |
 | [read-only-properties](docs/rules/read-only-properties.md)                     | Class-level static properties, like flags or descriptions, should be marked read-only         |      | ✈️ ✅ | 🔧 |    |
 | [run-matches-class-type](docs/rules/run-matches-class-type.md)                 | The return type of the run method should match the Type passed to sfCommand                   | ✈️ ✅ |      | 🔧 |    |
 | [sfdx-flags-property](docs/rules/sfdx-flags-property.md)                       | Change flag definitions to SfCommand version                                                  | ✈️   |      | 🔧 |    |
