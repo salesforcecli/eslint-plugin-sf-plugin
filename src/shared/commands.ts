@@ -47,10 +47,11 @@ export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassEle
 
 export const getSfImportFromProgram = (node: TSESTree.Node): TSESTree.ImportDeclaration | undefined => {
   if (node.type === AST_NODE_TYPES.Program) {
-    return node.body.find(isImportDeclaration);
+    return node.body.find(
+      (item): item is TSESTree.ImportDeclaration =>
+        item.type === AST_NODE_TYPES.ImportDeclaration &&
+        item.source.type === AST_NODE_TYPES.Literal &&
+        item.source.value === '@salesforce/sf-plugins-core'
+    );
   }
-};
-
-const isImportDeclaration = (item: TSESTree.ProgramStatement): item is TSESTree.ImportDeclaration => {
-  return item.type === AST_NODE_TYPES.ImportDeclaration;
 };

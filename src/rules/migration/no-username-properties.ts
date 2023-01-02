@@ -86,7 +86,7 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                 const outerClass = getSfCommand(ancestors);
                 const flagsProperty = getFlagsStaticPropertyFromCommandClass(outerClass);
 
-                if (!source.getText(flagsProperty).includes(mappedMetadata.flag)) {
+                if (flagsProperty && !source.getText(flagsProperty).includes(mappedMetadata.flag)) {
                   const addedFlag = `'${mappedMetadata.flagName}': ${mappedMetadata.flag},`;
                   context.report({
                     node: importDeclaration,
@@ -100,17 +100,19 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                   });
                 }
 
-                // remove the property
-                context.report({
-                  node,
-                  messageId: mappedMetadata.message,
-                  data: {
-                    property: node.key.name,
-                  },
-                  fix: (fixer) => {
-                    return fixer.remove(node);
-                  },
-                });
+                if (source.getText(importDeclaration).includes(mappedMetadata.flag)) {
+                  // remove the property only after the other two fixes have been applied
+                  context.report({
+                    node,
+                    messageId: mappedMetadata.message,
+                    data: {
+                      property: node.key.name,
+                    },
+                    fix: (fixer) => {
+                      return fixer.remove(node);
+                    },
+                  });
+                }
               }
             }
           },
