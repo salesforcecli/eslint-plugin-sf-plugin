@@ -68,7 +68,7 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                 const ancestors = context.getAncestors();
                 const source = context.getSourceCode();
                 const importDeclaration = getSfImportFromProgram(ancestors[0]);
-                if (!source.getText(importDeclaration).includes(mappedMetadata.flag)) {
+                if (importDeclaration && !source.getText(importDeclaration).includes(mappedMetadata.flag)) {
                   const fixedImport = source
                     .getText(importDeclaration)
                     .replace(/{(.*)}/g, `{$1, ${mappedMetadata.flag}}`);
@@ -89,7 +89,7 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                 if (flagsProperty && !source.getText(flagsProperty).includes(mappedMetadata.flag)) {
                   const addedFlag = `'${mappedMetadata.flagName}': ${mappedMetadata.flag},`;
                   context.report({
-                    node: importDeclaration,
+                    node,
                     messageId: mappedMetadata.message,
                     fix: (fixer) => {
                       return fixer.insertTextAfterRange(
