@@ -67,13 +67,16 @@ module.exports = {
 | [no-builtin-flags](docs/rules/no-builtin-flags.md)                             | Handling for sfdxCommand's flags.builtin                                                      | ✈️   |      | 🔧 |    |
 | [no-deprecated-properties](docs/rules/no-deprecated-properties.md)             | Removes non-existent properties left over from SfdxCommand                                    | ✈️   |      | 🔧 |    |
 | [no-duplicate-short-characters](docs/rules/no-duplicate-short-characters.md)   | Prevent duplicate use of short characters or conflicts between aliases and flags              | ✈️ ✅ |      |    |    |
+| [no-filepath-flags](docs/rules/no-filepath-flags.md)                           | Change filepath flag to file flag                                                             |      |      | 🔧 |    |
 | [no-h-short-char](docs/rules/no-h-short-char.md)                               | Do not allow creation of a flag with short char -h                                            | ✈️ ✅ |      |    |    |
 | [no-hardcoded-messages-commands](docs/rules/no-hardcoded-messages-commands.md) | Use loaded messages and separate files for messages                                           |      | ✈️ ✅ |    |    |
 | [no-hardcoded-messages-flags](docs/rules/no-hardcoded-messages-flags.md)       | Use loaded messages and separate files for messages                                           |      | ✈️ ✅ |    |    |
 | [no-id-flags](docs/rules/no-id-flags.md)                                       | Change Id flag to salesforceId                                                                | ✈️   |      | 🔧 |    |
 | [no-json-flag](docs/rules/no-json-flag.md)                                     | Do not allow creation of json flag                                                            | ✈️ ✅ |      |    |    |
+| [no-number-flags](docs/rules/no-number-flags.md)                               | Change number flag to integer                                                                 |      |      | 🔧 |    |
 | [no-oclif-flags-command-import](docs/rules/no-oclif-flags-command-import.md)   | Change import of flags and Command from oclif to use sf-plugins-core                          | ✈️ ✅ |      | 🔧 |    |
 | [no-sfdx-command-import](docs/rules/no-sfdx-command-import.md)                 | Change import and base class from SfdxCommand to sfCommand                                    | ✈️   |      | 🔧 |    |
+| [no-split-examples](docs/rules/no-split-examples.md)                           | Arrays of messags should use getMessages instead of getMessage followed by EOL splitting      | ✈️ ✅ |      | 🔧 |    |
 | [no-this-flags](docs/rules/no-this-flags.md)                                   | Fix references to this.org (property on SfdxCommand)                                          | ✈️   |      | 🔧 | 💡 |
 | [no-this-org](docs/rules/no-this-org.md)                                       | Fix references to this.org (property on SfdxCommand)                                          | ✈️   |      | 🔧 | 💡 |
 | [no-this-ux](docs/rules/no-this-ux.md)                                         | SfCommand does not have a ux property                                                         | ✈️   |      | 🔧 |    |
