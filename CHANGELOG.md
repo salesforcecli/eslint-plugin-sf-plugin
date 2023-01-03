@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.4.0...1.5.0) (2023-01-03)
+
+
+### Features
+
+* no-split-examples ([#120](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/120)) ([a7ddff0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/a7ddff0a12f58f714d931885b0aa84ac8b1398d0))
+
+
+
 # [1.4.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.3.1...1.4.0) (2023-01-03)
 
 
