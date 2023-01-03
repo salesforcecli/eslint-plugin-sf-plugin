@@ -34,6 +34,7 @@ import { idFlagSuggestions } from './rules/id-flag-suggestions';
 import { noIdFlags } from './rules/migration/no-id-flags';
 import { noFilepathFlags } from './rules/migration/no-filepath-flags';
 import { noNumberFlags } from './rules/migration/no-number-flags';
+import { noSplitExamples } from './rules/no-split-examples';
 import { noUsernameProperties } from './rules/migration/no-username-properties';
 import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
 
@@ -57,6 +58,7 @@ const recommended = {
     'sf-plugin/no-oclif-flags-command-import': 'error',
     'sf-plugin/read-only-properties': 'warn',
     'sf-plugin/id-flag-suggestions': 'warn',
+    'sf-plugin/no-split-examples': 'error',
     'sf-plugin/no-unnecessary-properties': 'warn',
   },
 };
@@ -113,6 +115,7 @@ export = {
     'no-id-flags': noIdFlags,
     'no-filepath-flags': noFilepathFlags,
     'no-number-flags': noNumberFlags,
+    'no-split-examples': noSplitExamples,
     'no-username-properties': noUsernameProperties,
     'no-unnecessary-properties': noUnnecessaryProperties,
   },
