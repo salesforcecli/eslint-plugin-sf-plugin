@@ -35,6 +35,8 @@ import { noIdFlags } from './rules/migration/no-id-flags';
 import { noFilepathFlags } from './rules/migration/no-filepath-flags';
 import { noNumberFlags } from './rules/migration/no-number-flags';
 import { noSplitExamples } from './rules/no-split-examples';
+import { noUsernameProperties } from './rules/migration/no-username-properties';
+import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -57,6 +59,7 @@ const recommended = {
     'sf-plugin/read-only-properties': 'warn',
     'sf-plugin/id-flag-suggestions': 'warn',
     'sf-plugin/no-split-examples': 'error',
+    'sf-plugin/no-unnecessary-properties': 'warn',
   },
 };
 export = {
@@ -77,6 +80,7 @@ export = {
         'sf-plugin/no-builtin-flags': 'error',
         'sf-plugin/no-time-flags': 'error',
         'sf-plugin/no-id-flags': 'error',
+        'sf-plugin/no-username-properties': 'error',
       },
     },
   },
@@ -112,5 +116,7 @@ export = {
     'no-filepath-flags': noFilepathFlags,
     'no-number-flags': noNumberFlags,
     'no-split-examples': noSplitExamples,
+    'no-username-properties': noUsernameProperties,
+    'no-unnecessary-properties': noUnnecessaryProperties,
   },
 };
