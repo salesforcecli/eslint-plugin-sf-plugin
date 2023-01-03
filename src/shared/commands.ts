@@ -44,3 +44,14 @@ export const isRunMethod = (node: TSESTree.Node): boolean =>
 
 export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement =>
   node.body.body.find((b) => isRunMethod(b));
+
+export const getSfImportFromProgram = (node: TSESTree.Node): TSESTree.ImportDeclaration | undefined => {
+  if (node.type === AST_NODE_TYPES.Program) {
+    return node.body.find(
+      (item): item is TSESTree.ImportDeclaration =>
+        item.type === AST_NODE_TYPES.ImportDeclaration &&
+        item.source.type === AST_NODE_TYPES.Literal &&
+        item.source.value === '@salesforce/sf-plugins-core'
+    );
+  }
+};

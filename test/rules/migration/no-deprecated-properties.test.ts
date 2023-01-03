@@ -31,7 +31,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('foo.ts'),
       code: `
 export default class EnvCreateScratch extends SfCommand<string> {
-  public static readonly requiresUsername = true;
+  public static readonly args = true;
 }
 
 `,
@@ -40,12 +40,12 @@ export default class EnvCreateScratch extends SfCommand<string> {
   invalid: [
     //
     {
-      name: 'requiresUsername',
+      name: 'args',
       filename: path.normalize('src/commands/foo.ts'),
-      errors: [{ messageId: 'property', data: { property: 'requiresUsername' } }],
+      errors: [{ messageId: 'property', data: { property: 'args' } }],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
-  public static readonly requiresUsername = true;
+  public static readonly args = 'foo';
   public static ok = true;
 }`,
       output: `
@@ -58,26 +58,17 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       name: 'all the invalid things',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
-        { messageId: 'property', data: { property: 'requiresUsername' } },
-        { messageId: 'property', data: { property: 'supportUsername' } },
-        { messageId: 'property', data: { property: 'supportsDevhubUsername' } },
-        { messageId: 'property', data: { property: 'requiresDevhubUsername' } },
         { messageId: 'property', data: { property: 'varargs' } },
+        { messageId: 'property', data: { property: 'args' } },
       ],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
-  public static readonly requiresUsername = true;
-  public static readonly supportUsername = true;
-  public static readonly supportsDevhubUsername = true;
-  public static readonly requiresDevhubUsername = true;
   public static readonly varargs = true;
+  public static readonly args = true;
   public static readonly requiresProject = true;
 }`,
       output: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
-  
-  
-  
   
   
   public static readonly requiresProject = true;
