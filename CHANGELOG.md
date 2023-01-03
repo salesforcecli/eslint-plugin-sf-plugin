@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.3.1...1.4.0) (2023-01-03)
+
+
+### Features
+
+* username property conversion and removal of unnecessary default props ([ceebd69](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/ceebd69b62c8d5e09dd5dad78c579042567ce9c3))
+
+
+
 ## [1.3.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.3.0...1.3.1) (2022-12-26)
 
 
