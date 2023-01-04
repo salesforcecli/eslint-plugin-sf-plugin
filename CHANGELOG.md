@@ -1,3 +1,12 @@
+## [1.5.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.0...1.5.1) (2023-01-04)
+
+
+### Bug Fixes
+
+* **deps:** bump json5 from 1.0.1 to 1.0.2 ([214a8fa](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/214a8fad8d2201e6fb9b0ec023b7835a61e77dc0))
+
+
+
 # [1.5.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.4.0...1.5.0) (2023-01-03)
 
 
