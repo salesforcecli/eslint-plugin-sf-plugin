@@ -26,6 +26,8 @@ jobs:
           - https://github.com/salesforcecli/plugin-login
           - https://github.com/salesforcecli/plugin-sobject
           - https://github.com/salesforcecli/plugin-dev
+          - https://github.com/salesforcecli/plugin-limits
+          - https://github.com/salesforcecli/plugin-schema
     with:
       packageName: 'eslint-plugin-sf-plugin'
       externalProjectGitUrl: ${{ matrix.externalProjectGitUrl }}
