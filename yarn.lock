@@ -1508,10 +1508,10 @@ eslint-config-prettier@^8.6.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.6.0.tgz#dec1d29ab728f4fa63061774e1672ac4e363d207"
   integrity sha512-bAF0eLpLVqP5oEVUFKpMA+NnRFICwn9X8B5jrR9FcqnYBuPbqWEjTEspPWMj5ye6czoSLDweCzSo3Ko7gGrZaA==
 
-eslint-config-salesforce-license@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/eslint-config-salesforce-license/-/eslint-config-salesforce-license-0.1.6.tgz#75b475cf90f92e1dcb4340124466288915fed3f8"
-  integrity sha512-PH1nkm6MaouON4Ac4fgJh29oQiHlpU/G2xS45FAYeAWkh1up88j1UpjXt2ISNniQVvU4uqfVAOOaEb5X5hDqYw==
+eslint-config-salesforce-license@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-salesforce-license/-/eslint-config-salesforce-license-0.2.0.tgz#323193f1aa15dd33fbf108d25fc1210afc11065e"
+  integrity sha512-DJdBvgj82Erum82YMe+YvG/o6ukna3UA++lRl0HSTldj0VlBl3Q8hzCp97nRXZHra6JH1I912yievZzklXDw6w==
 
 eslint-config-salesforce-typescript@^0.2.8:
   version "0.2.8"
