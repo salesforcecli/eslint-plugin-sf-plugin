@@ -1,3 +1,12 @@
+## [1.5.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.1...1.5.2) (2023-01-08)
+
+
+### Bug Fixes
+
+* **deps:** bump @typescript-eslint/utils from 5.47.1 to 5.48.0 ([d5526c4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/d5526c4b2190b6f1c425cac124f9b286ff640a23))
+
+
+
 ## [1.5.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.0...1.5.1) (2023-01-04)
 
 
