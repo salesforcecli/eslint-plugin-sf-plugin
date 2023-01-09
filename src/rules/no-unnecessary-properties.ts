@@ -7,7 +7,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { extendsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-const props = ['requiresProject', 'hidden', 'deprecateAliases'];
+const props = ['requiresProject', 'hidden'];
 
 export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
   meta: {

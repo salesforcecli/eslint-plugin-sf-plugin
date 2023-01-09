@@ -37,7 +37,7 @@ import { noNumberFlags } from './rules/migration/no-number-flags';
 import { noSplitExamples } from './rules/no-split-examples';
 import { noUsernameProperties } from './rules/migration/no-username-properties';
 import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
-
+import { encourageAliasDeprecation } from './rules/migration/encourage-alias-deprecation';
 const recommended = {
   plugins: ['sf-plugin'],
   rules: {
@@ -81,6 +81,7 @@ export = {
         'sf-plugin/no-time-flags': 'error',
         'sf-plugin/no-id-flags': 'error',
         'sf-plugin/no-username-properties': 'error',
+        'sf-plugin/encourage-alias-deprecation': 'warn',
       },
     },
   },
@@ -118,5 +119,6 @@ export = {
     'no-split-examples': noSplitExamples,
     'no-username-properties': noUsernameProperties,
     'no-unnecessary-properties': noUnnecessaryProperties,
+    'encourage-alias-deprecation': encourageAliasDeprecation,
   },
 };
