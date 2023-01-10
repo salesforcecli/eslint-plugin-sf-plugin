@@ -1,3 +1,12 @@
+## [1.5.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.2...1.5.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* add rule for salesforceId len both ([61bdebf](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/61bdebf2cad8faa0fbbe5ac110f6b84966f2fffd))
+
+
+
 ## [1.5.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.1...1.5.2) (2023-01-08)
 
 
