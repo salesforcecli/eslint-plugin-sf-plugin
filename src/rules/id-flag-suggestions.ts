@@ -20,6 +20,7 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
       message: 'Suggestion: salesforceId flags have additional properties to validate the Id.  Consider using them.',
       lengthSuggestion15: 'require the ID to be 15 characters',
       lengthSuggestion18: 'require the ID to be 18 characters',
+      lengthSuggestionBoth: 'require the ID to be 15 or 18 characters',
       typeSuggestion: 'require the ID to start with a 3-character prefix',
     },
     type: 'suggestion',
@@ -51,6 +52,7 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                   const fixedStartsWith = existing.replace('salesforceId({', "salesforceId({startsWith: '000',");
                   const fixer15 = existing.replace('salesforceId({', 'salesforceId({length: 15,');
                   const fixer18 = existing.replace('salesforceId({', 'salesforceId({length: 18,');
+                  const fixerBoth = existing.replace('salesforceId({', "salesforceId({length: 'both',");
 
                   context.report({
                     node: node.key,
@@ -69,6 +71,12 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                     ).concat(
                       !hasLength
                         ? [
+                            {
+                              messageId: 'lengthSuggestionBoth',
+                              fix: (fixer: RuleFixer): RuleFix => {
+                                return fixer.replaceText(node, fixerBoth);
+                              },
+                            },
                             {
                               messageId: 'lengthSuggestion15',
                               fix: (fixer: RuleFixer): RuleFix => {

@@ -50,6 +50,17 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 `,
             },
             {
+              messageId: 'lengthSuggestionBoth',
+              output: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public static flags = {
+    id: Flags.salesforceId({length: 'both',
+    }),
+  }
+}
+`,
+            },
+            {
               messageId: 'lengthSuggestion15',
               output: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
@@ -122,6 +133,18 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
         {
           messageId: 'message',
           suggestions: [
+            {
+              messageId: 'lengthSuggestionBoth',
+              output: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public static flags = {
+    foo: Flags.salesforceId({length: 'both',
+      startsWith: '000',
+    }),
+  }
+}
+`,
+            },
             {
               messageId: 'lengthSuggestion15',
               output: `
