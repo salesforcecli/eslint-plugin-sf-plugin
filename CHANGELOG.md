@@ -1,3 +1,12 @@
+## [1.6.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.6.0...1.6.1) (2023-01-11)
+
+
+### Bug Fixes
+
+* make deprecateAliases a suggestion ([#137](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/137)) ([cfb49d4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/cfb49d412486374281f1177fb2c342e072047764))
+
+
+
 # [1.6.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.3...1.6.0) (2023-01-11)
 
 
