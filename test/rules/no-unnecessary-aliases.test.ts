@@ -54,5 +54,46 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
+    {
+      name: 'only alias is a permutation',
+      errors: [
+        {
+          messageId: 'summary',
+        },
+      ],
+      filename: path.normalize('src/commands/foo/bar/baz.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = ['bar:baz:foo'];
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = [];
+}
+`,
+    },
+    {
+      name: 'multiple aliases are a permutation',
+      errors: [
+        {
+          messageId: 'summary',
+        },
+        {
+          messageId: 'summary',
+        },
+      ],
+      filename: path.normalize('src/commands/foo/bar/baz.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = ['bar:baz:foo', 'baz:bar:foo'];
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = [ ];
+}
+`,
+    },
   ],
 });
