@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.3...1.6.0) (2023-01-11)
+
+
+### Features
+
+* remove unnecessary command aliases ([#135](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/135)) ([454ecf0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/454ecf0d3dc286a92b4ab9fcec657777d953c5ac))
+
+
+
 ## [1.5.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.5.2...1.5.3) (2023-01-10)
 
 
