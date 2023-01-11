@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { sep } from 'path';
+import { sep, parse } from 'path';
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 import { RuleContext } from '@typescript-eslint/utils/dist/ts-eslint';
 
@@ -54,4 +54,12 @@ export const getSfImportFromProgram = (node: TSESTree.Node): TSESTree.ImportDecl
         item.source.value === '@salesforce/sf-plugins-core'
     );
   }
+};
+
+/** pass a filename, and get back an array of the parts that occur after `commands`
+ * in other words, the command's canonical name
+ */
+export const getCommandNameParts = (filename: string): string[] => {
+  const parts = filename.replace(parse(filename).ext, '').split(sep);
+  return parts.slice(parts.indexOf('commands') + 1);
 };

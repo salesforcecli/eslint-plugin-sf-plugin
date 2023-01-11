@@ -38,6 +38,8 @@ import { noSplitExamples } from './rules/no-split-examples';
 import { noUsernameProperties } from './rules/migration/no-username-properties';
 import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
 import { encourageAliasDeprecation } from './rules/migration/encourage-alias-deprecation';
+import { noUnnecessaryAliases } from './rules/no-unnecessary-aliases';
+
 const recommended = {
   plugins: ['sf-plugin'],
   rules: {
@@ -60,6 +62,7 @@ const recommended = {
     'sf-plugin/id-flag-suggestions': 'warn',
     'sf-plugin/no-split-examples': 'error',
     'sf-plugin/no-unnecessary-properties': 'warn',
+    'sf-plugin/no-unnecessary-aliases': 'error',
   },
 };
 export = {
@@ -120,5 +123,6 @@ export = {
     'no-username-properties': noUsernameProperties,
     'no-unnecessary-properties': noUnnecessaryProperties,
     'encourage-alias-deprecation': encourageAliasDeprecation,
+    'no-unnecessary-aliases': noUnnecessaryAliases,
   },
 };
