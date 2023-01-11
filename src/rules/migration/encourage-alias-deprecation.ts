@@ -6,6 +6,7 @@
  */
 
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../../shared/flags';
 
@@ -46,9 +47,14 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node,
                     messageId: 'command',
-                    fix: (fixer) => {
-                      return fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;');
-                    },
+                    suggest: [
+                      {
+                        messageId: 'command',
+                        fix: (fixer): RuleFix => {
+                          return fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;');
+                        },
+                      },
+                    ],
                   });
                 }
               }
@@ -74,9 +80,14 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node: aliasesProperty,
                   messageId: 'flag',
-                  fix: (fixer) => {
-                    return fixer.insertTextBefore(aliasesProperty, 'deprecateAliases:true,');
-                  },
+                  suggest: [
+                    {
+                      messageId: 'flag',
+                      fix: (fixer): RuleFix => {
+                        return fixer.insertTextBefore(aliasesProperty, 'deprecateAliases:true,');
+                      },
+                    },
+                  ],
                 });
               }
             }

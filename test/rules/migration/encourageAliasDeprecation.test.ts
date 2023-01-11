@@ -50,20 +50,47 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     {
       name: 'aliases without deprecation',
       filename: path.normalize('src/commands/foo.ts'),
-      errors: [{ messageId: 'command' }],
+      errors: [
+        {
+          messageId: 'command',
+          suggestions: [
+            {
+              messageId: 'command',
+              output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly deprecateAliases = true;public static readonly aliases = ['foo'];
+}`,
+            },
+          ],
+        },
+      ],
+      output: null,
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['foo'];
-}`,
-      output: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static readonly deprecateAliases = true;public static readonly aliases = ['foo'];
 }`,
     },
     {
       name: 'flag alias without deprecation',
       filename: path.normalize('src/commands/foo.ts'),
-      errors: [{ messageId: 'flag' }],
+      errors: [
+        {
+          messageId: 'flag',
+          suggestions: [
+            {
+              messageId: 'flag',
+              output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly flags = {
+    foo: Flags.string({
+      deprecateAliases:true,aliases: ['bar'],
+    })
+  }
+}`,
+            },
+          ],
+        },
+      ],
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
@@ -72,14 +99,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     })
   }
 }`,
-      output: `
-export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static readonly flags = {
-    foo: Flags.string({
-      deprecateAliases:true,aliases: ['bar'],
-    })
-  }
-}`,
+      output: null,
     },
   ],
 });
