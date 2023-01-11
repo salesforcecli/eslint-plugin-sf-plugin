@@ -7,7 +7,8 @@
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { extendsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-const props = ['requiresProject', 'hidden'];
+const falseProps = ['requiresProject', 'hidden'];
+const emptyProps = ['aliases'];
 
 export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -16,7 +17,8 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
       recommended: 'warn',
     },
     messages: {
-      message: 'The {{prop}} property can be omitted since it is false by default',
+      messageFalse: 'The {{prop}} property can be omitted since it is false by default',
+      messageEmpty: 'The {{prop}} property can be omitted since it is empty',
     },
     type: 'problem',
     fixable: 'code',
@@ -28,22 +30,38 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           PropertyDefinition(node): void {
             if (
-              !node.readonly &&
               node.static &&
               node.key.type === AST_NODE_TYPES.Identifier &&
-              props.includes(node.key.name) &&
               node.parent.type === AST_NODE_TYPES.ClassBody &&
               node.parent.parent.type === AST_NODE_TYPES.ClassDeclaration &&
-              node.value.type === AST_NODE_TYPES.Literal &&
-              node.value.value === false &&
               extendsSfCommand(node.parent.parent)
             ) {
-              context.report({
-                node,
-                messageId: 'message',
-                data: { prop: node.key.name },
-                fix: (fixer) => fixer.remove(node),
-              });
+              // properties that default to false
+              if (
+                node.value.type === AST_NODE_TYPES.Literal &&
+                falseProps.includes(node.key.name) &&
+                node.value.value === false
+              ) {
+                context.report({
+                  node,
+                  messageId: 'messageFalse',
+                  data: { prop: node.key.name },
+                  fix: (fixer) => fixer.remove(node),
+                });
+              }
+              // properties that default to emptyArrays
+              if (
+                node.value.type === AST_NODE_TYPES.ArrayExpression &&
+                emptyProps.includes(node.key.name) &&
+                node.value.elements.length === 0
+              ) {
+                context.report({
+                  node,
+                  messageId: 'messageEmpty',
+                  data: { prop: node.key.name },
+                  fix: (fixer) => fixer.remove(node),
+                });
+              }
             }
           },
         }

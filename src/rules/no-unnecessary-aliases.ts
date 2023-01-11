@@ -34,6 +34,7 @@ export const noUnnecessaryAliases = ESLintUtils.RuleCreator.withoutDocs({
               node.parent.parent.key.name === 'aliases' &&
               ancestorsContainsSfCommand(context.getAncestors())
             ) {
+              const parentLength = node.parent.elements.length;
               const cmdParts = getCommandNameParts(context.getPhysicalFilename());
               const aliasParts = typeof node.value === 'string' ? node.value.split(':') : [];
               if (
@@ -45,6 +46,9 @@ export const noUnnecessaryAliases = ESLintUtils.RuleCreator.withoutDocs({
                   messageId: 'summary',
                   fix: (fixer) => {
                     const comma = context.getSourceCode().getTokenAfter(node);
+                    if (parentLength === 1) {
+                      return fixer.remove(node.parent.parent);
+                    }
                     return comma.value === ','
                       ? fixer.removeRange([node.range[0], node.range[1] + 1])
                       : fixer.remove(node);

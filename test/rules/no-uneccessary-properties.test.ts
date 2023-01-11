@@ -24,6 +24,14 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'populated aliases  for a command',
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static aliases = ['foo']
+}
+`,
+    },
+    {
       name: 'not an sf command',
       code: `
 export default class EnvCreateScratch extends somethingElse<ScratchCreateResponse> {
@@ -43,15 +51,36 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   ],
   invalid: [
     {
+      name: 'empty aliases',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'messageEmpty',
+          data: { prop: 'aliases' },
+        },
+      ],
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = []
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  
+}
+`,
+    },
+
+    {
       name: '2 properties set to false',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
-          messageId: 'message',
+          messageId: 'messageFalse',
           data: { prop: 'hidden' },
         },
         {
-          messageId: 'message',
+          messageId: 'messageFalse',
           data: { prop: 'requiresProject' },
         },
       ],

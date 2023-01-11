@@ -69,7 +69,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
       output: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
-  public static readonly aliases = [];
+  
 }
 `,
     },
