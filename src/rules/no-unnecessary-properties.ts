@@ -33,7 +33,7 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
               node.static &&
               node.key?.type === AST_NODE_TYPES.Identifier &&
               node.parent?.type === AST_NODE_TYPES.ClassBody &&
-              node.parent?.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.parent.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
               node.value &&
               extendsSfCommand(node.parent.parent)
             ) {
