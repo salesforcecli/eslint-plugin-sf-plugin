@@ -31,14 +31,15 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
           PropertyDefinition(node): void {
             if (
               node.static &&
-              node.key.type === AST_NODE_TYPES.Identifier &&
-              node.parent.type === AST_NODE_TYPES.ClassBody &&
-              node.parent.parent.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.key?.type === AST_NODE_TYPES.Identifier &&
+              node.parent?.type === AST_NODE_TYPES.ClassBody &&
+              node.parent?.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.value &&
               extendsSfCommand(node.parent.parent)
             ) {
               // properties that default to false
               if (
-                node.value.type === AST_NODE_TYPES.Literal &&
+                node.value?.type === AST_NODE_TYPES.Literal &&
                 falseProps.includes(node.key.name) &&
                 node.value.value === false
               ) {
@@ -51,7 +52,7 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
               }
               // properties that default to emptyArrays
               if (
-                node.value.type === AST_NODE_TYPES.ArrayExpression &&
+                node.value?.type === AST_NODE_TYPES.ArrayExpression &&
                 emptyProps.includes(node.key.name) &&
                 node.value.elements.length === 0
               ) {
