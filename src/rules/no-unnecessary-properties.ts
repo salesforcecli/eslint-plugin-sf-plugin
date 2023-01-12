@@ -39,7 +39,7 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
             ) {
               // properties that default to false
               if (
-                node.value?.type === AST_NODE_TYPES.Literal &&
+                node.value.type === AST_NODE_TYPES.Literal &&
                 falseProps.includes(node.key.name) &&
                 node.value.value === false
               ) {
@@ -52,7 +52,7 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
               }
               // properties that default to emptyArrays
               if (
-                node.value?.type === AST_NODE_TYPES.ArrayExpression &&
+                node.value.type === AST_NODE_TYPES.ArrayExpression &&
                 emptyProps.includes(node.key.name) &&
                 node.value.elements.length === 0
               ) {
