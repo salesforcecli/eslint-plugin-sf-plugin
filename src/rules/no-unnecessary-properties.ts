@@ -31,9 +31,10 @@ export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
           PropertyDefinition(node): void {
             if (
               node.static &&
-              node.key.type === AST_NODE_TYPES.Identifier &&
-              node.parent.type === AST_NODE_TYPES.ClassBody &&
-              node.parent.parent.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.key?.type === AST_NODE_TYPES.Identifier &&
+              node.parent?.type === AST_NODE_TYPES.ClassBody &&
+              node.parent.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.value &&
               extendsSfCommand(node.parent.parent)
             ) {
               // properties that default to false
