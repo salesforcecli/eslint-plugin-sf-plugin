@@ -24,6 +24,14 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'other static properties with no value',
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static org: Org
+}
+`,
+    },
+    {
       name: 'populated aliases  for a command',
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
