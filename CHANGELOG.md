@@ -1,3 +1,12 @@
+## [1.6.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.6.1...1.6.2) (2023-01-12)
+
+
+### Bug Fixes
+
+* handle more potential nulls ([#138](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/138)) ([4a36418](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/4a36418a44666ebd2013f5088dcf7614410fce5b))
+
+
+
 ## [1.6.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.6.0...1.6.1) (2023-01-11)
 
 
