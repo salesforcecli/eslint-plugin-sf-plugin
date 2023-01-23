@@ -37,11 +37,8 @@ export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
               const ancestors = context.getAncestors();
               const classDeclaration = getSfCommand(ancestors);
               if (
-                classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration &&
-                classDeclaration.superClass?.type === AST_NODE_TYPES.Identifier &&
-                classDeclaration.superClass.name === 'SfCommand' &&
                 // and it has flags to be parsed
-                classDeclaration.body?.body?.some((prop) => isFlagsStaticProperty(prop))
+                classDeclaration?.body?.body?.some((prop) => isFlagsStaticProperty(prop))
               ) {
                 // get the text for the two nodes
                 const sourceCode = context.getSourceCode();

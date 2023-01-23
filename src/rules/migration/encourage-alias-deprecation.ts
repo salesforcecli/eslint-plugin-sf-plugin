@@ -61,22 +61,18 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
             }
           },
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-              if (
-                node.value?.type === AST_NODE_TYPES.CallExpression &&
-                node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-                // has min/max
-                node.value.arguments[0].properties.some(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'aliases')
-                ) &&
-                !node.value.arguments[0].properties.some(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'deprecateAliases')
-                )
-              ) {
-                const aliasesProperty = node.value.arguments[0].properties
-                  .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property))
-                  .find((property) => flagPropertyIsNamed(property, 'aliases'));
+            if (
+              isFlag(node) &&
+              node.value?.type === AST_NODE_TYPES.CallExpression &&
+              node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
+              ancestorsContainsSfCommand(context.getAncestors())
+            ) {
+              const argProps = node.value.arguments[0].properties.filter(
+                ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
+              );
+
+              const aliasesProperty = argProps.find((property) => flagPropertyIsNamed(property, 'aliases'));
+              if (aliasesProperty && !argProps.some((property) => flagPropertyIsNamed(property, 'deprecateAliases'))) {
                 context.report({
                   node: aliasesProperty,
                   messageId: 'flag',

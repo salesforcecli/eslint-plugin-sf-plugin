@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { RuleFix, RuleFixer } from '@typescript-eslint/utils/dist/ts-eslint';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
@@ -41,12 +41,12 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                 node.value.callee.property.name === 'salesforceId' &&
                 node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
               ) {
-                const hasStartsWith = node.value.arguments[0].properties.some(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'startsWith')
+                const argProps = node.value.arguments[0].properties.filter(
+                  ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
                 );
-                const hasLength = node.value.arguments[0].properties.some(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'length')
-                );
+                const hasStartsWith = argProps.some((property) => flagPropertyIsNamed(property, 'startsWith'));
+                const hasLength = argProps.some((property) => flagPropertyIsNamed(property, 'length'));
+
                 if (!hasStartsWith || !hasLength) {
                   const existing = context.getSourceCode().getText(node);
                   const fixedStartsWith = existing.replace('salesforceId({', "salesforceId({startsWith: '000',");

@@ -31,14 +31,13 @@ export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
               node.key.type === AST_NODE_TYPES.Identifier &&
               (node.key.name === 'summary' || node.key.name === 'description') &&
               ancestors.some((a) => isFlag(a)) &&
+              node.value.type === AST_NODE_TYPES.Literal &&
               ancestorsContainsSfCommand(ancestors)
             ) {
-              if (node.value.type === AST_NODE_TYPES.Literal) {
-                context.report({
-                  node,
-                  messageId: 'message',
-                });
-              }
+              context.report({
+                node,
+                messageId: 'message',
+              });
             }
           },
         }

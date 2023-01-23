@@ -37,10 +37,7 @@ export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
               const classDeclaration = ancestors
                 .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration))
                 .find(extendsSfCommand);
-              if (
-                classDeclaration?.superClass?.type === AST_NODE_TYPES.Identifier &&
-                classDeclaration.superClass.name === 'SfCommand'
-              ) {
+              if (classDeclaration) {
                 // get the text for the two nodes
                 const sourceCode = context.getSourceCode();
                 const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeParameters.params[0]);

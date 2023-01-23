@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { ESLintUtils, AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlagsStaticProperty, resolveFlagName, flagPropertyIsNamed } from '../shared/flags';
 
@@ -34,10 +34,9 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
               isFlagsStaticProperty(node)
             ) {
               const previouslyUsed = new Map();
-              node.value.properties.forEach((flag) => {
+              node.value.properties.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)).forEach((flag) => {
                 // only if it has a char prop
                 if (
-                  flag.type === AST_NODE_TYPES.Property &&
                   flag.value.type === AST_NODE_TYPES.CallExpression &&
                   flag.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
                 ) {
@@ -56,14 +55,14 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
                   } else {
                     previouslyUsed.set(flagName, flagName);
                   }
-                  // 2. has the char already been used?  If so, mark the char as a problem
-                  const charNode = flag.value.arguments[0].properties.find(
-                    (p) =>
-                      p.type === AST_NODE_TYPES.Property &&
-                      flagPropertyIsNamed(p, 'char') &&
-                      p.value.type === AST_NODE_TYPES.Literal
+                  const flagProperties = flag.value.arguments[0].properties.filter(
+                    ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
                   );
-                  if (charNode?.type === AST_NODE_TYPES.Property && charNode?.value.type === AST_NODE_TYPES.Literal) {
+                  // 2. has the char already been used?  If so, mark the char as a problem
+                  const charNode = flagProperties.find(
+                    (p) => flagPropertyIsNamed(p, 'char') && p.value.type === AST_NODE_TYPES.Literal
+                  );
+                  if (charNode?.value.type === AST_NODE_TYPES.Literal) {
                     const char = charNode.value.value;
                     if (previouslyUsed.has(char)) {
                       context.report({
@@ -81,16 +80,10 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
                   }
 
                   // 3. is anything in this this flag's aliases already seen (alias or char)?  If so, mark that alias as a problem
-                  const aliasesNode = flag.value.arguments[0].properties.find(
-                    (p) =>
-                      p.type === AST_NODE_TYPES.Property &&
-                      flagPropertyIsNamed(p, 'aliases') &&
-                      p.value.type === AST_NODE_TYPES.ArrayExpression
+                  const aliasesNode = flagProperties.find(
+                    (p) => flagPropertyIsNamed(p, 'aliases') && p.value.type === AST_NODE_TYPES.ArrayExpression
                   );
-                  if (
-                    aliasesNode?.type === AST_NODE_TYPES.Property &&
-                    aliasesNode.value.type === AST_NODE_TYPES.ArrayExpression
-                  ) {
+                  if (aliasesNode?.value.type === AST_NODE_TYPES.ArrayExpression) {
                     aliasesNode.value.elements.forEach((alias) => {
                       if (alias.type === AST_NODE_TYPES.Literal)
                         if (previouslyUsed.has(alias.value)) {
