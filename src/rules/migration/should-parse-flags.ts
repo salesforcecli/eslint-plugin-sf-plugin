@@ -4,8 +4,8 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-import { isInCommandDirectory, getSfCommand } from '../../shared/commands';
+import { ESLintUtils } from '@typescript-eslint/utils';
+import { isInCommandDirectory, getSfCommand, isRunMethod } from '../../shared/commands';
 import { isFlagsStaticProperty } from '../../shared/flags';
 
 export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
@@ -27,12 +27,7 @@ export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           // eslint-disable-next-line complexity
           MethodDefinition(node): void {
-            if (
-              node.key.type === AST_NODE_TYPES.Identifier &&
-              node.key.name === 'run' &&
-              node.accessibility === 'public' &&
-              node.value?.body?.body
-            ) {
+            if (isRunMethod(node) && node.value?.body?.body) {
               // OK, looks like a run method has a type annotation
               const ancestors = context.getAncestors();
               const classDeclaration = getSfCommand(ancestors);
