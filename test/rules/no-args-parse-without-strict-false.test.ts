@@ -48,6 +48,17 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
+    {
+      name: 'Not sf command dir',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SomethingElse<ScratchCreateResponse> {
+  public async run(): Promise<ScratchCreateResponse> {
+    const {flags, args, argv} = await this.parse(EnvCreateScratch);
+  }
+}
+`,
+    },
   ],
   invalid: [
     {

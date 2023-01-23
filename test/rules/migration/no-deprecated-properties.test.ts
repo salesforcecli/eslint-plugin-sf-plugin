@@ -40,12 +40,12 @@ export default class EnvCreateScratch extends SfCommand<string> {
   invalid: [
     //
     {
-      name: 'args',
+      name: 'varargs',
       filename: path.normalize('src/commands/foo.ts'),
-      errors: [{ messageId: 'property', data: { property: 'args' } }],
+      errors: [{ messageId: 'property', data: { property: 'varargs' } }],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
-  public static readonly args = 'foo';
+  public static readonly varargs = 'foo';
   public static ok = true;
 }`,
       output: `
@@ -59,12 +59,12 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         { messageId: 'property', data: { property: 'varargs' } },
-        { messageId: 'property', data: { property: 'args' } },
+        { messageId: 'property', data: { property: 'supportsDevhubUsername' } },
       ],
       code: `
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static readonly varargs = true;
-  public static readonly args = true;
+  public static readonly supportsDevhubUsername = true;
   public static readonly requiresProject = true;
 }`,
       output: `

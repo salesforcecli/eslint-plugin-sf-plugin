@@ -38,12 +38,15 @@ export const noArgsParseWithoutStrictFalse = ESLintUtils.RuleCreator.withoutDocs
                 (p) =>
                   p.type === AST_NODE_TYPES.Property &&
                   p.key.type === AST_NODE_TYPES.Identifier &&
-                  (p.key.name === 'args' || p.key.name === 'argv')
+                  p.key.name === 'argv'
               )
             ) {
               // Verify that the class has strict = false
               const ancestors = context.getAncestors();
               const sfCommand = getSfCommand(ancestors);
+              if (!sfCommand) {
+                return;
+              }
               const strictProperty = sfCommand.body.body.find(
                 (p) =>
                   p.type === AST_NODE_TYPES.PropertyDefinition &&
