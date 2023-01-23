@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { ASTUtils, ESLintUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { RuleFix, RuleFixer } from '@typescript-eslint/utils/dist/ts-eslint';
 import { ancestorsContainsSfCommand, getRunMethod, getSfCommand, isInCommandDirectory } from '../../shared/commands';
@@ -48,11 +48,9 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
                 // ...as long as it's been set in the run method
                 const flagsParse =
                   runMethod.type === AST_NODE_TYPES.MethodDefinition
-                    ? runMethod.value.body.body.find(
-                        (b) =>
-                          b.type === AST_NODE_TYPES.VariableDeclaration &&
-                          context.getSourceCode().getText(b).includes('this.parse')
-                      )
+                    ? runMethod.value.body.body
+                        .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclaration))
+                        .find((b) => context.getSourceCode().getText(b).includes('this.parse'))
                     : undefined;
                 const source = context.getSourceCode().getText();
                 if (!source.includes('this.org = ')) {

@@ -6,17 +6,14 @@
  */
 
 import { sep, parse } from 'path';
-import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, TSESTree, ASTUtils } from '@typescript-eslint/utils';
 import { RuleContext } from '@typescript-eslint/utils/dist/ts-eslint';
 
-export const isClassDeclaration = (node: TSESTree.Node): node is TSESTree.ClassDeclaration =>
-  node.type === AST_NODE_TYPES.ClassDeclaration;
-
 export const ancestorsContainsSfCommand = (ancestors: TSESTree.Node[]): boolean =>
-  ancestors.some((a) => isClassDeclaration(a) && extendsSfCommand(a));
+  ancestors.some((a) => ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)(a) && extendsSfCommand(a));
 
 export const getSfCommand = (ancestors: TSESTree.Node[]): TSESTree.ClassDeclaration | undefined =>
-  ancestors.find((a) => isClassDeclaration(a) && extendsSfCommand(a)) as TSESTree.ClassDeclaration;
+  ancestors.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)).find((a) => a && extendsSfCommand(a));
 
 export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
   node.superClass?.type === AST_NODE_TYPES.Identifier && node.superClass.name === 'SfCommand';
@@ -47,12 +44,11 @@ export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassEle
 
 export const getSfImportFromProgram = (node: TSESTree.Node): TSESTree.ImportDeclaration | undefined => {
   if (node.type === AST_NODE_TYPES.Program) {
-    return node.body.find(
-      (item): item is TSESTree.ImportDeclaration =>
-        item.type === AST_NODE_TYPES.ImportDeclaration &&
-        item.source.type === AST_NODE_TYPES.Literal &&
-        item.source.value === '@salesforce/sf-plugins-core'
-    );
+    return node.body
+      .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ImportDeclaration))
+      .find(
+        (item) => item.source.type === AST_NODE_TYPES.Literal && item.source.value === '@salesforce/sf-plugins-core'
+      );
   }
 };
 

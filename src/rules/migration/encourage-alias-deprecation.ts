@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../../shared/flags';
@@ -74,9 +74,9 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                     property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'deprecateAliases')
                 )
               ) {
-                const aliasesProperty = node.value.arguments[0].properties.find(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'aliases')
-                );
+                const aliasesProperty = node.value.arguments[0].properties
+                  .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property))
+                  .find((property) => flagPropertyIsNamed(property, 'aliases'));
                 context.report({
                   node: aliasesProperty,
                   messageId: 'flag',

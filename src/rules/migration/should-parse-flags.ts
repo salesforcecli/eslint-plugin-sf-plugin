@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-import { isInCommandDirectory, extendsSfCommand, isClassDeclaration } from '../../shared/commands';
+import { isInCommandDirectory, getSfCommand } from '../../shared/commands';
 import { isFlagsStaticProperty } from '../../shared/flags';
 
 export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
@@ -35,9 +35,7 @@ export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
             ) {
               // OK, looks like a run method has a type annotation
               const ancestors = context.getAncestors();
-              const classDeclaration = ancestors.find(
-                (ancestor) => isClassDeclaration(ancestor) && extendsSfCommand(ancestor)
-              );
+              const classDeclaration = getSfCommand(ancestors);
               if (
                 classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration &&
                 classDeclaration.superClass?.type === AST_NODE_TYPES.Identifier &&

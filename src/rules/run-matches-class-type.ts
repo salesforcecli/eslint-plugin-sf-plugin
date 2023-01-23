@@ -4,8 +4,8 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-import { isInCommandDirectory, extendsSfCommand, isClassDeclaration } from '../shared/commands';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { isInCommandDirectory, extendsSfCommand } from '../shared/commands';
 
 export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -34,12 +34,11 @@ export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
             ) {
               // OK, run method has a type annotation.  Now we need to check if the class extends SfCommand and get the <type parameter>
               const ancestors = context.getAncestors();
-              const classDeclaration = ancestors.find(
-                (ancestor) => isClassDeclaration(ancestor) && extendsSfCommand(ancestor)
-              );
+              const classDeclaration = ancestors
+                .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration))
+                .find(extendsSfCommand);
               if (
-                classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration &&
-                classDeclaration.superClass?.type === AST_NODE_TYPES.Identifier &&
+                classDeclaration?.superClass?.type === AST_NODE_TYPES.Identifier &&
                 classDeclaration.superClass.name === 'SfCommand'
               ) {
                 // get the text for the two nodes
