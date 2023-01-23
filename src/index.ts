@@ -39,6 +39,7 @@ import { noUsernameProperties } from './rules/migration/no-username-properties';
 import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
 import { encourageAliasDeprecation } from './rules/migration/encourage-alias-deprecation';
 import { noUnnecessaryAliases } from './rules/no-unnecessary-aliases';
+import { noArgsParseWithoutStrictFalse } from './rules/no-args-parse-without-strict-false';
 
 const recommended = {
   plugins: ['sf-plugin'],
@@ -63,6 +64,7 @@ const recommended = {
     'sf-plugin/no-split-examples': 'error',
     'sf-plugin/no-unnecessary-properties': 'warn',
     'sf-plugin/no-unnecessary-aliases': 'error',
+    'sf-plugin/no-args-parse-without-strict-false': 'error',
   },
 };
 export = {
@@ -124,5 +126,6 @@ export = {
     'no-unnecessary-properties': noUnnecessaryProperties,
     'encourage-alias-deprecation': encourageAliasDeprecation,
     'no-unnecessary-aliases': noUnnecessaryAliases,
+    'no-args-parse-without-strict-false': noArgsParseWithoutStrictFalse,
   },
 };
