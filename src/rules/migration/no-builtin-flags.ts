@@ -6,7 +6,7 @@
  */
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
-import { isFlag } from '../../shared/flags';
+import { getCalleePropertyByName, isFlag } from '../../shared/flags';
 
 const builtInFlagTypes = ['verbose', 'concise', 'quiet'];
 
@@ -28,18 +28,16 @@ export const noBuiltinFlags = ESLintUtils.RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-              if (
-                node.key.type === AST_NODE_TYPES.Identifier &&
-                builtInFlagTypes.includes(node.key.name) &&
-                node.value?.type === AST_NODE_TYPES.CallExpression &&
-                node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
-                node.value.callee.property?.type === AST_NODE_TYPES.Identifier &&
-                node.value.callee.property.name === 'builtin'
-              ) {
-                const toReplace = node.value.callee.property;
+            if (
+              isFlag(node) &&
+              node.key.type === AST_NODE_TYPES.Identifier &&
+              builtInFlagTypes.includes(node.key.name) &&
+              ancestorsContainsSfCommand(context.getAncestors())
+            ) {
+              const toReplace = getCalleePropertyByName(node, 'builtin');
+              if (toReplace) {
                 context.report({
-                  node: node.value.callee.property,
+                  node: toReplace,
                   messageId: 'message',
                   fix: (fixer) => {
                     return fixer.replaceText(toReplace, 'boolean');
