@@ -96,7 +96,7 @@ export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
           }
           const resolvedMessage = getMessage(result);
           const messagePlaceholderCount = getPlaceholderCount(resolvedMessage);
-          if (messagePlaceholderCount !== messageTokensCount) {
+          if (typeof messageTokensCount === 'number' && messagePlaceholderCount !== messageTokensCount) {
             context.report({
               // if there's not a second argument, we can report on the first
               node: node.arguments[1] ?? node.arguments[0],
@@ -110,7 +110,7 @@ export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
             });
           }
           // it's an SfError or a StructuredMessage, check the actions
-          if (typeof result !== 'string' && !Array.isArray(result)) {
+          if (typeof actionTokensCount === 'number' && typeof result !== 'string' && !Array.isArray(result)) {
             const actionPlaceholderCount = getPlaceholderCount(result.actions ?? []);
             if (actionPlaceholderCount !== actionTokensCount) {
               context.report({
@@ -137,7 +137,7 @@ const placeHolderersRegex = new RegExp(/(%s)|(%d)|(%i)|(%f)|(%j)|(%o)|(%O)|(%c)/
 const isMessagesMethod = (method: string): method is (typeof methods)[number] =>
   methods.includes(method as (typeof methods)[number]);
 
-const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): number => {
+const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): number | undefined => {
   if (!node) {
     return 0;
   }
@@ -147,7 +147,7 @@ const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): n
   const realNode = parserServices.esTreeNodeToTSNodeMap.get(node);
   const checker = parserServices.program.getTypeChecker();
 
-  const underlyingNode = checker.getSymbolAtLocation(realNode).getDeclarations()[0];
+  const underlyingNode = checker.getSymbolAtLocation(realNode)?.getDeclarations()[0];
   // the literal value might not be an array, but it might a reference to an array
   if (
     underlyingNode &&
@@ -157,7 +157,7 @@ const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): n
     return underlyingNode.initializer.elements.length;
   }
 
-  return 0;
+  return;
 };
 
 const getMessage = (result: string | string[] | SfError | StructuredMessage): string | string[] => {
