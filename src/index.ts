@@ -40,6 +40,7 @@ import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
 import { encourageAliasDeprecation } from './rules/migration/encourage-alias-deprecation';
 import { noUnnecessaryAliases } from './rules/no-unnecessary-aliases';
 import { noMissingMessages } from './rules/no-missing-messages';
+import { noArgsParseWithoutStrictFalse } from './rules/no-args-parse-without-strict-false';
 
 const library = {
   plugins: ['sf-plugin'],
@@ -72,6 +73,7 @@ const recommended = {
     'sf-plugin/no-split-examples': 'error',
     'sf-plugin/no-unnecessary-properties': 'warn',
     'sf-plugin/no-unnecessary-aliases': 'error',
+    'sf-plugin/no-args-parse-without-strict-false': 'error',
   },
 };
 
@@ -136,5 +138,6 @@ export = {
     'encourage-alias-deprecation': encourageAliasDeprecation,
     'no-unnecessary-aliases': noUnnecessaryAliases,
     'no-missing-messages': noMissingMessages,
+    'no-args-parse-without-strict-false': noArgsParseWithoutStrictFalse,
   },
 };

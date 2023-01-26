@@ -1,3 +1,17 @@
+# [1.7.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.6.3...1.7.0) (2023-01-23)
+
+
+### Bug Fixes
+
+* exclude things that don't extend sfCommand or use args ([5c42964](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/5c42964af2e24cb9bb0ad01fd93eb2a3c5384946))
+
+
+### Features
+
+* strict-false checks, docs catchup ([3c56c59](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/3c56c593db2ba447a862e24c6d7dd4de7e9f07a4))
+
+
+
 ## [1.6.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.6.2...1.6.3) (2023-01-15)
 
 
