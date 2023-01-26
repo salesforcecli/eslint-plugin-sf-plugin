@@ -49,8 +49,8 @@
     "lint": "yarn eslint .",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "docs": "eslint-doc-generator --config-emoji migration,✈️ --config-emoji library,📖",
-    "docs:init": "eslint-doc-generator --config-emoji migration,✈️ --config-emoji library,📖 --init-rule-docs"
+    "docs": "eslint-doc-generator --config-emoji migration,✈️  --config-emoji library,📚",
+    "docs:init": "eslint-doc-generator --config-emoji migration,✈️ --config-emoji library📚, --init-rule-docs"
   },
   "homepage": "https://github.com/salesforcecli/eslint-plugin-sf-plugin",
   "publishConfig": {
