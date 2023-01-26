@@ -6,8 +6,9 @@
  */
 /* eslint-disable complexity */
 
-import { ASTUtils, AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils, ParserServices, TSESTree } from '@typescript-eslint/utils';
 import { Messages, SfError, StructuredMessage } from '@salesforce/core';
+import * as ts from 'typescript';
 
 const methods = ['createError', 'createWarning', 'createInfo', 'getMessage', 'getMessages'] as const;
 
@@ -33,6 +34,8 @@ export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
 
     const loadedMessages = new Map<string, Messages<string>>();
     const loadedMessageBundles = new Map<string, string>();
+    const parserServices = ESLintUtils.getParserServices(context);
+
     return {
       // load any messages, by const name, that are loaded in the file
       VariableDeclarator(node): void {
@@ -73,8 +76,8 @@ export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
           const bundleConstant = node.callee.object.name;
           const messageKey = node.arguments[0].value;
           const fileKey = loadedMessageBundles.get(bundleConstant);
-          const messageTokensCount = getTokensCount(node.arguments[1]);
-          const actionTokensCount = getTokensCount(node.arguments[2]);
+          const messageTokensCount = getTokensCount(parserServices, node.arguments[1]);
+          const actionTokensCount = getTokensCount(parserServices, node.arguments[2]);
           let result: StructuredMessage | SfError | string | string[];
           try {
             // execute some method on Messages so we can inspect the result
@@ -134,13 +137,26 @@ const placeHolderersRegex = new RegExp(/(%s)|(%d)|(%i)|(%f)|(%j)|(%o)|(%O)|(%c)/
 const isMessagesMethod = (method: string): method is (typeof methods)[number] =>
   methods.includes(method as (typeof methods)[number]);
 
-const getTokensCount = (node?: TSESTree.Node): number => {
+const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): number => {
   if (!node) {
     return 0;
   }
   if (ASTUtils.isNodeOfType(AST_NODE_TYPES.ArrayExpression)(node)) {
     return node.elements.length ?? 0;
   }
+  const realNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+  const checker = parserServices.program.getTypeChecker();
+
+  const underlyingNode = checker.getSymbolAtLocation(realNode).getDeclarations()[0];
+  // the literal value might not be an array, but it might a reference to an array
+  if (
+    underlyingNode &&
+    ts.isVariableDeclaration(underlyingNode) &&
+    ts.isArrayLiteralExpression(underlyingNode.initializer)
+  ) {
+    return underlyingNode.initializer.elements.length;
+  }
+
   return 0;
 };
 

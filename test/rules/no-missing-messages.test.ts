@@ -10,6 +10,10 @@ import { noMissingMessages } from '../../src/rules/no-missing-messages';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: path.join(path.join(__dirname, '..')),
+  },
 });
 
 const fileKey = 'test';
@@ -18,7 +22,6 @@ ruleTester.run('noMissingMessages', noMissingMessages, {
   valid: [
     {
       name: 'correct examples with getMessage',
-      filename: path.normalize('src/commands/foo.ts'),
       code: `
 import { Messages } from '@salesforce/core';
 Messages.importMessagesDirectory(__dirname);
@@ -31,8 +34,17 @@ console.log(messages.getMessages('nested.something'));
 `,
     },
     {
+      name: 'placeholders can be a reference',
+      code: `
+import { Messages } from '@salesforce/core';
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages('eslint-plugin-sf-plugin', 'test');
+const tokens = ['foo', 'bar']
+console.log(messages.getMessage('basic2Placeholders', tokens));
+`,
+    },
+    {
       name: 'creating an error with just a key',
-      filename: path.normalize('src/commands/foo.ts'),
       code: `
 import { Messages } from '@salesforce/core';
 Messages.importMessagesDirectory(__dirname);
@@ -43,7 +55,6 @@ console.log(messages.createError('eWith3Placeholders', ['a', 'b', 'c']));
     },
     {
       name: 'error with Actions',
-      filename: path.normalize('src/commands/foo.ts'),
       code: `
 import { Messages } from '@salesforce/core';
 Messages.importMessagesDirectory(__dirname);
@@ -53,7 +64,6 @@ console.log(messages.createError('eWithActionsHaving4Placeholders', undefined, [
     },
     {
       name: 'info with Actions',
-      filename: path.normalize('src/commands/foo.ts'),
       code: `
 import { Messages } from '@salesforce/core';
 Messages.importMessagesDirectory(__dirname);
@@ -66,7 +76,6 @@ console.log(messages.createInfo('iWithActions', undefined, ['a']));
   invalid: [
     {
       name: 'message has placeholders but no tokens are passed',
-      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'placeholders',
@@ -87,7 +96,6 @@ console.log(messages.getMessage('basic2Placeholders', []));
     },
     {
       name: 'message has placeholders wrong number of tokens are passed',
-      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'placeholders',
@@ -108,7 +116,6 @@ console.log(messages.getMessage('basic2Placeholders', ['a', 'b', 'c']));
     },
     {
       name: 'messages with wrong number of placeholders',
-      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'placeholders',
@@ -128,8 +135,29 @@ console.log(messages.getMessages('arrayWith3Placeholders', ['a', 'b', ]));
 `,
     },
     {
+      name: 'messages with wrong number of placeholders as variable',
+      errors: [
+        {
+          messageId: 'placeholders',
+          data: { placeholderCount: 3, argumentCount: 1, fileKey, messageKey: 'arrayWith3Placeholders' },
+        },
+        {
+          messageId: 'placeholders',
+          data: { placeholderCount: 3, argumentCount: 2, fileKey, messageKey: 'arrayWith3Placeholders' },
+        },
+      ],
+      code: `
+import { Messages } from '@salesforce/core';
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages('eslint-plugin-sf-plugin', 'test');
+const oneToken = ['a'];
+const twoTokens = ['a', 'b'];
+console.log(messages.getMessages('arrayWith3Placeholders', oneToken));
+console.log(messages.getMessages('arrayWith3Placeholders', twoTokens));
+`,
+    },
+    {
       name: 'error with actions with wrong number of placeholders',
-      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'actionPlaceholders',
@@ -155,7 +183,6 @@ console.log(messages.createError('eWithActionsHaving4Placeholders'));
     },
     {
       name: 'createInfo missing message',
-      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'missing',
@@ -171,7 +198,6 @@ console.log(messages.createInfo('foo', undefined, ['a']));
     },
     {
       name: 'createInfo wrong tokens',
-      filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
           messageId: 'placeholders',
