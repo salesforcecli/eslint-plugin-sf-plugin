@@ -21,16 +21,21 @@ jobs:
       matrix:
         externalProjectGitUrl:
           - https://github.com/salesforcecli/plugin-deploy-retrieve
-          - https://github.com/salesforcecli/plugin-env
-          - https://github.com/salesforcecli/plugin-settings
-          - https://github.com/salesforcecli/plugin-login
-          - https://github.com/salesforcecli/plugin-sobject
-          - https://github.com/salesforcecli/plugin-dev
-          - https://github.com/salesforcecli/plugin-limits
-          - https://github.com/salesforcecli/plugin-schema
-          - https://github.com/salesforcecli/plugin-data
           - https://github.com/salesforcecli/plugin-community
+          - https://github.com/salesforcecli/plugin-custom-metadata
+          - https://github.com/salesforcecli/plugin-data
+          - https://github.com/salesforcecli/plugin-dev
+          - https://github.com/salesforcecli/plugin-env
+          - https://github.com/salesforcecli/plugin-limits
+          - https://github.com/salesforcecli/plugin-login
+          - https://github.com/salesforcecli/plugin-packaging
+          - https://github.com/salesforcecli/plugin-schema
+          - https://github.com/salesforcecli/plugin-settings
+          - https://github.com/salesforcecli/plugin-signups
+          - https://github.com/salesforcecli/plugin-sobject
           - https://github.com/salesforcecli/plugin-info
+          - https://github.com/salesforcecli/plugin-user
+
     with:
       packageName: 'eslint-plugin-sf-plugin'
       externalProjectGitUrl: ${{ matrix.externalProjectGitUrl }}

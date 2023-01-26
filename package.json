@@ -68,5 +68,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "peerDependencies": {
+    "@salesforce/core": "^3.33.1"
   }
 }
