@@ -17,7 +17,7 @@ Useful post
 
 Be sure to import/export your rule from index.ts, and add it the configs section with your recommended setting.
 
-Create a doc for your new testx by running `yarn docs --init-rule-docs`
+Create a doc for your new tests by running `yarn docs --init-rule-docs`
 
 # Testing
 
