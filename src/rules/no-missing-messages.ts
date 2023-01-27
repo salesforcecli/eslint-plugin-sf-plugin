@@ -147,7 +147,7 @@ const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): n
   const realNode = parserServices.esTreeNodeToTSNodeMap.get(node);
   const checker = parserServices.program.getTypeChecker();
 
-  const underlyingNode = checker.getSymbolAtLocation(realNode)?.getDeclarations()[0];
+  const underlyingNode = checker.getSymbolAtLocation(realNode)?.getDeclarations()?.[0];
   // the literal value might not be an array, but it might a reference to an array
   if (
     underlyingNode &&
