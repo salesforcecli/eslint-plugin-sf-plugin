@@ -1,3 +1,21 @@
+# [1.8.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.7.0...1.8.0) (2023-01-30)
+
+
+### Bug Fixes
+
+* hande potential undefined (abstract class stuff) ([94147bb](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/94147bb172ae0c6dcf797bf1f810bfa6567da1da))
+* handle non-literal tokens ([0d3cdac](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/0d3cdac32fb9c93e0896a21f76405ad147b05e24))
+* make core a normal dep ([d075e95](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/d075e95cc89eabda430663e8908c1c96d958cc28))
+* underlying could be an abstract method ([0d136e1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/0d136e11bae7d30e89d2349758a3a00165ab397c))
+
+
+### Features
+
+* check Messages ([e84b0ce](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/e84b0cef894bc5eb1ae34d820fdc0e7d7730474c))
+* docs for library config ([3e18912](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/3e1891268cb3b94e90149dae907f349be01972f8))
+
+
+
 # [1.7.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.6.3...1.7.0) (2023-01-23)
 
 
