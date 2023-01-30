@@ -7,16 +7,14 @@
 
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 
-export const getFlagName = (node: TSESTree.Node): string => {
-  if (node.type === AST_NODE_TYPES.Property) {
-    switch (node.key.type) {
-      case 'Identifier':
-        return node.key.name;
-      case 'Literal':
-        return node.key.value as string;
-      default:
-        throw new Error(`Unknown flag type ${node.key.type}`);
-    }
+export const getFlagName = (node: TSESTree.Property): string => {
+  switch (node.key.type) {
+    case 'Identifier':
+      return node.key.name;
+    case 'Literal':
+      return node.key.value as string;
+    default:
+      throw new Error(`Unknown flag type ${node.key.type}`);
   }
 };
 
@@ -57,3 +55,15 @@ export const getFlagsStaticPropertyFromCommandClass = (
     return classDeclaration.body.body.find(isFlagsStaticProperty);
   }
 };
+
+export const getCalleePropertyByName = (
+  node: TSESTree.Property,
+  calleePropName: string
+): TSESTree.Identifier | undefined =>
+  (node.key.type === AST_NODE_TYPES.Identifier || node.key.type === AST_NODE_TYPES.Literal) &&
+  node.value?.type === AST_NODE_TYPES.CallExpression &&
+  node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
+  node.value.callee.property?.type === AST_NODE_TYPES.Identifier &&
+  node.value.callee.property.name === calleePropName
+    ? node.value.callee.property
+    : undefined;

@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlag, isFlagsStaticProperty } from '../shared/flags';
 
@@ -37,14 +37,15 @@ export const flagCrossReferences = ESLintUtils.RuleCreator.withoutDocs({
               ancestorsContainsSfCommand(ancestors) &&
               ancestors.some((a) => isFlag(a))
             ) {
-              const flagsNode = ancestors.find((a) => isFlagsStaticProperty(a));
+              const flagsNode = ancestors
+                .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.PropertyDefinition))
+                .find((a) => isFlagsStaticProperty(a));
 
               const arrayValues = node.value.elements
                 .map((e) => (e.type === AST_NODE_TYPES.Literal ? e.value : undefined))
                 .filter(Boolean);
 
               if (
-                flagsNode?.type === AST_NODE_TYPES.PropertyDefinition &&
                 flagsNode.key.type === AST_NODE_TYPES.Identifier &&
                 flagsNode.value.type === AST_NODE_TYPES.ObjectExpression
               ) {

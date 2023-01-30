@@ -39,11 +39,20 @@ import { noUsernameProperties } from './rules/migration/no-username-properties';
 import { noUnnecessaryProperties } from './rules/no-unnecessary-properties';
 import { encourageAliasDeprecation } from './rules/migration/encourage-alias-deprecation';
 import { noUnnecessaryAliases } from './rules/no-unnecessary-aliases';
+import { noMissingMessages } from './rules/no-missing-messages';
 import { noArgsParseWithoutStrictFalse } from './rules/no-args-parse-without-strict-false';
+
+const library = {
+  plugins: ['sf-plugin'],
+  rules: {
+    'sf-plugin/no-missing-messages': 'error',
+  },
+};
 
 const recommended = {
   plugins: ['sf-plugin'],
   rules: {
+    ...library.rules,
     'sf-plugin/command-example': 'warn',
     'sf-plugin/flag-min-max-default': 'warn',
     'sf-plugin/no-hardcoded-messages-flags': 'warn',
@@ -67,9 +76,11 @@ const recommended = {
     'sf-plugin/no-args-parse-without-strict-false': 'error',
   },
 };
+
 export = {
   configs: {
     recommended,
+    library,
     migration: {
       plugins: ['sf-plugin'],
       rules: {
@@ -126,6 +137,7 @@ export = {
     'no-unnecessary-properties': noUnnecessaryProperties,
     'encourage-alias-deprecation': encourageAliasDeprecation,
     'no-unnecessary-aliases': noUnnecessaryAliases,
+    'no-missing-messages': noMissingMessages,
     'no-args-parse-without-strict-false': noArgsParseWithoutStrictFalse,
   },
 };

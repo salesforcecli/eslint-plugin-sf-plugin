@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
@@ -33,16 +33,15 @@ export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {
-              if (
-                !node.value.arguments[0].properties.some(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'summary')
-                )
-              ) {
-                // use the description as the summary if it exists
-                const descriptionProp = node.value.arguments[0].properties.find(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'description')
+              const propertyArguments = node.value.arguments[0].properties.filter(
+                ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
+              );
+
+              if (!propertyArguments.some((property) => flagPropertyIsNamed(property, 'summary'))) {
+                const descriptionProp = propertyArguments.find((property) =>
+                  flagPropertyIsNamed(property, 'description')
                 );
+
                 const range = descriptionProp && 'key' in descriptionProp ? descriptionProp?.key.range : undefined;
                 return context.report({
                   node,
@@ -57,16 +56,10 @@ export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
                     : {}),
                 });
               }
-              if (
-                !node.value.arguments[0].properties.some(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'description')
-                )
-              ) {
+              if (!propertyArguments.some((property) => flagPropertyIsNamed(property, 'description'))) {
                 // if there is no description, but there is a longDescription, turn that into the description
-                const longDescriptionProp = node.value.arguments[0].properties.find(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'longDescription')
+                const longDescriptionProp = propertyArguments.find((property) =>
+                  flagPropertyIsNamed(property, 'longDescription')
                 );
                 if (!longDescriptionProp) {
                   return;

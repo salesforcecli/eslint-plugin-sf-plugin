@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-import { isInCommandDirectory, extendsSfCommand, isClassDeclaration } from '../shared/commands';
+import { isInCommandDirectory, isRunMethod, getSfCommand } from '../shared/commands';
 
 export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -27,21 +27,12 @@ export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           // eslint-disable-next-line complexity
           MethodDefinition(node): void {
-            if (
-              node.key.type === AST_NODE_TYPES.Identifier &&
-              node.key.name === 'run' &&
-              node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference
-            ) {
+            if (isRunMethod(node) && node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference) {
               // OK, run method has a type annotation.  Now we need to check if the class extends SfCommand and get the <type parameter>
               const ancestors = context.getAncestors();
-              const classDeclaration = ancestors.find(
-                (ancestor) => isClassDeclaration(ancestor) && extendsSfCommand(ancestor)
-              );
-              if (
-                classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration &&
-                classDeclaration.superClass?.type === AST_NODE_TYPES.Identifier &&
-                classDeclaration.superClass.name === 'SfCommand'
-              ) {
+              const classDeclaration = getSfCommand(ancestors);
+
+              if (classDeclaration) {
                 // get the text for the two nodes
                 const sourceCode = context.getSourceCode();
                 const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeParameters.params[0]);

@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../../shared/flags';
@@ -61,22 +61,18 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
             }
           },
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-              if (
-                node.value?.type === AST_NODE_TYPES.CallExpression &&
-                node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-                // has min/max
-                node.value.arguments[0].properties.some(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'aliases')
-                ) &&
-                !node.value.arguments[0].properties.some(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'deprecateAliases')
-                )
-              ) {
-                const aliasesProperty = node.value.arguments[0].properties.find(
-                  (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'aliases')
-                );
+            if (
+              isFlag(node) &&
+              node.value?.type === AST_NODE_TYPES.CallExpression &&
+              node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
+              ancestorsContainsSfCommand(context.getAncestors())
+            ) {
+              const argProps = node.value.arguments[0].properties.filter(
+                ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
+              );
+
+              const aliasesProperty = argProps.find((property) => flagPropertyIsNamed(property, 'aliases'));
+              if (aliasesProperty && !argProps.some((property) => flagPropertyIsNamed(property, 'deprecateAliases'))) {
                 context.report({
                   node: aliasesProperty,
                   messageId: 'flag',
