@@ -1,3 +1,12 @@
+# [1.9.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.8.1...1.9.0) (2023-02-23)
+
+
+### Features
+
+* prevent hyphens in aliases ([b8d3fe4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/b8d3fe4f545c8f426b7b3e29d5f2d35067afdc9a))
+
+
+
 ## [1.8.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.8.0...1.8.1) (2023-02-05)
 
 
