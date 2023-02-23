@@ -12,11 +12,12 @@ const props = ['summary', 'description', 'examples', 'flags', 'requiresProject',
 export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'Class-level static properties, like flags or descriptions, should be marked read-only',
+      description: 'Class-level static properties, like flags or descriptions, should be marked public and read-only',
       recommended: 'error',
     },
     messages: {
-      message: 'The {{prop}} property should be read-only',
+      readonly: 'The {{prop}} property should be read-only',
+      public: 'The {{prop}} property should be public',
     },
     type: 'problem',
     fixable: 'code',
@@ -28,7 +29,6 @@ export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           PropertyDefinition(node): void {
             if (
-              !node.readonly &&
               node.static &&
               node.key.type === AST_NODE_TYPES.Identifier &&
               props.includes(node.key.name) &&
@@ -36,12 +36,22 @@ export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
               node.parent.parent.type === AST_NODE_TYPES.ClassDeclaration &&
               extendsSfCommand(node.parent.parent)
             ) {
-              context.report({
-                node,
-                messageId: 'message',
-                data: { prop: node.key.name },
-                fix: (fixer) => fixer.insertTextBefore(node.key, 'readonly '),
-              });
+              if (!node.readonly) {
+                context.report({
+                  node,
+                  messageId: 'readonly',
+                  data: { prop: node.key.name },
+                  fix: (fixer) => fixer.insertTextBefore(node.key, 'readonly '),
+                });
+              } else if (node.accessibility !== 'public') {
+                const replacementText = context.getSourceCode().getText(node).replace(node.accessibility, 'public');
+                context.report({
+                  node,
+                  messageId: 'public',
+                  data: { prop: node.key.name },
+                  fix: (fixer) => fixer.replaceText(node, replacementText),
+                });
+              }
             }
           },
         }

@@ -48,11 +48,11 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [
         {
-          messageId: 'message',
+          messageId: 'readonly',
           data: { prop: 'description' },
         },
         {
-          messageId: 'message',
+          messageId: 'readonly',
           data: { prop: 'summary' },
         },
       ],
@@ -60,6 +60,33 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static description = 'bar'
   public static summary = 'baz'
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly description = 'bar'
+  public static readonly summary = 'baz'
+}
+`,
+    },
+    {
+      name: 'does not have public or readonly',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'public',
+          data: { prop: 'description' },
+        },
+
+        {
+          messageId: 'public',
+          data: { prop: 'summary' },
+        },
+      ],
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  protected static readonly description = 'bar'
+  protected static readonly summary = 'baz'
 }
 `,
       output: `
