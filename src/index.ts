@@ -41,6 +41,7 @@ import { encourageAliasDeprecation } from './rules/migration/encourage-alias-dep
 import { noUnnecessaryAliases } from './rules/no-unnecessary-aliases';
 import { noMissingMessages } from './rules/no-missing-messages';
 import { noArgsParseWithoutStrictFalse } from './rules/no-args-parse-without-strict-false';
+import { noHyphenAliases } from './rules/no-hyphens-aliases';
 
 const library = {
   plugins: ['sf-plugin'],
@@ -74,6 +75,7 @@ const recommended = {
     'sf-plugin/no-unnecessary-properties': 'warn',
     'sf-plugin/no-unnecessary-aliases': 'error',
     'sf-plugin/no-args-parse-without-strict-false': 'error',
+    'sf-plugin/no-hyphens-aliases': 'error',
   },
 };
 
@@ -139,5 +141,6 @@ export = {
     'no-unnecessary-aliases': noUnnecessaryAliases,
     'no-missing-messages': noMissingMessages,
     'no-args-parse-without-strict-false': noArgsParseWithoutStrictFalse,
+    'no-hyphens-aliases': noHyphenAliases,
   },
 };

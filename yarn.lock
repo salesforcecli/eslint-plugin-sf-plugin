@@ -1490,12 +1490,17 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-10.0.0.tgz#71797971162cd3cf65f0b9d24eb28f8d303acdf1"
+  integrity sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==
+
 commander@^4.0.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
-commander@^9.4.0, commander@^9.4.1:
+commander@^9.4.1:
   version "9.4.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.4.1.tgz#d1dd8f2ce6faf93147295c0df13c7c21141cfbdd"
   integrity sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==
@@ -1860,15 +1865,15 @@ eslint-config-salesforce@^0.1.6:
   resolved "https://registry.yarnpkg.com/eslint-config-salesforce/-/eslint-config-salesforce-0.1.6.tgz#47d7846d340df99db25962978e414e03404e5c2a"
   integrity sha512-QloeQzIka5Ruj6RfkfqeNPZoaR7wkz34AU/RABVdn/XBd23lk/l0/I/Hx3Rzx0G4dft/DBaHBL1JYllT0cWE1A==
 
-eslint-doc-generator@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/eslint-doc-generator/-/eslint-doc-generator-1.4.2.tgz#dacde9128d5d3f8e872b4a073560109ddb2d3314"
-  integrity sha512-axO5W9Nt/n/cppE75nJ8JVoqmzUyinzhNQ42vJFqjSnK8KeQoWE6IWqqT1wZly5uSneMuuWYYlCGicc0UeJp2g==
+eslint-doc-generator@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/eslint-doc-generator/-/eslint-doc-generator-1.4.3.tgz#78fbb59fc0182501cb562a185832319062903020"
+  integrity sha512-cn9KXE7xuKlxKi/9VbirR3cbz7W1geRObwWzZjJAnpTeNBoqA8Rj+lD8/HHHJ7PnOdaTrRyhhoYdCtxqq3U7Bw==
   dependencies:
     "@typescript-eslint/utils" "^5.38.1"
     ajv "^8.11.2"
     boolean "^3.2.0"
-    commander "^9.4.0"
+    commander "^10.0.0"
     cosmiconfig "^8.0.0"
     deepmerge "^4.2.2"
     dot-prop "^7.2.0"
