@@ -22,7 +22,7 @@
     "@types/eslint": "^8.21.0",
     "@types/estree": "^1.0.0",
     "@types/jest": "^28.1.7",
-    "@types/node": "^18.13.0",
+    "@types/node": "^18.14.1",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "eslint": "^8.34.0",
