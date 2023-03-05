@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-sf-plugin",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "engines": {
     "node": ">=14.16.0"
   },
