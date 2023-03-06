@@ -75,7 +75,7 @@ const hasOrIsClass = (tn: ts.TypeNode | ts.TypeElement, parserServices: ParserSe
   if (ts.isImportSpecifier(declaration)) {
     // Follow the import
     const type = checker.getTypeAtLocation(declaration);
-    const symbolDeclarations = type.getSymbol().getDeclarations();
+    const symbolDeclarations = type.getSymbol()?.getDeclarations() ?? [];
     return symbolDeclarations.some(
       (d) => ts.isClassLike(d) || ((ts.isTypeNode(d) || ts.isTypeElement(d)) && hasOrIsClass(d, parserServices))
     );
