@@ -1,3 +1,12 @@
+# [1.10.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.9.3...1.10.0) (2023-03-09)
+
+
+### Features
+
+* no-execCmd-double-quotes ([336c773](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/336c773322fe938e8decc1b931e1bffde0a47a6f))
+
+
+
 ## [1.9.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.9.2...1.9.3) (2023-03-05)
 
 
