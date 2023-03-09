@@ -1,3 +1,17 @@
+# [1.11.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.10.0...1.11.0) (2023-03-09)
+
+
+### Bug Fixes
+
+* handle noSymbol scenario ([13cc585](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/13cc58575256e39e8276a883bcdf11db246ee96f))
+
+
+### Features
+
+* no classes in return type ([0227af2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/0227af2e4fc050af84209b82f7b3f81dbf8f0729))
+
+
+
 # [1.10.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.9.3...1.10.0) (2023-03-09)
 
 
