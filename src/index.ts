@@ -42,11 +42,13 @@ import { noUnnecessaryAliases } from './rules/no-unnecessary-aliases';
 import { noMissingMessages } from './rules/no-missing-messages';
 import { noArgsParseWithoutStrictFalse } from './rules/no-args-parse-without-strict-false';
 import { noHyphenAliases } from './rules/no-hyphens-aliases';
+import { noExecCmdDoubleQuotes } from './rules/no-execCmd-double-quotes';
 
 const library = {
   plugins: ['sf-plugin'],
   rules: {
     'sf-plugin/no-missing-messages': 'error',
+    'sf-plugin/no-execcmd-double-quotes': 'error',
   },
 };
 
@@ -142,5 +144,6 @@ export = {
     'no-missing-messages': noMissingMessages,
     'no-args-parse-without-strict-false': noArgsParseWithoutStrictFalse,
     'no-hyphens-aliases': noHyphenAliases,
+    'no-execcmd-double-quotes': noExecCmdDoubleQuotes,
   },
 };
