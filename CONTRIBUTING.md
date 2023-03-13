@@ -41,6 +41,8 @@ yarn build
 yarn add --dev file:/absolute/path/to/eslint-plugin-sf-plugin
 ```
 
+To get changes in your IDE, restart the eslint server.
+
 include in the plugin's `eslint.rc`
 
 ```js

@@ -100,7 +100,10 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                   });
                 }
 
-                if (source.getText(importDeclaration).includes(mappedMetadata.flag)) {
+                if (
+                  source.getText(importDeclaration).includes(mappedMetadata.flag) &&
+                  source.getText(flagsProperty).includes(mappedMetadata.flag)
+                ) {
                   // remove the property only after the other two fixes have been applied
                   context.report({
                     node,

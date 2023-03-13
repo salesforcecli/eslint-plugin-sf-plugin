@@ -33,7 +33,7 @@ export const isFlagsStaticProperty = (node: TSESTree.Node): node is TSESTree.Pro
   node.value?.type === AST_NODE_TYPES.ObjectExpression &&
   node.key.type === AST_NODE_TYPES.Identifier &&
   node.key.name === 'flags' &&
-  node.accessibility === 'public';
+  ['public', 'protected'].includes(node.accessibility);
 
 export const flagPropertyIsNamed = (node: TSESTree.Property, name: string): node is TSESTree.Property =>
   resolveFlagName(node) === name;
