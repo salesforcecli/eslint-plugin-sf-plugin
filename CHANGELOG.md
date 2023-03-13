@@ -1,3 +1,12 @@
+# [1.12.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.11.1...1.12.0) (2023-03-13)
+
+
+### Features
+
+* autofix Messages.load ([#193](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/193)) ([633654c](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/633654c803b0872f10f7415614ea651b65a1aa4e))
+
+
+
 ## [1.11.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.11.0...1.11.1) (2023-03-11)
 
 
