@@ -1,3 +1,18 @@
+# [1.13.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.12.0...1.13.0) (2023-03-13)
+
+
+### Bug Fixes
+
+* only remove username properties after flags and imports are created ([d0f65db](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/d0f65db0c8c436d0c72a0888f1efbf0ef6fd2dbc))
+* recognize protected flag prop ([a8bf8ba](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/a8bf8ba02b2b234e9c90bad9766b6ba63de16b03))
+
+
+### Features
+
+* convert protected props to public ([4c3ba46](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/4c3ba46d7fae070f64f3e054c505e66e2cc48dc7))
+
+
+
 # [1.12.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.11.1...1.12.0) (2023-03-13)
 
 
