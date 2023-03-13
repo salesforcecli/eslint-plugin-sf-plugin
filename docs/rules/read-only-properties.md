@@ -1,4 +1,4 @@
-# Class-level static properties, like flags or descriptions, should be marked read-only (`sf-plugin/read-only-properties`)
+# Class-level static properties, like flags or descriptions, should be marked public and read-only (`sf-plugin/read-only-properties`)
 
 ⚠️ This rule _warns_ in the following configs: ✈️ `migration`, ✅ `recommended`.
 

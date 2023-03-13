@@ -44,11 +44,13 @@ import { noArgsParseWithoutStrictFalse } from './rules/no-args-parse-without-str
 import { noHyphenAliases } from './rules/no-hyphens-aliases';
 import { noClassesInCommandReturnType } from './rules/no-classes-in-command-return-type';
 import { noExecCmdDoubleQuotes } from './rules/no-execCmd-double-quotes';
+import { noMessagesLoad } from './rules/no-messages-load';
 
 const library = {
   plugins: ['sf-plugin'],
   rules: {
     'sf-plugin/no-missing-messages': 'error',
+    'sf-plugin/no-messages-load': 'error',
     'sf-plugin/no-execcmd-double-quotes': 'error',
   },
 };
@@ -148,5 +150,6 @@ export = {
     'no-hyphens-aliases': noHyphenAliases,
     'no-classes-in-command-return-type': noClassesInCommandReturnType,
     'no-execcmd-double-quotes': noExecCmdDoubleQuotes,
+    'no-messages-load': noMessagesLoad,
   },
 };
