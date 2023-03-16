@@ -1,3 +1,12 @@
+# [1.14.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.13.0...1.14.0) (2023-03-16)
+
+
+### Features
+
+* disable nut double-quote rule ([0dea4d3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/0dea4d3a72416b5cee0ae1c4b011418d951c7a8f))
+
+
+
 # [1.13.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.12.0...1.13.0) (2023-03-13)
 
 
