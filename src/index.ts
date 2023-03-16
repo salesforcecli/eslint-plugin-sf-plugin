@@ -51,7 +51,7 @@ const library = {
   rules: {
     'sf-plugin/no-missing-messages': 'error',
     'sf-plugin/no-messages-load': 'error',
-    'sf-plugin/no-execcmd-double-quotes': 'error',
+    'sf-plugin/no-execcmd-double-quotes': 'off',
   },
 };
 
