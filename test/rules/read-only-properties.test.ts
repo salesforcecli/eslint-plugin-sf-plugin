@@ -96,5 +96,57 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
+    {
+      name: 'aliases only modifies top-level, not flags (public)',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'public',
+          data: { prop: 'aliases' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = 'bar'
+  public static readonly flags = {
+    foo: flags.string({char: 'f', description: 'foo', aliases: ['g']}),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  protected static readonly aliases = 'bar'
+  public static readonly flags = {
+    foo: flags.string({char: 'f', description: 'foo', aliases: ['g']}),
+  }
+}
+`,
+    },
+    {
+      name: 'aliases only modifies top-level, not flags (readonly)',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'readonly',
+          data: { prop: 'aliases' },
+        },
+      ],
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  protected static aliases = 'bar'
+  public static readonly flags = {
+    foo: flags.string({char: 'f', description: 'foo', aliases: ['g']}),
+  }
+}
+`,
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  protected static readonly aliases = 'bar'
+  public static readonly flags = {
+    foo: flags.string({char: 'f', description: 'foo', aliases: ['g']}),
+  }
+}
+`,
+    },
   ],
 });

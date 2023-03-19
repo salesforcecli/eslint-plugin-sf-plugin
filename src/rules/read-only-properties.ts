@@ -7,7 +7,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
 import { extendsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-const props = ['summary', 'description', 'examples', 'flags', 'requiresProject', 'hidden'];
+const props = ['summary', 'description', 'examples', 'flags', 'requiresProject', 'hidden', 'aliases'];
 
 export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
