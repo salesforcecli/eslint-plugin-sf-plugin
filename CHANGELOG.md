@@ -1,3 +1,12 @@
+# [1.15.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.14.1...1.15.0) (2023-04-12)
+
+
+### Features
+
+* add aliases to readonly props ([3fd5eaf](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/3fd5eafaca8c70471faac8da35003fcf1c955b29))
+
+
+
 ## [1.14.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.14.0...1.14.1) (2023-04-12)
 
 
