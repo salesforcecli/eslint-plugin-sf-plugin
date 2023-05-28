@@ -1,3 +1,12 @@
+## [1.15.5](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.4...1.15.5) (2023-05-28)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 3.36.1 to 3.36.2 ([75f4bb6](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/75f4bb63edb57d3b0e2445e8a612a082641aeb1b))
+
+
+
 ## [1.15.4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.3...1.15.4) (2023-05-28)
 
 
