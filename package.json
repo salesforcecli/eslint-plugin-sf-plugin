@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@salesforce/prettier-config": "^0.0.3",
-    "@types/eslint": "^8.40.0",
+    "@types/eslint": "^8.40.1",
     "@types/estree": "^1.0.1",
     "@types/jest": "^28.1.7",
     "@types/node": "^18.16.17",
