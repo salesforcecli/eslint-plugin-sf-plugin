@@ -1,3 +1,12 @@
+## [1.15.11](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.10...1.15.11) (2023-07-09)
+
+
+### Bug Fixes
+
+* **deps:** bump tough-cookie from 4.1.2 to 4.1.3 ([a3dc424](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/a3dc424819b732cf79f7b78a8fdc388f24e7e247))
+
+
+
 ## [1.15.10](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.9...1.15.10) (2023-07-02)
 
 
