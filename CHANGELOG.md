@@ -1,3 +1,12 @@
+## [1.15.13](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.12...1.15.13) (2023-07-12)
+
+
+### Bug Fixes
+
+* **deps:** bump semver from 6.3.0 to 6.3.1 ([6f6089f](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/6f6089f27f7f13b6b1ed90a3bdb8988861f0af7c))
+
+
+
 ## [1.15.12](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.11...1.15.12) (2023-07-09)
 
 
