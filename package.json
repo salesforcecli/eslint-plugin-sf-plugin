@@ -15,7 +15,7 @@
   "repository": "salesforcecli/eslint-plugin-sf-plugin",
   "dependencies": {
     "@salesforce/core": "^4.3.7",
-    "@typescript-eslint/utils": "^5.59.11"
+    "@typescript-eslint/utils": "^5.62.0"
   },
   "devDependencies": {
     "@salesforce/prettier-config": "^0.0.3",
