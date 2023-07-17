@@ -30,10 +30,11 @@ export const noHyphenAliases = ESLintUtils.RuleCreator.withoutDocs({
             if (
               typeof node.value === 'string' &&
               node.value.startsWith('-') &&
-              node.parent.type === AST_NODE_TYPES.ArrayExpression &&
-              node.parent.parent.type === AST_NODE_TYPES.Property &&
+              node.parent?.type === AST_NODE_TYPES.ArrayExpression &&
+              node.parent.parent?.type === AST_NODE_TYPES.Property &&
               node.parent.parent.key.type === AST_NODE_TYPES.Identifier &&
               node.parent.parent.key.name === 'aliases' &&
+              node.parent.parent.parent?.parent?.parent &&
               isFlag(node.parent.parent.parent?.parent?.parent) &&
               ancestorsContainsSfCommand(context.getAncestors())
             ) {

@@ -28,10 +28,11 @@ export const noUnnecessaryAliases = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           Literal(node): void {
             if (
-              node.parent.type === AST_NODE_TYPES.ArrayExpression &&
-              node.parent.parent.type === AST_NODE_TYPES.PropertyDefinition &&
+              node.parent?.type === AST_NODE_TYPES.ArrayExpression &&
+              node.parent.parent?.type === AST_NODE_TYPES.PropertyDefinition &&
               node.parent.parent.key.type === AST_NODE_TYPES.Identifier &&
               node.parent.parent.key.name === 'aliases' &&
+              context.getPhysicalFilename &&
               ancestorsContainsSfCommand(context.getAncestors())
             ) {
               const parentLength = node.parent.elements.length;
@@ -46,10 +47,10 @@ export const noUnnecessaryAliases = ESLintUtils.RuleCreator.withoutDocs({
                   messageId: 'summary',
                   fix: (fixer) => {
                     const comma = context.getSourceCode().getTokenAfter(node);
-                    if (parentLength === 1) {
+                    if (parentLength === 1 && node.parent?.parent) {
                       return fixer.remove(node.parent.parent);
                     }
-                    return comma.value === ','
+                    return comma?.value === ','
                       ? fixer.removeRange([node.range[0], node.range[1] + 1])
                       : fixer.remove(node);
                   },

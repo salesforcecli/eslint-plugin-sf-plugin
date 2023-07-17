@@ -25,7 +25,7 @@ export const commandSummary = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           ClassDeclaration(node): void {
             // verify it extends SfCommand
-            if (extendsSfCommand(node)) {
+            if (extendsSfCommand(node) && node.id) {
               if (!node.body.body.some((member) => getClassPropertyIdentifierName(member) === 'summary')) {
                 const descriptionNode = node.body.body.find(
                   (member) => getClassPropertyIdentifierName(member) === 'description'
@@ -41,7 +41,8 @@ export const commandSummary = ESLintUtils.RuleCreator.withoutDocs({
                             descriptionNode,
                             `public static readonly summary = ${context
                               .getSourceCode()
-                              .getText(descriptionNode.value)};`
+                              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                              .getText(descriptionNode.value!)};`
                           ),
                       }
                     : {}),

@@ -55,19 +55,21 @@ export const noArgsParseWithoutStrictFalse = ESLintUtils.RuleCreator.withoutDocs
               );
               if (
                 strictProperty?.type === AST_NODE_TYPES.PropertyDefinition &&
-                strictProperty.value.type === AST_NODE_TYPES.Literal &&
+                strictProperty.value?.type === AST_NODE_TYPES.Literal &&
                 strictProperty.value.value === true
               ) {
                 context.report({
                   node: strictProperty,
                   messageId: 'summary',
-                  fix: (fixer) => fixer.replaceText(strictProperty.value, 'false'),
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  fix: (fixer) => fixer.replaceText(strictProperty.value!, 'false'),
                 });
               } else if (!strictProperty) {
                 context.report({
                   node: node.id,
                   messageId: 'summary',
-                  fix: (fixer) => fixer.insertTextBefore(sfCommand.body.body[0], 'public static readonly strict = false;'),
+                  fix: (fixer) =>
+                    fixer.insertTextBefore(sfCommand.body.body[0], 'public static readonly strict = false;'),
                 });
               }
             }

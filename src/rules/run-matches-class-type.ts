@@ -35,12 +35,13 @@ export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
               if (classDeclaration) {
                 // get the text for the two nodes
                 const sourceCode = context.getSourceCode();
-                const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeParameters.params[0]);
+                const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeParameters?.params[0]);
                 const classType = sourceCode.getText(classDeclaration.superTypeParameters?.params[0]);
 
                 if (runType && classType && runType !== classType) {
                   if (classDeclaration.superTypeParameters?.params[0].type === AST_NODE_TYPES.TSUnknownKeyword) {
                     // When Class Type is "unknown", but the run method has a return type, we can make the Class match the method.
+                    const target = classDeclaration.superTypeParameters?.params[0].range;
                     context.report({
                       node,
                       messageId: 'summary',
@@ -48,25 +49,31 @@ export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
                         runMethodReturnType: runType,
                         classTypeParameter: classType,
                       },
-                      fix: (fixer) => fixer.replaceTextRange(classDeclaration.superTypeParameters?.params[0].range, runType),
+                      fix: (fixer) => fixer.replaceTextRange(target, runType),
                     });
                   } else {
-                    context.report({
-                      node: classDeclaration.superTypeParameters?.params[0],
-                      messageId: 'summary',
-                      data: {
-                        runMethodReturnType: runType,
-                        classTypeParameter: classType,
-                      },
-                    });
-                    context.report({
-                      node: node.value.returnType?.typeAnnotation.typeParameters.params[0],
-                      messageId: 'summary',
-                      data: {
-                        runMethodReturnType: runType,
-                        classTypeParameter: classType,
-                      },
-                    });
+                    const targetNode = classDeclaration.superTypeParameters?.params[0];
+                    if (targetNode) {
+                      context.report({
+                        node: targetNode,
+                        messageId: 'summary',
+                        data: {
+                          runMethodReturnType: runType,
+                          classTypeParameter: classType,
+                        },
+                      });
+                    }
+                    const targetNode2 = node.value.returnType?.typeAnnotation.typeParameters?.params[0];
+                    if (targetNode2) {
+                      context.report({
+                        node: targetNode2,
+                        messageId: 'summary',
+                        data: {
+                          runMethodReturnType: runType,
+                          classTypeParameter: classType,
+                        },
+                      });
+                    }
                   }
                 }
               }

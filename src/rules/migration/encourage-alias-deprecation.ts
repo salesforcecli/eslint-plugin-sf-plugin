@@ -36,7 +36,7 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
               if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'aliases') {
                 // but you don't have deprecateAliases = true then add id
                 if (
-                  node.parent.type === AST_NODE_TYPES.ClassBody &&
+                  node.parent?.type === AST_NODE_TYPES.ClassBody &&
                   !node.parent.body.some(
                     (n) =>
                       n.type === AST_NODE_TYPES.PropertyDefinition &&
@@ -50,7 +50,8 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                     suggest: [
                       {
                         messageId: 'command',
-                        fix: (fixer): RuleFix => fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
+                        fix: (fixer): RuleFix =>
+                          fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
                       },
                     ],
                   });

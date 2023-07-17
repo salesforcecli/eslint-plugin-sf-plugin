@@ -39,13 +39,15 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
             ) {
               // spinner cases
               if (node.property.type === AST_NODE_TYPES.Identifier && spinnerMigration.has(node.property.name)) {
+                const spinnerReplacement = spinnerMigration.get(node.property.name);
                 const toRemove = node;
-                const original = node.property.name;
-                context.report({
-                  node,
-                  messageId: 'spinner',
-                  fix: (fixer) => fixer.replaceText(toRemove, spinnerMigration.get(original)),
-                });
+                if (spinnerReplacement) {
+                  context.report({
+                    node,
+                    messageId: 'spinner',
+                    fix: (fixer) => fixer.replaceText(toRemove, spinnerReplacement),
+                  });
+                }
               } else if (node.property.type === AST_NODE_TYPES.Identifier && node.property.name === 'logJson') {
                 // this.ux.logJson => this.styledJson
                 const toRemove = node;

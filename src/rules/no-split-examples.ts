@@ -29,9 +29,9 @@ export const noSplitExamples = ESLintUtils.RuleCreator.withoutDocs({
               node.static &&
               node.key.type === AST_NODE_TYPES.Identifier &&
               node.key.name === 'examples' &&
-              node.parent.type === AST_NODE_TYPES.ClassBody &&
-              node.parent.parent.type === AST_NODE_TYPES.ClassDeclaration &&
-              node.value.type === AST_NODE_TYPES.CallExpression &&
+              node.parent?.type === AST_NODE_TYPES.ClassBody &&
+              node.parent.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.callee.type === AST_NODE_TYPES.MemberExpression &&
               node.value.callee.object.type === AST_NODE_TYPES.CallExpression &&
               node.value.callee.object.callee.type === AST_NODE_TYPES.MemberExpression &&

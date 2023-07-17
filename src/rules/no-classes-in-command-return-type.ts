@@ -30,7 +30,7 @@ export const noClassesInCommandReturnType = ESLintUtils.RuleCreator.withoutDocs(
         if (
           isRunMethod(node) &&
           node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference &&
-          node.value.returnType?.typeAnnotation.typeParameters.params[0].type === AST_NODE_TYPES.TSTypeReference
+          node.value.returnType?.typeAnnotation.typeParameters?.params[0].type === AST_NODE_TYPES.TSTypeReference
         ) {
           const parserServices = ESLintUtils.getParserServices(context);
           const runType = node.value.returnType?.typeAnnotation.typeParameters.params[0];
@@ -68,6 +68,7 @@ const hasOrIsClass = (tn: ts.TypeNode | ts.TypeElement, parserServices: ParserSe
   }
   if (
     (ts.isPropertyDeclaration(declaration) || ts.isPropertySignature(declaration)) &&
+    declaration.type &&
     ts.isTypeNode(declaration.type)
   ) {
     return hasOrIsClass(declaration.type, parserServices);

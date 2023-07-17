@@ -85,7 +85,7 @@ export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
                   );
                   if (aliasesNode?.value.type === AST_NODE_TYPES.ArrayExpression) {
                     aliasesNode.value.elements.forEach((alias) => {
-                      if (alias.type === AST_NODE_TYPES.Literal)
+                      if (alias?.type === AST_NODE_TYPES.Literal)
                         if (previouslyUsed.has(alias.value)) {
                           context.report({
                             node: alias,

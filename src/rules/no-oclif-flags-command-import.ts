@@ -35,7 +35,7 @@ export const noOclifFlagsCommandImport = ESLintUtils.RuleCreator.withoutDocs({
                     messageId: 'flags',
                     fix: (fixer) => {
                       const comma = context.getSourceCode().getTokenAfter(specifier);
-                      return comma.value === ','
+                      return comma?.value === ','
                         ? fixer.removeRange([specifier.range[0], specifier.range[1] + 1])
                         : fixer.remove(specifier);
                     },
@@ -47,7 +47,7 @@ export const noOclifFlagsCommandImport = ESLintUtils.RuleCreator.withoutDocs({
                     messageId: 'command',
                     fix: (fixer) => {
                       const comma = context.getSourceCode().getTokenAfter(specifier);
-                      return comma.value === ','
+                      return comma?.value === ','
                         ? fixer.removeRange([specifier.range[0], specifier.range[1] + 1])
                         : fixer.remove(specifier);
                     },

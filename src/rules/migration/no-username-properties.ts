@@ -63,6 +63,9 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
             if (ancestorsContainsSfCommand(context.getAncestors())) {
               if (node.key.type === AST_NODE_TYPES.Identifier && propertyMap.has(node.key.name)) {
                 const mappedMetadata = propertyMap.get(node.key.name);
+                if (!mappedMetadata) {
+                  return;
+                }
 
                 // ensure the import exists
                 const ancestors = context.getAncestors();
@@ -82,17 +85,22 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                 // add the flag if not already present
 
                 const outerClass = getSfCommand(ancestors);
+                if (!outerClass) {
+                  return;
+                }
                 const flagsProperty = getFlagsStaticPropertyFromCommandClass(outerClass);
 
-                if (flagsProperty && !source.getText(flagsProperty).includes(mappedMetadata.flag)) {
+                if (
+                  flagsProperty &&
+                  !source.getText(flagsProperty).includes(mappedMetadata.flag) &&
+                  typeof flagsProperty.value?.range[0] == 'number'
+                ) {
                   const addedFlag = `'${mappedMetadata.flagName}': ${mappedMetadata.flag},`;
+                  const removeRange = [flagsProperty.value?.range[0] + 1, flagsProperty.value.range[0] + 1] as const;
                   context.report({
                     node,
                     messageId: mappedMetadata.message,
-                    fix: (fixer) => fixer.insertTextAfterRange(
-                        [flagsProperty.value.range[0] + 1, flagsProperty.value.range[0] + 1],
-                        addedFlag
-                      ),
+                    fix: (fixer) => fixer.insertTextAfterRange(removeRange, addedFlag),
                   });
                 }
 
