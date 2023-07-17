@@ -25,9 +25,9 @@ export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): str
 
 // we don't care what the types are, really any context will do
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isInCommandDirectory = (context: RuleContext<any, any>): boolean => {
-  return context.getPhysicalFilename().includes(`src${sep}commands${sep}`); // not an sfCommand
-};
+export const isInCommandDirectory = (context: RuleContext<any, any>): boolean => 
+   context.getPhysicalFilename().includes(`src${sep}commands${sep}`) // not an sfCommand
+;
 
 export const isRunMethod = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.MethodDefinition &&

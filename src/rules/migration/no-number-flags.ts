@@ -32,9 +32,7 @@ export const noNumberFlags = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node: toReplace,
                   messageId: 'message',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toReplace, 'integer');
-                  },
+                  fix: (fixer) => fixer.replaceText(toReplace, 'integer'),
                 });
               }
             }

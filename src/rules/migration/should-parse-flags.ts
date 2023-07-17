@@ -44,12 +44,10 @@ export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node,
                     messageId: 'summary',
-                    fix: (fixer) => {
-                      return fixer.insertTextBefore(
+                    fix: (fixer) => fixer.insertTextBefore(
                         node.value.body.body[0],
                         `const {flags} = await this.parse(${className});`
-                      );
-                    },
+                      ),
                   });
                 }
               }

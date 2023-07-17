@@ -46,9 +46,7 @@ export const noTimeFlags = ESLintUtils.RuleCreator.withoutDocs({
                   node,
                   messageId: 'message',
                   data: { time: node.value.callee.property.name },
-                  fix: (fixer) => {
-                    return fixer.replaceText(node, fixed);
-                  },
+                  fix: (fixer) => fixer.replaceText(node, fixed),
                 });
               }
             }

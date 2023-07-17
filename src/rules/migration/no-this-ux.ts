@@ -44,9 +44,7 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node,
                   messageId: 'spinner',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toRemove, spinnerMigration.get(original));
-                  },
+                  fix: (fixer) => fixer.replaceText(toRemove, spinnerMigration.get(original)),
                 });
               } else if (node.property.type === AST_NODE_TYPES.Identifier && node.property.name === 'logJson') {
                 // this.ux.logJson => this.styledJson
@@ -55,9 +53,7 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node,
                   messageId: 'message',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toRemove, 'this.styledJSON');
-                  },
+                  fix: (fixer) => fixer.replaceText(toRemove, 'this.styledJSON'),
                 });
               } else {
                 // all other this.ux cases
@@ -65,9 +61,7 @@ export const noThisUx = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node,
                   messageId: 'message',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toRemove, `this.${context.getSourceCode().getText(node.property)}`);
-                  },
+                  fix: (fixer) => fixer.replaceText(toRemove, `this.${context.getSourceCode().getText(node.property)}`),
                 });
               }
             }

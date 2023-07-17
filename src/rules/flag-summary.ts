@@ -49,9 +49,7 @@ export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
                   ...(range
                     ? {
                         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                        fix: (fixer) => {
-                          return fixer.replaceTextRange(range, 'summary');
-                        },
+                        fix: (fixer) => fixer.replaceTextRange(range, 'summary'),
                       }
                     : {}),
                 });
@@ -72,9 +70,7 @@ export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
                   ...(range
                     ? {
                         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-                        fix: (fixer) => {
-                          return fixer.replaceTextRange(range, 'description');
-                        },
+                        fix: (fixer) => fixer.replaceTextRange(range, 'description'),
                       }
                     : {}),
                 });

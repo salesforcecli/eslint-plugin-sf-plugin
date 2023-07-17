@@ -75,9 +75,7 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node: importDeclaration,
                     messageId: mappedMetadata.message,
-                    fix: (fixer) => {
-                      return fixer.replaceText(importDeclaration, fixedImport);
-                    },
+                    fix: (fixer) => fixer.replaceText(importDeclaration, fixedImport),
                   });
                 }
 
@@ -91,12 +89,10 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node,
                     messageId: mappedMetadata.message,
-                    fix: (fixer) => {
-                      return fixer.insertTextAfterRange(
+                    fix: (fixer) => fixer.insertTextAfterRange(
                         [flagsProperty.value.range[0] + 1, flagsProperty.value.range[0] + 1],
                         addedFlag
-                      );
-                    },
+                      ),
                   });
                 }
 
@@ -111,9 +107,7 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
                     data: {
                       property: node.key.name,
                     },
-                    fix: (fixer) => {
-                      return fixer.remove(node);
-                    },
+                    fix: (fixer) => fixer.remove(node),
                   });
                 }
               }

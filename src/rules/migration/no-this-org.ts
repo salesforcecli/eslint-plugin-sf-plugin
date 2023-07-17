@@ -57,9 +57,7 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node,
                     messageId: 'setThisOrg',
-                    fix: (fixer) => {
-                      return fixer.insertTextAfter(flagsParse, "this.org = flags['target-org'];");
-                    },
+                    fix: (fixer) => fixer.insertTextAfter(flagsParse, "this.org = flags['target-org'];"),
                   });
                 }
               } else {
@@ -69,15 +67,11 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
                   suggest: [
                     {
                       messageId: 'useFlags',
-                      fix: (fixer: RuleFixer): RuleFix => {
-                        return fixer.replaceText(node, "flags['target-org']");
-                      },
+                      fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, "flags['target-org']"),
                     },
                     {
                       messageId: 'instanceProp',
-                      fix: (fixer: RuleFixer): RuleFix => {
-                        return fixer.insertTextBefore(runMethod, 'private org: Org;\n');
-                      },
+                      fix: (fixer: RuleFixer): RuleFix => fixer.insertTextBefore(runMethod, 'private org: Org;\n'),
                     },
                   ],
                 });

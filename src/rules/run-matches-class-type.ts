@@ -48,9 +48,7 @@ export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
                         runMethodReturnType: runType,
                         classTypeParameter: classType,
                       },
-                      fix: (fixer) => {
-                        return fixer.replaceTextRange(classDeclaration.superTypeParameters?.params[0].range, runType);
-                      },
+                      fix: (fixer) => fixer.replaceTextRange(classDeclaration.superTypeParameters?.params[0].range, runType),
                     });
                   } else {
                     context.report({

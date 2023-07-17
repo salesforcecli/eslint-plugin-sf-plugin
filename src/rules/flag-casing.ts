@@ -39,9 +39,7 @@ export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
                   node,
                   messageId: 'message',
                   data: { flagName },
-                  fix: (fixer) => {
-                    return fixer.replaceText(node.key, `'${toLowerKebabCase(flagName)}'`);
-                  },
+                  fix: (fixer) => fixer.replaceText(node.key, `'${toLowerKebabCase(flagName)}'`),
                 });
               }
             }

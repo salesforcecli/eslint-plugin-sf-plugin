@@ -40,9 +40,7 @@ export const noHyphenAliases = ESLintUtils.RuleCreator.withoutDocs({
               context.report({
                 node,
                 messageId: 'summary',
-                fix: (fixer) => {
-                  return fixer.replaceText(node, `'${node.value.replace(/^-+/, '')}'`);
-                },
+                fix: (fixer) => fixer.replaceText(node, `'${node.value.replace(/^-+/, '')}'`),
               });
             }
           },

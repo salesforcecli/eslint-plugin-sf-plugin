@@ -50,9 +50,7 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                     suggest: [
                       {
                         messageId: 'command',
-                        fix: (fixer): RuleFix => {
-                          return fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;');
-                        },
+                        fix: (fixer): RuleFix => fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
                       },
                     ],
                   });
@@ -79,9 +77,7 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                   suggest: [
                     {
                       messageId: 'flag',
-                      fix: (fixer): RuleFix => {
-                        return fixer.insertTextBefore(aliasesProperty, 'deprecateAliases:true,');
-                      },
+                      fix: (fixer): RuleFix => fixer.insertTextBefore(aliasesProperty, 'deprecateAliases:true,'),
                     },
                   ],
                 });

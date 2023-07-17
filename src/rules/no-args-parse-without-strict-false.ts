@@ -61,17 +61,13 @@ export const noArgsParseWithoutStrictFalse = ESLintUtils.RuleCreator.withoutDocs
                 context.report({
                   node: strictProperty,
                   messageId: 'summary',
-                  fix: (fixer) => {
-                    return fixer.replaceText(strictProperty.value, 'false');
-                  },
+                  fix: (fixer) => fixer.replaceText(strictProperty.value, 'false'),
                 });
               } else if (!strictProperty) {
                 context.report({
                   node: node.id,
                   messageId: 'summary',
-                  fix: (fixer) => {
-                    return fixer.insertTextBefore(sfCommand.body.body[0], 'public static readonly strict = false;');
-                  },
+                  fix: (fixer) => fixer.insertTextBefore(sfCommand.body.body[0], 'public static readonly strict = false;'),
                 });
               }
             }

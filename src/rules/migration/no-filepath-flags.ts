@@ -32,9 +32,7 @@ export const noFilepathFlags = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node: toReplace,
                   messageId: 'message',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toReplace, 'file');
-                  },
+                  fix: (fixer) => fixer.replaceText(toReplace, 'file'),
                 });
               }
             }

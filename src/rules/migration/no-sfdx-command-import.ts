@@ -29,9 +29,7 @@ export const noSfdxCommandImport = ESLintUtils.RuleCreator.withoutDocs({
               context.report({
                 node: node.superClass,
                 messageId: 'superClass',
-                fix: (fixer) => {
-                  return fixer.replaceTextRange(node.superClass.range, 'SfCommand<unknown>');
-                },
+                fix: (fixer) => fixer.replaceTextRange(node.superClass.range, 'SfCommand<unknown>'),
               });
             }
           },
@@ -41,9 +39,7 @@ export const noSfdxCommandImport = ESLintUtils.RuleCreator.withoutDocs({
               context.report({
                 node,
                 messageId: 'import',
-                fix: (fixer) => {
-                  return fixer.replaceText(node, "import {Flags, SfCommand} from '@salesforce/sf-plugins-core';");
-                },
+                fix: (fixer) => fixer.replaceText(node, "import {Flags, SfCommand} from '@salesforce/sf-plugins-core';"),
               });
             }
           },

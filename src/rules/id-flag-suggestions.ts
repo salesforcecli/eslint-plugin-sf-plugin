@@ -62,9 +62,7 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                           {
                             // I think this is a TS problem in the utils
                             messageId: 'typeSuggestion' as keyof typeof idFlagSuggestions.meta.messages,
-                            fix: (fixer: RuleFixer): RuleFix => {
-                              return fixer.replaceText(node, fixedStartsWith);
-                            },
+                            fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixedStartsWith),
                           },
                         ]
                       : []
@@ -73,21 +71,15 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                         ? [
                             {
                               messageId: 'lengthSuggestionBoth',
-                              fix: (fixer: RuleFixer): RuleFix => {
-                                return fixer.replaceText(node, fixerBoth);
-                              },
+                              fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixerBoth),
                             },
                             {
                               messageId: 'lengthSuggestion15',
-                              fix: (fixer: RuleFixer): RuleFix => {
-                                return fixer.replaceText(node, fixer15);
-                              },
+                              fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixer15),
                             },
                             {
                               messageId: 'lengthSuggestion18',
-                              fix: (fixer: RuleFixer): RuleFix => {
-                                return fixer.replaceText(node, fixer18);
-                              },
+                              fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixer18),
                             },
                           ]
                         : []

@@ -67,9 +67,7 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node,
                     messageId: 'instanceProp',
-                    fix: (fixer) => {
-                      return fixer.insertTextAfter(flagsParse, 'this.flags = flags;');
-                    },
+                    fix: (fixer) => fixer.insertTextAfter(flagsParse, 'this.flags = flags;'),
                   });
                 }
               } else {
@@ -79,9 +77,7 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                   context.report({
                     node,
                     messageId: 'noThisFlags',
-                    fix: (fixer) => {
-                      return fixer.replaceText(node, 'flags');
-                    },
+                    fix: (fixer) => fixer.replaceText(node, 'flags'),
                   });
                 } else {
                   // otherwise, your options are: Make one, or use flags
@@ -91,18 +87,14 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                     suggest: [
                       {
                         messageId: 'useFlags',
-                        fix: (fixer): RuleFix => {
-                          return fixer.replaceText(node, 'flags');
-                        },
+                        fix: (fixer): RuleFix => fixer.replaceText(node, 'flags'),
                       },
                       {
                         messageId: 'instanceProp',
-                        fix: (fixer): RuleFix => {
-                          return fixer.insertTextBefore(
+                        fix: (fixer): RuleFix => fixer.insertTextBefore(
                             runMethod,
                             `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
-                          );
-                        },
+                          ),
                       },
                     ],
                   });
