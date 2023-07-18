@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: ${{ inputs.nodeVersion }}
       - run: git clone ${{ inputs.externalProjectGitUrl}} $(pwd)
-      - run: yarn install  --network-timeout 600000
+      - uses: salesforcecli/github-workflows/.github/actions/yarnInstallWithRetries@main
       - name: swap this dependency for the version on this branch
         run: |
           yarn remove ${{ inputs.packageName }}
