@@ -11,10 +11,13 @@ import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/comm
 export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     docs: {
-      description: 'Use loaded messages and separate files for messages',
+      description: 'Use loaded messages and separate files for messages.  Follow the message naming guidelines',
       recommended: 'warn',
     },
+    fixable: 'code',
     messages: {
+      summaryFormat: 'The summary message should be named flags.{{name}}.summary',
+      descriptionFormat: 'The description message should be named flags.{{name}}.description',
       message:
         'Summary/Description property should use messages.getMessage instead of hardcoding the message.  See https://github.com/forcedotcom/sfdx-core/blob/v3/MIGRATING_V2-V3.md#messages',
     },
@@ -31,13 +34,39 @@ export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
               node.key.type === AST_NODE_TYPES.Identifier &&
               (node.key.name === 'summary' || node.key.name === 'description') &&
               ancestors.some((a) => isFlag(a)) &&
-              node.value.type === AST_NODE_TYPES.Literal &&
               ancestorsContainsSfCommand(ancestors)
             ) {
-              context.report({
-                node,
-                messageId: 'message',
-              });
+              if (node.value.type === AST_NODE_TYPES.Literal) {
+                context.report({
+                  node,
+                  messageId: 'message',
+                });
+              }
+              const flag = ancestors.find((a) => isFlag(a));
+              const flagName =
+                flag?.type === AST_NODE_TYPES.Property &&
+                flag.key.type === AST_NODE_TYPES.Identifier &&
+                flag?.key?.name;
+              if (
+                flagName &&
+                node.value.type === AST_NODE_TYPES.CallExpression &&
+                node.value.callee.type === AST_NODE_TYPES.MemberExpression &&
+                node.value.callee.object.type === AST_NODE_TYPES.Identifier &&
+                node.value.callee.object.name === 'messages' &&
+                node.value.arguments[0].type === AST_NODE_TYPES.Literal &&
+                typeof node.value.arguments[0].value === 'string' &&
+                node.value.arguments[0].value !== `flags.${flagName}.${node.key.name}`
+              ) {
+                const textToReplace = node.value.arguments[0];
+                const target = node.value.callee;
+                const prop = node.key.name;
+                context.report({
+                  node: target,
+                  data: { name: flagName },
+                  messageId: node.key.name === 'summary' ? 'summaryFormat' : 'descriptionFormat',
+                  fix: (fixer) => fixer.replaceText(textToReplace, `'flags.${flagName}.${prop}'`),
+                });
+              }
             }
           },
         }
