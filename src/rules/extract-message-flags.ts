@@ -16,8 +16,10 @@ export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
     },
     fixable: 'code',
     messages: {
-      summaryFormat: 'The summary message should be named flags.{{name}}.summary',
-      descriptionFormat: 'The description message should be named flags.{{name}}.description',
+      summaryFormat:
+        'The summary message should be named flags.{{name}}.summary.  See https://github.com/salesforcecli/cli/wiki/Write-Useful-Messages#key-names',
+      descriptionFormat:
+        'The description message should be named flags.{{name}}.description.  See https://github.com/salesforcecli/cli/wiki/Write-Useful-Messages#key-names',
       message:
         'Summary/Description property should use messages.getMessage instead of hardcoding the message.  See https://github.com/forcedotcom/sfdx-core/blob/v3/MIGRATING_V2-V3.md#messages',
     },
