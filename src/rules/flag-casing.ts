@@ -6,7 +6,7 @@
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
-import { getFlagName, isFlag } from '../shared/flags';
+import { isFlag, resolveFlagName } from '../shared/flags';
 
 const toLowerKebabCase = (str: string): string =>
   str
@@ -33,8 +33,8 @@ export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
       ? {
           Property(node): void {
             if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
-              const flagName = getFlagName(node);
-              if (toLowerKebabCase(flagName) !== flagName) {
+              const flagName = resolveFlagName(node);
+              if (flagName && toLowerKebabCase(flagName) !== flagName) {
                 context.report({
                   node,
                   messageId: 'message',

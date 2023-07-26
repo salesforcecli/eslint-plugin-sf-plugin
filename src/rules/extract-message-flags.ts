@@ -5,7 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
-import { isFlag } from '../shared/flags';
+import { isNodeOfType } from '@typescript-eslint/utils/dist/ast-utils';
+import { isFlag, resolveFlagName } from '../shared/flags';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 
 export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
@@ -44,11 +45,8 @@ export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
                   messageId: 'message',
                 });
               }
-              const flag = ancestors.find((a) => isFlag(a));
-              const flagName =
-                flag?.type === AST_NODE_TYPES.Property &&
-                flag.key.type === AST_NODE_TYPES.Identifier &&
-                flag?.key?.name;
+              const flag = ancestors.filter(isNodeOfType(AST_NODE_TYPES.Property)).find((a) => isFlag(a));
+              const flagName = flag ? resolveFlagName(flag) : undefined;
               if (
                 flagName &&
                 node.value.type === AST_NODE_TYPES.CallExpression &&

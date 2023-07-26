@@ -7,17 +7,6 @@
 
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 
-export const getFlagName = (node: TSESTree.Property): string => {
-  switch (node.key.type) {
-    case 'Identifier':
-      return node.key.name;
-    case 'Literal':
-      return node.key.value as string;
-    default:
-      throw new Error(`Unknown flag type ${node.key.type}`);
-  }
-};
-
 /** Current node is 'foo' : Flags.x({}) */
 export const isFlag = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.Property &&

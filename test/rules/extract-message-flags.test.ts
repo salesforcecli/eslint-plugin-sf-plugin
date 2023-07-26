@@ -68,6 +68,19 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 `,
     },
     {
+      name: 'flag with a hyphen',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'hyphen-flag': Flags.string({
+      description: messages.getMessage('flags.hyphen-flag.description')
+    }),
+  }
+}
+`,
+    },
+    {
       name: 'not in commands dir',
       filename: path.normalize('src/foo.ts'),
       code: `
@@ -198,6 +211,34 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
       description: messages.getMessage('flags.name.desc')
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'description flag naming with a hyphen',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'descriptionFormat',
+          data: { name: 'hyphen-flag' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'hyphen-flag': Flags.string({
+      description: messages.getMessage('flags.hyphen-flag.description')
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'hyphen-flag': Flags.string({
+      description: messages.getMessage('flags.hyphenFlag.desc')
     }),
   }
 }
