@@ -41,10 +41,14 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
             if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context.getAncestors())) {
               // it's ok if there's a this.flags on the class...
               const classAbove = getSfCommand(context.getAncestors());
+              if (!classAbove) {
+                return;
+              }
               const runMethod = getRunMethod(classAbove);
-
+              if (!runMethod) {
+                return;
+              }
               if (
-                classAbove &&
                 classAbove.body.body.find(
                   (b) =>
                     b.type === AST_NODE_TYPES.PropertyDefinition &&
@@ -55,58 +59,50 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
               ) {
                 // ...as long as it's been set in the run method
                 const flagsParse =
-                  runMethod.type === AST_NODE_TYPES.MethodDefinition
-                    ? runMethod.value.body.body.find(
+                  runMethod?.type === AST_NODE_TYPES.MethodDefinition
+                    ? runMethod.value.body?.body.find(
                         (b) =>
                           b.type === AST_NODE_TYPES.VariableDeclaration &&
                           context.getSourceCode().getText(b).includes('this.parse')
                       )
                     : undefined;
                 const source = context.getSourceCode().getText();
-                if (!source.includes('this.flags = ')) {
+                if (!source.includes('this.flags = ') && flagsParse) {
                   context.report({
                     node,
                     messageId: 'instanceProp',
-                    fix: (fixer) => {
-                      return fixer.insertTextAfter(flagsParse, 'this.flags = flags;');
-                    },
+                    fix: (fixer) => fixer.insertTextAfter(flagsParse, 'this.flags = flags;'),
                   });
                 }
-              } else {
-                // we have no this.flags.
-                // in run method, convert to parsed flags value.
-                if (context.getAncestors().some((b) => isRunMethod(b))) {
-                  context.report({
-                    node,
-                    messageId: 'noThisFlags',
-                    fix: (fixer) => {
-                      return fixer.replaceText(node, 'flags');
+              }
+              // we have no this.flags.
+              // in run method, convert to parsed flags value.
+              else if (context.getAncestors().some((b) => isRunMethod(b))) {
+                context.report({
+                  node,
+                  messageId: 'noThisFlags',
+                  fix: (fixer) => fixer.replaceText(node, 'flags'),
+                });
+              } else if (runMethod) {
+                // otherwise, your options are: Make one, or use flags
+                context.report({
+                  node,
+                  messageId: 'noThisFlags',
+                  suggest: [
+                    {
+                      messageId: 'useFlags',
+                      fix: (fixer): RuleFix => fixer.replaceText(node, 'flags'),
                     },
-                  });
-                } else {
-                  // otherwise, your options are: Make one, or use flags
-                  context.report({
-                    node,
-                    messageId: 'noThisFlags',
-                    suggest: [
-                      {
-                        messageId: 'useFlags',
-                        fix: (fixer): RuleFix => {
-                          return fixer.replaceText(node, 'flags');
-                        },
-                      },
-                      {
-                        messageId: 'instanceProp',
-                        fix: (fixer): RuleFix => {
-                          return fixer.insertTextBefore(
-                            runMethod,
-                            `private flags: Interfaces.InferredFlags<typeof ${classAbove.id.name}.flags>;`
-                          );
-                        },
-                      },
-                    ],
-                  });
-                }
+                    {
+                      messageId: 'instanceProp',
+                      fix: (fixer): RuleFix =>
+                        fixer.insertTextBefore(
+                          runMethod,
+                          `private flags: Interfaces.InferredFlags<typeof ${classAbove.id?.name}.flags>;`
+                        ),
+                    },
+                  ],
+                });
               }
             }
           },

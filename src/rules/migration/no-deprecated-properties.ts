@@ -35,9 +35,7 @@ export const noDeprecatedProperties = ESLintUtils.RuleCreator.withoutDocs({
                   data: {
                     property: node.key.name,
                   },
-                  fix: (fixer) => {
-                    return fixer.remove(node);
-                  },
+                  fix: (fixer) => fixer.remove(node),
                 });
               }
             }

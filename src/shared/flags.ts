@@ -7,17 +7,6 @@
 
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 
-export const getFlagName = (node: TSESTree.Property): string => {
-  switch (node.key.type) {
-    case 'Identifier':
-      return node.key.name;
-    case 'Literal':
-      return node.key.value as string;
-    default:
-      throw new Error(`Unknown flag type ${node.key.type}`);
-  }
-};
-
 /** Current node is 'foo' : Flags.x({}) */
 export const isFlag = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.Property &&
@@ -29,6 +18,7 @@ export const isFlag = (node: TSESTree.Node): boolean =>
 /** Current node is public static flags = */
 export const isFlagsStaticProperty = (node: TSESTree.Node): node is TSESTree.PropertyDefinition =>
   node.type === AST_NODE_TYPES.PropertyDefinition &&
+  typeof node.accessibility === 'string' &&
   node.static &&
   node.value?.type === AST_NODE_TYPES.ObjectExpression &&
   node.key.type === AST_NODE_TYPES.Identifier &&
@@ -39,7 +29,9 @@ export const flagPropertyIsNamed = (node: TSESTree.Property, name: string): node
   resolveFlagName(node) === name;
 
 /** pass in a flag Property and it gives back the key name/value depending on type */
-export const resolveFlagName = (flag: TSESTree.PropertyComputedName | TSESTree.PropertyNonComputedName): string => {
+export const resolveFlagName = (
+  flag: TSESTree.PropertyComputedName | TSESTree.PropertyNonComputedName
+): string | undefined => {
   if (flag.key.type === AST_NODE_TYPES.Identifier) {
     return flag.key.name;
   }

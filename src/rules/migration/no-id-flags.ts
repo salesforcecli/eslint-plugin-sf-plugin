@@ -32,9 +32,7 @@ export const noIdFlags = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node: toReplace,
                   messageId: 'message',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toReplace, 'salesforceId');
-                  },
+                  fix: (fixer) => fixer.replaceText(toReplace, 'salesforceId'),
                 });
               }
             }

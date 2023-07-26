@@ -38,18 +38,14 @@ export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
                 // get the text for the two nodes
                 const sourceCode = context.getSourceCode();
                 const runBody = sourceCode.getText(node.value.body);
-                const className = classDeclaration.id.name;
+                const className = classDeclaration.id?.name;
 
                 if (!runBody.includes(`await this.parse(${className})`)) {
+                  const target = node.value.body.body[0];
                   context.report({
                     node,
                     messageId: 'summary',
-                    fix: (fixer) => {
-                      return fixer.insertTextBefore(
-                        node.value.body.body[0],
-                        `const {flags} = await this.parse(${className});`
-                      );
-                    },
+                    fix: (fixer) => fixer.insertTextBefore(target, `const {flags} = await this.parse(${className});`),
                   });
                 }
               }
