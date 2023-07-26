@@ -45,7 +45,9 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                 return;
               }
               const runMethod = getRunMethod(classAbove);
-
+              if (!runMethod) {
+                return;
+              }
               if (
                 classAbove.body.body.find(
                   (b) =>
