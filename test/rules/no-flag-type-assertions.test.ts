@@ -13,7 +13,30 @@ const ruleTester = new ESLintUtils.RuleTester({
 });
 
 ruleTester.run('runMatchesClassType', noFlagTypeAssertions, {
-  valid: [],
+  valid: [
+    {
+      name: 'flags (identifier)',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public async run(): Promise<Bar> {
+    const foo = flags.foo 
+  }
+}
+`,
+    },
+    {
+      name: 'flags (literal)',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public async run(): Promise<Bar> {
+    const foo = flags['foo-bar'] 
+  }
+}
+`,
+    },
+  ],
   invalid: [
     {
       name: 'type assertion on flags (identifier)',
