@@ -12,7 +12,7 @@ const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('no duplicate short characters', extractMessageFlags, {
+ruleTester.run('summary/description messages format', extractMessageFlags, {
   valid: [
     {
       name: 'no messages',
@@ -34,7 +34,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      summary: messages.getMessage('foo')
+      summary: messages.getMessage('flags.alias.summary')
     }),
   }
 }
@@ -47,8 +47,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      summary: messages.getMessage('foo'),
-      description: messages.getMessage('bar')
+      summary: messages.getMessage('flags.alias.summary'),
+      description: messages.getMessage('flags.alias.description')
     }),
   }
 }
@@ -61,7 +61,20 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
-      description: messages.getMessage('bar')
+      description: messages.getMessage('flags.alias.description')
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'flag with a hyphen',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'hyphen-flag': Flags.string({
+      description: messages.getMessage('flags.hyphen-flag.description')
     }),
   }
 }
@@ -100,6 +113,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
+      output: null,
     },
     {
       name: 'hardcoded description',
@@ -109,6 +123,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       filename: path.normalize('src/commands/foo.ts'),
+      output: null,
 
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
@@ -122,6 +137,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     },
     {
       name: '2 errors when both are hardcoded',
+      output: null,
+
       errors: [
         {
           messageId: 'message',
@@ -138,6 +155,90 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     alias: Flags.string({
       summary: "hardcode",
       description: "hardcode, too"
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'wrong summary name',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'summaryFormat',
+          data: { name: 'name' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    name: Flags.string({
+      summary: messages.getMessage('flags.name.summary'),
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    name: Flags.string({
+      summary: messages.getMessage('flags.name'),
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'description flag naming',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'descriptionFormat',
+          data: { name: 'alias' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      description: messages.getMessage('flags.alias.description')
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      description: messages.getMessage('flags.name.desc')
+    }),
+  }
+}
+`,
+    },
+    {
+      name: 'description flag naming with a hyphen',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [
+        {
+          messageId: 'descriptionFormat',
+          data: { name: 'hyphen-flag' },
+        },
+      ],
+      output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'hyphen-flag': Flags.string({
+      description: messages.getMessage('flags.hyphen-flag.description')
+    }),
+  }
+}
+`,
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    'hyphen-flag': Flags.string({
+      description: messages.getMessage('flags.hyphenFlag.desc')
     }),
   }
 }

@@ -38,12 +38,12 @@ export const useSfCommandFlags = ESLintUtils.RuleCreator.withoutDocs({
               context.report({
                 node,
                 messageId: 'message',
-                fix: (fixer) => {
+                fix: (fixer) => 
                   // TS isn't using the type narrowing done above.
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore, eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-                  return fixer.replaceTextRange(range, 'Flags');
-                },
+                   fixer.replaceTextRange(range, 'Flags')
+                ,
               });
             }
           },

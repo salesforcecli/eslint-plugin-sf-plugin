@@ -36,9 +36,7 @@ export const noMessagesLoad = ESLintUtils.RuleCreator.withoutDocs({
           context.report({
             node: node.callee.property,
             messageId: 'message',
-            fix: (fixer) => {
-              return fixer.replaceText(node, replacementText);
-            },
+            fix: (fixer) => fixer.replaceText(node, replacementText),
           });
         }
       },

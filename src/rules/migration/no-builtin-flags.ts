@@ -39,9 +39,7 @@ export const noBuiltinFlags = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node: toReplace,
                   messageId: 'message',
-                  fix: (fixer) => {
-                    return fixer.replaceText(toReplace, 'boolean');
-                  },
+                  fix: (fixer) => fixer.replaceText(toReplace, 'boolean'),
                 });
               }
             }

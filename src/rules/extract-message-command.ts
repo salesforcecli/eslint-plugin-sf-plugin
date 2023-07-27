@@ -30,9 +30,12 @@ export const extractMessageCommand = ESLintUtils.RuleCreator.withoutDocs({
             // verify it extends SfCommand
             if (extendsSfCommand(node)) {
               node.body.body
-                .filter((prop) => propertiesYouShouldntHardCode.includes(getClassPropertyIdentifierName(prop)))
+                .filter((prop) =>
+                  // this could be `undefined` but that works okay with `.includes`
+                  propertiesYouShouldntHardCode.includes(getClassPropertyIdentifierName(prop) as string)
+                )
                 .forEach((prop) => {
-                  if (prop.type === AST_NODE_TYPES.PropertyDefinition && prop.value.type === AST_NODE_TYPES.Literal) {
+                  if (prop.type === AST_NODE_TYPES.PropertyDefinition && prop.value?.type === AST_NODE_TYPES.Literal) {
                     context.report({
                       node: prop,
                       messageId: 'message',

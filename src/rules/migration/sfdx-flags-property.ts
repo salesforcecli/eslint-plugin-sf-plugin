@@ -31,9 +31,7 @@ export const sfdxFlagsProperty = ESLintUtils.RuleCreator.withoutDocs({
                 context.report({
                   node,
                   messageId: 'flagsConfig',
-                  fix: (fixer) => {
-                    return fixer.replaceTextRange(node.key.range, 'flags');
-                  },
+                  fix: (fixer) => fixer.replaceTextRange(node.key.range, 'flags'),
                 });
               }
               if (
@@ -43,12 +41,11 @@ export const sfdxFlagsProperty = ESLintUtils.RuleCreator.withoutDocs({
                 node.typeAnnotation.typeAnnotation.typeName?.type === AST_NODE_TYPES.Identifier &&
                 node.typeAnnotation.typeAnnotation.typeName.name === 'FlagsConfig'
               ) {
+                const toRemove = node.typeAnnotation;
                 context.report({
                   node,
                   messageId: 'flagsConfigType',
-                  fix: (fixer) => {
-                    return fixer.remove(node.typeAnnotation);
-                  },
+                  fix: (fixer) => fixer.remove(toRemove),
                 });
               }
             }

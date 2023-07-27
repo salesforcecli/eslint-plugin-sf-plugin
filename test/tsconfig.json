@@ -3,7 +3,8 @@
     "target": "es2019",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "noEmit": true
+    "noEmit": true,
+    "strictNullChecks": true
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts"]
 }

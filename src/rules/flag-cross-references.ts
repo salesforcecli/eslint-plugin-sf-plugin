@@ -32,7 +32,7 @@ export const flagCrossReferences = ESLintUtils.RuleCreator.withoutDocs({
             if (
               node.key.type === AST_NODE_TYPES.Identifier &&
               node.value.type === AST_NODE_TYPES.ArrayExpression &&
-              node.value.elements.every((e) => e.type === AST_NODE_TYPES.Literal && e.raw) &&
+              node.value.elements.every((e) => e?.type === AST_NODE_TYPES.Literal && e?.raw) &&
               propertyNames.includes(node.key.name) &&
               ancestorsContainsSfCommand(ancestors) &&
               ancestors.some((a) => isFlag(a))
@@ -42,12 +42,12 @@ export const flagCrossReferences = ESLintUtils.RuleCreator.withoutDocs({
                 .find((a) => isFlagsStaticProperty(a));
 
               const arrayValues = node.value.elements
-                .map((e) => (e.type === AST_NODE_TYPES.Literal ? e.value : undefined))
+                .map((e) => (e?.type === AST_NODE_TYPES.Literal ? e.value : undefined))
                 .filter(Boolean);
 
               if (
-                flagsNode.key.type === AST_NODE_TYPES.Identifier &&
-                flagsNode.value.type === AST_NODE_TYPES.ObjectExpression
+                flagsNode?.key.type === AST_NODE_TYPES.Identifier &&
+                flagsNode.value?.type === AST_NODE_TYPES.ObjectExpression
               ) {
                 // get the names of all the flags as an array
                 const flagNames = flagsNode.value.properties.map((flagProp) => {

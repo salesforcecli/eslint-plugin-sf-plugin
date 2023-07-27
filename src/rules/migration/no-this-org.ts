@@ -35,10 +35,15 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
             if (MemberExpressionIsThisDotFoo(node, 'org') && ancestorsContainsSfCommand(context.getAncestors())) {
               // it's ok if there's a this.org on the class...
               const classAbove = getSfCommand(context.getAncestors());
+              if (!classAbove) {
+                return;
+              }
               const runMethod = getRunMethod(classAbove);
+              if (!runMethod) {
+                return;
+              }
               if (
-                classAbove &&
-                classAbove.body.body.find(
+                classAbove?.body.body.find(
                   (b) =>
                     b.type === AST_NODE_TYPES.PropertyDefinition &&
                     b.key.type === AST_NODE_TYPES.Identifier &&
@@ -47,19 +52,17 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
               ) {
                 // ...as long as it's been set in the run method
                 const flagsParse =
-                  runMethod.type === AST_NODE_TYPES.MethodDefinition
-                    ? runMethod.value.body.body
+                  runMethod?.type === AST_NODE_TYPES.MethodDefinition
+                    ? runMethod.value.body?.body
                         .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclaration))
                         .find((b) => context.getSourceCode().getText(b).includes('this.parse'))
                     : undefined;
                 const source = context.getSourceCode().getText();
-                if (!source.includes('this.org = ')) {
+                if (flagsParse && !source.includes('this.org = ')) {
                   context.report({
                     node,
                     messageId: 'setThisOrg',
-                    fix: (fixer) => {
-                      return fixer.insertTextAfter(flagsParse, "this.org = flags['target-org'];");
-                    },
+                    fix: (fixer) => fixer.insertTextAfter(flagsParse, "this.org = flags['target-org'];"),
                   });
                 }
               } else {
@@ -69,15 +72,11 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
                   suggest: [
                     {
                       messageId: 'useFlags',
-                      fix: (fixer: RuleFixer): RuleFix => {
-                        return fixer.replaceText(node, "flags['target-org']");
-                      },
+                      fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, "flags['target-org']"),
                     },
                     {
                       messageId: 'instanceProp',
-                      fix: (fixer: RuleFixer): RuleFix => {
-                        return fixer.insertTextBefore(runMethod, 'private org: Org;\n');
-                      },
+                      fix: (fixer: RuleFixer): RuleFix => fixer.insertTextBefore(runMethod, 'private org: Org;\n'),
                     },
                   ],
                 });
