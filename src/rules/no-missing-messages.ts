@@ -78,11 +78,11 @@ export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
           const fileKey = loadedMessageBundles.get(bundleConstant);
           const messageTokensCount = getTokensCount(parserServices, node.arguments[1]);
           const actionTokensCount = getTokensCount(parserServices, node.arguments[2]);
-          let result: StructuredMessage | SfError | string | string[];
+          let result: StructuredMessage | SfError | string | string[] | undefined;
           try {
             // execute some method on Messages so we can inspect the result
             // we are intentionally passing it no tokens so that we can see residual %s etc in the text
-            result = loadedMessages.get(bundleConstant)[node.callee.property.name](messageKey);
+            result = loadedMessages.get(bundleConstant)?.[node.callee.property.name](messageKey);
           } catch (e) {
             // we never found the message at all, we can report and exit
             return context.report({
@@ -94,7 +94,13 @@ export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
               },
             });
           }
+          if (!result) {
+            return;
+          }
           const resolvedMessage = getMessage(result);
+          if (!resolvedMessage) {
+            return;
+          }
           const messagePlaceholderCount = getPlaceholderCount(resolvedMessage);
           if (typeof messageTokensCount === 'number' && messagePlaceholderCount !== messageTokensCount) {
             context.report({
@@ -152,6 +158,7 @@ const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): n
   if (
     underlyingNode &&
     ts.isVariableDeclaration(underlyingNode) &&
+    underlyingNode.initializer &&
     ts.isArrayLiteralExpression(underlyingNode.initializer)
   ) {
     return underlyingNode.initializer.elements.length;
@@ -160,7 +167,7 @@ const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): n
   return;
 };
 
-const getMessage = (result: string | string[] | SfError | StructuredMessage): string | string[] => {
+const getMessage = (result: string | string[] | SfError | StructuredMessage): string | string[] | undefined => {
   if (typeof result === 'string') {
     return result;
   }
@@ -174,8 +181,8 @@ const getMessage = (result: string | string[] | SfError | StructuredMessage): st
 
 const getPlaceholderCount = (message: string | string[]): number => {
   if (typeof message === 'string') {
-    return (message.match(placeHolderersRegex) || []).length;
+    return (message.match(placeHolderersRegex) ?? []).length;
   }
 
-  return message.reduce((count, m) => count + (m.match(placeHolderersRegex) || []).length, 0);
+  return message.reduce((count, m) => count + (m.match(placeHolderersRegex) ?? []).length, 0);
 };

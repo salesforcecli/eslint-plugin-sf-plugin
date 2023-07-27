@@ -1,3 +1,17 @@
+# [1.16.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.13...1.16.0) (2023-07-26)
+
+
+### Bug Fixes
+
+* handle flag that are 'literals' (surrounded by single quotes) instead of a basic identifier ([ab5689b](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/ab5689be2532ab9dd7699dad79528504246ec8c9))
+
+
+### Features
+
+* enforce message naming for flags ([8056be8](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/8056be803f80907dfdc96c716b188834d5b33d9a))
+
+
+
 ## [1.15.13](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.15.12...1.15.13) (2023-07-12)
 
 

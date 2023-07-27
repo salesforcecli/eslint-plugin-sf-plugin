@@ -18,16 +18,15 @@ export const getSfCommand = (ancestors: TSESTree.Node[]): TSESTree.ClassDeclarat
 export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
   node.superClass?.type === AST_NODE_TYPES.Identifier && node.superClass.name === 'SfCommand';
 
-export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string =>
+export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string | undefined =>
   node.type === AST_NODE_TYPES.PropertyDefinition && node.key.type === AST_NODE_TYPES.Identifier
     ? node.key.name
     : undefined;
 
 // we don't care what the types are, really any context will do
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isInCommandDirectory = (context: RuleContext<any, any>): boolean => {
-  return context.getPhysicalFilename().includes(`src${sep}commands${sep}`); // not an sfCommand
-};
+export const isInCommandDirectory = (context: RuleContext<any, any>): boolean =>
+  context.getPhysicalFilename?.().includes(`src${sep}commands${sep}`) ?? false; // not an sfCommand
 
 export const isRunMethod = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.MethodDefinition &&
@@ -39,7 +38,7 @@ export const isRunMethod = (node: TSESTree.Node): boolean =>
   node.key.type === AST_NODE_TYPES.Identifier &&
   node.key.name === 'run';
 
-export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement =>
+export const getRunMethod = (node: TSESTree.ClassDeclaration): TSESTree.ClassElement | undefined =>
   node.body.body.find((b) => isRunMethod(b));
 
 export const getSfImportFromProgram = (node: TSESTree.Node): TSESTree.ImportDeclaration | undefined => {

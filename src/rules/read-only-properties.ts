@@ -32,8 +32,8 @@ export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
               node.static &&
               node.key.type === AST_NODE_TYPES.Identifier &&
               props.includes(node.key.name) &&
-              node.parent.type === AST_NODE_TYPES.ClassBody &&
-              node.parent.parent.type === AST_NODE_TYPES.ClassDeclaration &&
+              node.parent?.type === AST_NODE_TYPES.ClassBody &&
+              node.parent.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
               extendsSfCommand(node.parent.parent)
             ) {
               if (!node.readonly) {
@@ -43,7 +43,7 @@ export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
                   data: { prop: node.key.name },
                   fix: (fixer) => fixer.insertTextBefore(node.key, 'readonly '),
                 });
-              } else if (node.accessibility !== 'public') {
+              } else if (node.accessibility && node.accessibility !== 'public') {
                 const replacementText = context.getSourceCode().getText(node).replace(node.accessibility, 'public');
                 context.report({
                   node,
