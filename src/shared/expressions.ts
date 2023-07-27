@@ -18,3 +18,7 @@ export const MemberExpressionContainsMemberExpressionThisDotFoo = (node: TSESTre
   node.object?.object.type === AST_NODE_TYPES.ThisExpression &&
   node.object?.property?.type === AST_NODE_TYPES.Identifier &&
   node.object?.property?.name === name;
+
+export const MemberExpressionHasNameOrValue = (expr: TSESTree.MemberExpression, name: string): boolean =>
+  (expr.object.type === AST_NODE_TYPES.Identifier && expr.object.name === name) ||
+  (expr.object.type === AST_NODE_TYPES.Literal && expr.object.value === name);

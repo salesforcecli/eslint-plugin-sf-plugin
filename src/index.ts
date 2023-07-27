@@ -45,6 +45,7 @@ import { noHyphenAliases } from './rules/no-hyphens-aliases';
 import { noClassesInCommandReturnType } from './rules/no-classes-in-command-return-type';
 import { noExecCmdDoubleQuotes } from './rules/no-execCmd-double-quotes';
 import { noMessagesLoad } from './rules/no-messages-load';
+import { noFlagTypeAssertions } from './rules/no-flag-type-assertions';
 
 const library = {
   plugins: ['sf-plugin'],
@@ -82,6 +83,7 @@ const recommended = {
     'sf-plugin/no-args-parse-without-strict-false': 'error',
     'sf-plugin/no-hyphens-aliases': 'error',
     'sf-plugin/no-classes-in-command-return-type': 'error',
+    'sf-plugin/no-flag-type-assertions': 'error',
   },
 };
 
@@ -151,5 +153,6 @@ export = {
     'no-classes-in-command-return-type': noClassesInCommandReturnType,
     'no-execcmd-double-quotes': noExecCmdDoubleQuotes,
     'no-messages-load': noMessagesLoad,
+    'no-flag-type-assertions': noFlagTypeAssertions,
   },
 };
