@@ -2,7 +2,7 @@
   "name": "eslint-plugin-sf-plugin",
   "version": "1.16.1",
   "engines": {
-    "node": ">=14.16.0"
+    "node": ">=16.0.0"
   },
   "main": "dist/index.js",
   "type": "commonjs",
@@ -14,7 +14,7 @@
   ],
   "repository": "salesforcecli/eslint-plugin-sf-plugin",
   "dependencies": {
-    "@salesforce/core": "^4.3.11",
+    "@salesforce/core": "^5.2.0",
     "@typescript-eslint/utils": "^5.59.11"
   },
   "devDependencies": {
