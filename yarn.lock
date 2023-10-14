@@ -1869,10 +1869,10 @@ eslint-config-salesforce@^2.0.2:
   resolved "https://registry.yarnpkg.com/eslint-config-salesforce/-/eslint-config-salesforce-2.0.2.tgz#38eb2d8eb2824c66967ed9b45bc92082eba2f225"
   integrity sha512-3jbrI+QFu/KaQbPYIBxItB3okqUtA4EBCGiR6s2kcUMIZBLBBGAURW0k62f9WAv1EagR3eUoO0m9ru7LTj2F5Q==
 
-eslint-doc-generator@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/eslint-doc-generator/-/eslint-doc-generator-1.4.3.tgz#78fbb59fc0182501cb562a185832319062903020"
-  integrity sha512-cn9KXE7xuKlxKi/9VbirR3cbz7W1geRObwWzZjJAnpTeNBoqA8Rj+lD8/HHHJ7PnOdaTrRyhhoYdCtxqq3U7Bw==
+eslint-doc-generator@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-doc-generator/-/eslint-doc-generator-1.5.1.tgz#e47325b6c2e48752e6502b7cf1f78173e45851c5"
+  integrity sha512-ZkVsI2AXXljiZ3xVsEv4yIrcXby0xj43ID/uYBZSuZJd3rQ4KZge3BxHg4NKJxfWkNMqarGudxMo8uPkTRfYbw==
   dependencies:
     "@typescript-eslint/utils" "^5.38.1"
     ajv "^8.11.2"
