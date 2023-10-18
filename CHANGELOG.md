@@ -1,3 +1,12 @@
+## [1.16.11](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.16.10...1.16.11) (2023-10-18)
+
+
+### Bug Fixes
+
+* **deps:** bump @babel/traverse from 7.18.2 to 7.23.2 ([3e8abe6](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/3e8abe604bbee7871818c78e92b551457f843c96))
+
+
+
 ## [1.16.10](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.16.9...1.16.10) (2023-10-15)
 
 
