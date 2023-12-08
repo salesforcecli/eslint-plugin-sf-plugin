@@ -45,10 +45,12 @@ import { noHyphenAliases } from './rules/no-hyphens-aliases';
 import { noClassesInCommandReturnType } from './rules/no-classes-in-command-return-type';
 import { noExecCmdDoubleQuotes } from './rules/no-execCmd-double-quotes';
 import { noMessagesLoad } from './rules/no-messages-load';
+import { esmMessageImport } from './rules/esm-message-import';
 
 const library = {
   plugins: ['sf-plugin'],
   rules: {
+    'sf-plugin/esm-message-import': 'error',
     'sf-plugin/no-missing-messages': 'error',
     'sf-plugin/no-messages-load': 'error',
     'sf-plugin/no-execcmd-double-quotes': 'off',
@@ -110,6 +112,7 @@ export = {
     },
   },
   rules: {
+    'esm-message-import': esmMessageImport,
     'no-h-short-char': dashH,
     'no-duplicate-short-characters': noDuplicateShortCharacters,
     'run-matches-class-type': runMatchesClassType,
