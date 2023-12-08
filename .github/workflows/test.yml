@@ -37,8 +37,11 @@ jobs:
           - https://github.com/salesforcecli/plugin-sobject
           - https://github.com/salesforcecli/plugin-templates
           - https://github.com/salesforcecli/plugin-user
-
+        command:
+          - yarn eslint "src/**/*.ts" --fix
+          - yarn eslint "src/**/*.ts"
     with:
       packageName: 'eslint-plugin-sf-plugin'
       externalProjectGitUrl: ${{ matrix.externalProjectGitUrl }}
       preBuildCommands: yarn remove @types/jest
+      command: ${{ matrix.command }}

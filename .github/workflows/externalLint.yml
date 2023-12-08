@@ -12,7 +12,7 @@ on:
       command:
         required: false
         type: string
-        default: yarn eslint "src/**/*.ts"
+        default: yarn eslint "src/**/*.ts" --fix
         description: 'command to execute (ex: yarn lint)'
       preBuildCommands:
         required: false
