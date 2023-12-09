@@ -4,14 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils, ASTUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { isInCommandDirectory, getSfCommand } from '../shared/commands';
 
-export const noArgsParseWithoutStrictFalse = ESLintUtils.RuleCreator.withoutDocs({
+export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'If you parse args/argv, the class should have strict set to false',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       summary: 'If you parse args/argv, the class should have strict set to false',

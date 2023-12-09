@@ -4,16 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
-import { isNodeOfType } from '@typescript-eslint/utils/dist/ast-utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { isFlag, resolveFlagName } from '../shared/flags';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const extractMessageFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use loaded messages and separate files for messages.  Follow the message naming guidelines',
-      recommended: 'warn',
+      recommended: 'stylistic',
     },
     fixable: 'code',
     messages: {
@@ -45,7 +45,7 @@ export const extractMessageFlags = ESLintUtils.RuleCreator.withoutDocs({
                   messageId: 'message',
                 });
               }
-              const flag = ancestors.filter(isNodeOfType(AST_NODE_TYPES.Property)).find((a) => isFlag(a));
+              const flag = ancestors.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)).find((a) => isFlag(a));
               const flagName = flag ? resolveFlagName(flag) : undefined;
               if (
                 flagName &&

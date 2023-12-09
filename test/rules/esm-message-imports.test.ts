@@ -4,10 +4,11 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
-import { esmMessageImport } from '../../src/rules/esm-message-import';
 
-const ruleTester = new ESLintUtils.RuleTester({
+import { esmMessageImport } from '../../src/rules/esm-message-import';
+import { RuleTester } from '@typescript-eslint/rule-tester';
+
+const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
 });
 

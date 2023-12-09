@@ -4,13 +4,13 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { isInCommandDirectory } from '../shared/commands';
-export const noOclifFlagsCommandImport = ESLintUtils.RuleCreator.withoutDocs({
+export const noOclifFlagsCommandImport = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change import of flags and Command from oclif to use sf-plugins-core',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       flags: 'Use Flags from sf-plugins-core',

@@ -5,15 +5,15 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 /* eslint-disable complexity */
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-
-export const esmMessageImport = ESLintUtils.RuleCreator.withoutDocs({
+export const esmMessageImport = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description:
         'Looks for the verbose `Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)))` to offer a simpler alternative',
-      recommended: 'error',
+      recommended: 'strict',
     },
     messages: {
       changeImport: 'use Messages.importMessagesDirectoryFromMetaUrl(import.meta.url) instead',

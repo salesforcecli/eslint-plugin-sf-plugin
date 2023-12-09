@@ -5,15 +5,16 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../shared/commands';
 import { isFlag } from '../shared/flags';
 
-export const noHyphenAliases = ESLintUtils.RuleCreator.withoutDocs({
+export const noHyphenAliases = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Mark when an alias starts with a hyphen, like -f or --foo',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       summary: 'aliases should not start with hyphens',

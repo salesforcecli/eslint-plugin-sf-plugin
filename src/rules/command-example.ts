@@ -4,17 +4,17 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
 import { extendsSfCommand, getClassPropertyIdentifierName, isInCommandDirectory } from '../shared/commands';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 
-const createRule = ESLintUtils.RuleCreator((name) => `https://example.com/rule/${name}`);
+const createRule = RuleCreator((name) => `https://example.com/rule/${name}`);
 
 export const commandExamples = createRule({
   name: 'command-example',
   meta: {
     docs: {
       description: 'Ensure commands have a summary, description, and examples',
-      recommended: 'error',
+      recommended: 'stylistic',
     },
     messages: {
       example: 'Commands should have an examples property',

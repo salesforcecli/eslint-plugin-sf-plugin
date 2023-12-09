@@ -4,13 +4,14 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../../shared/commands';
-export const noDeprecatedProperties = ESLintUtils.RuleCreator.withoutDocs({
+export const noDeprecatedProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Removes non-existent properties left over from SfdxCommand',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       property: 'Class property {{property}} is not available on SfCommand and should be removed',

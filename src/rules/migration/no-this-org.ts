@@ -4,17 +4,17 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ASTUtils, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { ASTUtils } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
-import { RuleFix, RuleFixer } from '@typescript-eslint/utils/dist/ts-eslint';
 import { ancestorsContainsSfCommand, getRunMethod, getSfCommand, isInCommandDirectory } from '../../shared/commands';
 import { MemberExpressionIsThisDotFoo } from '../../shared/expressions';
 
-export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
+export const noThisOrg = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Fix references to this.org (property on SfdxCommand)',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       noThisOrg: 'SfCommand does not have a this.org property.  Make sure you parse the org flag.',
@@ -72,11 +72,11 @@ export const noThisOrg = ESLintUtils.RuleCreator.withoutDocs({
                   suggest: [
                     {
                       messageId: 'useFlags',
-                      fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, "flags['target-org']"),
+                      fix: (fixer) => fixer.replaceText(node, "flags['target-org']"),
                     },
                     {
                       messageId: 'instanceProp',
-                      fix: (fixer: RuleFixer): RuleFix => fixer.insertTextBefore(runMethod, 'private org: Org;\n'),
+                      fix: (fixer) => fixer.insertTextBefore(runMethod, 'private org: Org;\n'),
                     },
                   ],
                 });

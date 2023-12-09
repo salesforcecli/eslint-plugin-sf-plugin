@@ -5,10 +5,10 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import path from 'path';
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 import { shouldParseFlags } from '../../../src/rules/migration/should-parse-flags';
 
-const ruleTester = new ESLintUtils.RuleTester({
+const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
 });
 

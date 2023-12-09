@@ -4,15 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlag } from '../shared/flags';
 
-export const jsonFlag = ESLintUtils.RuleCreator.withoutDocs({
+export const jsonFlag = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not allow creation of json flag',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: 'It is not necessary to add a --json flag.  That flag is provided by sfCommand/oclif',

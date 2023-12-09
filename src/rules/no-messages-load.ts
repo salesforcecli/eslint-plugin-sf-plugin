@@ -4,13 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 
-export const noMessagesLoad = ESLintUtils.RuleCreator.withoutDocs({
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+
+export const noMessagesLoad = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use Messages.loadMessages() instead of Messages.load()',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: 'Use Messages.loadMessages() instead of Messages.load()',

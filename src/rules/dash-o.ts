@@ -4,15 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const dashO = ESLintUtils.RuleCreator.withoutDocs({
+export const dashO = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Warn on a flag that uses -o',
-      recommended: 'warn',
+      recommended: 'strict',
     },
     messages: {
       message:

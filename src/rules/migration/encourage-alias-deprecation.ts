@@ -5,17 +5,17 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
+import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { isInCommandDirectory, ancestorsContainsSfCommand } from '../../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../../shared/flags';
 
-export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
+export const encourageAliasDeprecation = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description:
         'Commands and flags aliases probably want to deprecate their old names to provide more warnings to users',
-      recommended: 'warn',
+      recommended: 'stylistic',
     },
     messages: {
       command:
@@ -50,8 +50,7 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                     suggest: [
                       {
                         messageId: 'command',
-                        fix: (fixer): RuleFix =>
-                          fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
+                        fix: (fixer) => fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
                       },
                     ],
                   });
@@ -78,7 +77,7 @@ export const encourageAliasDeprecation = ESLintUtils.RuleCreator.withoutDocs({
                   suggest: [
                     {
                       messageId: 'flag',
-                      fix: (fixer): RuleFix => fixer.insertTextBefore(aliasesProperty, 'deprecateAliases:true,'),
+                      fix: (fixer) => fixer.insertTextBefore(aliasesProperty, 'deprecateAliases:true,'),
                     },
                   ],
                 });

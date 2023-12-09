@@ -4,18 +4,19 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlag, isFlagsStaticProperty } from '../shared/flags';
 
 // properties that reference other flags by name
 const propertyNames = ['dependsOn', 'exactlyOne', 'exclusive'];
 
-export const flagCrossReferences = ESLintUtils.RuleCreator.withoutDocs({
+export const flagCrossReferences = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce flag cross references for dependOn,exclusive,exactlyOne',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       missingFlag: 'There is no flag named {{flagName}}',

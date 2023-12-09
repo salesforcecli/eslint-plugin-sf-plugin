@@ -4,16 +4,17 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { extendsSfCommand, isInCommandDirectory } from '../shared/commands';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 
 const props = ['summary', 'description', 'examples', 'flags', 'requiresProject', 'hidden', 'aliases'];
 
-export const readOnlyProperties = ESLintUtils.RuleCreator.withoutDocs({
+export const readOnlyProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Class-level static properties, like flags or descriptions, should be marked public and read-only',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       readonly: 'The {{prop}} property should be read-only',

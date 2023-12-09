@@ -4,15 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-export const getConnectionWithVersion = ESLintUtils.RuleCreator.withoutDocs({
+export const getConnectionWithVersion = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Calls to getConnection should pass in a version',
-      recommended: 'warn',
+      recommended: 'stylistic',
     },
     messages: {
       addVersion: `getConnection should pass in a version, typically from the api-version flag,

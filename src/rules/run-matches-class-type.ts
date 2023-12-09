@@ -4,14 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { isInCommandDirectory, isRunMethod, getSfCommand } from '../shared/commands';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 
-export const runMatchesClassType = ESLintUtils.RuleCreator.withoutDocs({
+export const runMatchesClassType = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'The return type of the run method should match the Type passed to sfCommand',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       summary:

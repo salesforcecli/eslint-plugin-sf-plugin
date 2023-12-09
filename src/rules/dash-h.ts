@@ -4,15 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const dashH = ESLintUtils.RuleCreator.withoutDocs({
+export const dashH = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not allow creation of a flag with short char -h',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: '-h is reserved for help.  Choose a different short character',

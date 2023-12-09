@@ -4,14 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
 
-export const sfdxFlagsProperty = ESLintUtils.RuleCreator.withoutDocs({
+export const sfdxFlagsProperty = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change flag definitions to SfCommand version',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       flagsConfig: 'Use public readonly static flags = {',
