@@ -39,6 +39,9 @@ jobs:
         with:
           node-version: ${{ inputs.nodeVersion }}
       - run: git clone ${{ inputs.externalProjectGitUrl}} $(pwd)
+      - run: npm install -g yarn-deduplicate
+      - uses: salesforcecli/github-workflows/.github/actions/yarnInstallWithRetries@main
+      - run: npx yarn-deduplicate
       - uses: salesforcecli/github-workflows/.github/actions/yarnInstallWithRetries@main
       - name: swap this dependency for the version on this branch
         run: |
