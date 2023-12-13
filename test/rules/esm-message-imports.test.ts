@@ -157,5 +157,22 @@ import { resolve as pathResolve, join } from 'node:path'
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
 `,
     },
+    {
+      name: 'default import outside of destructured',
+      errors: [
+        {
+          messageId: 'unnecessaryImport',
+        },
+      ],
+      code: `
+import path, { dirname } from 'node:path'
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
+`,
+      // other code (ex: prettier) can handle the extra whitespaces
+      output: `
+import path from 'node:path'
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
+`,
+    },
   ],
 });

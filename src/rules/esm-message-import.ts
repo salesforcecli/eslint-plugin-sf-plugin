@@ -6,7 +6,7 @@
  */
 /* eslint-disable complexity */
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
-import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 
 export const esmMessageImport = RuleCreator.withoutDocs({
   meta: {
@@ -74,18 +74,29 @@ export const esmMessageImport = RuleCreator.withoutDocs({
           } else {
             // case 2, just remove the 1 unused specifier
             if (node.specifiers.length > 1) {
-              const replacementSpecifiers = node.specifiers
-                .filter((s) => s.local.name !== 'dirname' && s.local.name !== 'fileURLToPath')
-                .map((s) => context.sourceCode.getText(s))
-                .join(', ');
+              const replacementSpecifiers = node.specifiers.filter(
+                (s) => s.local.name !== 'dirname' && s.local.name !== 'fileURLToPath'
+              );
+              const replacementText = replacementSpecifiers.map((s) => context.sourceCode.getText(s)).join(', ');
+
               const replacementRange = [
                 node.specifiers[0].range[0],
                 node.specifiers[node.specifiers.length - 1].range[1],
+                // +
+                // (replacementSpecifiers.every(ASTUtils.isNodeOfType(AST_NODE_TYPES.ImportDefaultSpecifier))
+                //   ? 0
+                //   : 1)
               ] as const;
               return context.report({
                 node,
                 messageId: 'unnecessaryImport',
-                fix: (fixer) => fixer.replaceTextRange(replacementRange, replacementSpecifiers),
+                fix: (fixer) =>
+                  replacementSpecifiers.every(ASTUtils.isNodeOfType(AST_NODE_TYPES.ImportDefaultSpecifier))
+                    ? fixer.replaceText(
+                        node,
+                        `import ${replacementSpecifiers[0].local.name} from '${node.source.value}'`
+                      )
+                    : fixer.replaceTextRange(replacementRange, replacementText),
               });
             }
           }
