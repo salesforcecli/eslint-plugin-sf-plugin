@@ -46,34 +46,48 @@ export const esmMessageImport = RuleCreator.withoutDocs({
         }
       },
       ImportDeclaration(node): void {
+        const allCode = context.getSourceCode().getText();
+        // true for all cases
         if (
-          node.specifiers.length === 1 &&
-          node.specifiers[0].type === AST_NODE_TYPES.ImportSpecifier &&
-          node.specifiers[0].local.type === AST_NODE_TYPES.Identifier &&
           ((node.source.value === 'node:url' &&
-            node.specifiers[0].local.name === 'fileURLToPath' &&
-            Array.from(
-              context
-                .getSourceCode()
-                .getText()
-                .matchAll(/fileURLToPath/g)
-            ).length === 1) ||
+            node.specifiers.some((s) => s.local.name === 'fileURLToPath') &&
+            // it's the only reference to fileURLToPath
+            Array.from(allCode.matchAll(/fileURLToPath/g)).length === 1) ||
             (node.source.value === 'node:path' &&
-              node.specifiers[0].local.name === 'dirname' &&
-              Array.from(
-                context
-                  .getSourceCode()
-                  .getText()
-                  .matchAll(/dirname/g)
-              ).length === 1)) &&
+              node.specifiers.some((s) => s.local.name === 'dirname') &&
+              // it's the only reference to dirname
+              Array.from(allCode.matchAll(/dirname/g)).length === 1)) &&
           // we've already removed the old way of doing it
-          context.getSourceCode().getText().includes('Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)')
+          allCode.includes('Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)')
         ) {
-          return context.report({
-            node,
-            messageId: 'unnecessaryImport',
-            fix: (fixer) => fixer.remove(node),
-          });
+          if (
+            // case 1: single specifier removes the entire import line
+            node.specifiers.length === 1 &&
+            node.specifiers[0].type === AST_NODE_TYPES.ImportSpecifier &&
+            node.specifiers[0].local.type === AST_NODE_TYPES.Identifier
+          ) {
+            return context.report({
+              node,
+              messageId: 'unnecessaryImport',
+              fix: (fixer) => fixer.remove(node),
+            });
+          } else {
+            if (node.specifiers.length > 1) {
+              const replacementSpecifiers = node.specifiers
+                .filter((s) => s.local.name !== 'dirname' && s.local.name !== 'fileURLToPath')
+                .map((s) => s.local.name)
+                .join(', ');
+              const replacementRange = [
+                node.specifiers[0].range[0],
+                node.specifiers[node.specifiers.length - 1].range[1],
+              ] as const;
+              return context.report({
+                node,
+                messageId: 'unnecessaryImport',
+                fix: (fixer) => fixer.replaceTextRange(replacementRange, replacementSpecifiers),
+              });
+            }
+          }
         }
       },
       // now we're going to clean up unused imports if they're left over
