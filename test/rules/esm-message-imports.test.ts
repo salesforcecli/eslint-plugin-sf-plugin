@@ -140,5 +140,22 @@ import { join } from 'node:path'
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
 `,
     },
+    {
+      name: 'new loader with extra imports removes only the dirname import (when last)',
+      errors: [
+        {
+          messageId: 'unnecessaryImport',
+        },
+      ],
+      code: `
+import { dirname, resolve as pathResolve, join } from 'node:path'
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
+`,
+      // other code (ex: prettier) can handle the extra whitespaces
+      output: `
+import { resolve as pathResolve, join } from 'node:path'
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
+`,
+    },
   ],
 });

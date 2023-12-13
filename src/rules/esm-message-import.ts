@@ -72,10 +72,11 @@ export const esmMessageImport = RuleCreator.withoutDocs({
               fix: (fixer) => fixer.remove(node),
             });
           } else {
+            // case 2, just remove the 1 unused specifier
             if (node.specifiers.length > 1) {
               const replacementSpecifiers = node.specifiers
                 .filter((s) => s.local.name !== 'dirname' && s.local.name !== 'fileURLToPath')
-                .map((s) => s.local.name)
+                .map((s) => context.sourceCode.getText(s))
                 .join(', ');
               const replacementRange = [
                 node.specifiers[0].range[0],
@@ -90,36 +91,6 @@ export const esmMessageImport = RuleCreator.withoutDocs({
           }
         }
       },
-      // now we're going to clean up unused imports if they're left over
-      //   ImportDeclaration(node): void {
-      //         // verify it extends SfCommand
-      //         if (node.source.value === '@salesforce/command') {
-      //           context.report({
-      //             node,
-      //             messageId: 'import',
-      //             fix: (fixer) =>
-      //               fixer.replaceText(node, "import {Flags, SfCommand} from '@salesforce/sf-plugins-core';"),
-      //           });
-      //         }
-      //       },(node): void {
-      //     if (
-      //       node.object.type === AST_NODE_TYPES.Identifier &&
-      //       node.object.name === 'Messages' &&
-      //       node.property.type === AST_NODE_TYPES.Identifier &&
-      //       node.property.name === 'importMessagesDirectory' &&
-      //       node.parent?.parent &&
-      //       context.getSourceCode().getText(node.parent.parent).includes('dirname(fileURLToPath(import.meta.url))')
-      //     ) {
-      //       const toReplace = node.parent.parent;
-      //       // we never found the message at all, we can report and exit
-      //       return context.report({
-      //         node,
-      //         messageId: 'changeImport',
-      //         fix: (fixer) =>
-      //           fixer.replaceText(toReplace, 'Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)'),
-      //       });
-      //     }
-      //   },
     };
   },
 });
