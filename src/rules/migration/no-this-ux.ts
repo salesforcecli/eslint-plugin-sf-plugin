@@ -63,7 +63,7 @@ export const noThisUx = RuleCreator.withoutDocs({
                 context.report({
                   node,
                   messageId: 'message',
-                  fix: (fixer) => fixer.replaceText(toRemove, `this.${context.getSourceCode().getText(node.property)}`),
+                  fix: (fixer) => fixer.replaceText(toRemove, `this.${context.sourceCode.getText(node.property)}`),
                 });
               }
             }

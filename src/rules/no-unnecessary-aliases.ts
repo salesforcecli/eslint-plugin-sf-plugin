@@ -47,7 +47,7 @@ export const noUnnecessaryAliases = RuleCreator.withoutDocs({
                   node,
                   messageId: 'summary',
                   fix: (fixer) => {
-                    const comma = context.getSourceCode().getTokenAfter(node);
+                    const comma = context.sourceCode.getTokenAfter(node);
                     if (parentLength === 1 && node.parent?.parent) {
                       return fixer.remove(node.parent.parent);
                     }

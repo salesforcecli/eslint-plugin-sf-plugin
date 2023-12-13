@@ -70,7 +70,7 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
 
                 // ensure the import exists
                 const ancestors = context.getAncestors();
-                const source = context.getSourceCode();
+                const source = context.sourceCode;
                 const importDeclaration = getSfImportFromProgram(ancestors[0]);
                 if (importDeclaration && !source.getText(importDeclaration).includes(mappedMetadata.flag)) {
                   const fixedImport = source

@@ -37,7 +37,7 @@ export const noTimeFlags = RuleCreator.withoutDocs({
                 node.value.callee.property.type === AST_NODE_TYPES.Identifier &&
                 timeFlags.includes(node.value.callee.property.name)
               ) {
-                const original = context.getSourceCode().getText(node);
+                const original = context.sourceCode.getText(node);
                 const unit = node.value.callee.property.name;
                 const fixed = original
                   .replace(`Flags.${unit}({`, `Flags.duration({ unit: '${unit}',`)

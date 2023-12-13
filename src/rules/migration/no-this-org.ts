@@ -55,9 +55,9 @@ export const noThisOrg = RuleCreator.withoutDocs({
                   runMethod?.type === AST_NODE_TYPES.MethodDefinition
                     ? runMethod.value.body?.body
                         .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.VariableDeclaration))
-                        .find((b) => context.getSourceCode().getText(b).includes('this.parse'))
+                        .find((b) => context.sourceCode.getText(b).includes('this.parse'))
                     : undefined;
-                const source = context.getSourceCode().getText();
+                const source = context.sourceCode.getText();
                 if (flagsParse && !source.includes('this.org = ')) {
                   context.report({
                     node,

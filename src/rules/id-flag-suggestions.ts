@@ -48,7 +48,7 @@ export const idFlagSuggestions = RuleCreator.withoutDocs({
                 const hasLength = argProps.some((property) => flagPropertyIsNamed(property, 'length'));
 
                 if (!hasStartsWith || !hasLength) {
-                  const existing = context.getSourceCode().getText(node);
+                  const existing = context.sourceCode.getText(node);
                   const fixedStartsWith = existing.replace('salesforceId({', "salesforceId({startsWith: '000',");
                   const fixer15 = existing.replace('salesforceId({', 'salesforceId({length: 15,');
                   const fixer18 = existing.replace('salesforceId({', 'salesforceId({length: 18,');

@@ -33,7 +33,7 @@ export const esmMessageImport = RuleCreator.withoutDocs({
           node.property.type === AST_NODE_TYPES.Identifier &&
           node.property.name === 'importMessagesDirectory' &&
           node.parent?.parent &&
-          context.getSourceCode().getText(node.parent.parent).includes('dirname(fileURLToPath(import.meta.url))')
+          context.sourceCode.getText(node.parent.parent).includes('dirname(fileURLToPath(import.meta.url))')
         ) {
           const toReplace = node.parent.parent;
           // we never found the message at all, we can report and exit
@@ -46,7 +46,7 @@ export const esmMessageImport = RuleCreator.withoutDocs({
         }
       },
       ImportDeclaration(node): void {
-        const allCode = context.getSourceCode().getText();
+        const allCode = context.sourceCode.getText();
         // true for all cases
         if (
           ((node.source.value === 'node:url' &&

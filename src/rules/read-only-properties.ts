@@ -45,7 +45,7 @@ export const readOnlyProperties = RuleCreator.withoutDocs({
                   fix: (fixer) => fixer.insertTextBefore(node.key, 'readonly '),
                 });
               } else if (node.accessibility && node.accessibility !== 'public') {
-                const replacementText = context.getSourceCode().getText(node).replace(node.accessibility, 'public');
+                const replacementText = context.sourceCode.getText(node).replace(node.accessibility, 'public');
                 context.report({
                   node,
                   messageId: 'public',

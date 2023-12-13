@@ -37,7 +37,7 @@ export const noExecCmdDoubleQuotes = RuleCreator.withoutDocs({
               messageId: 'message',
             });
           } else if (node.arguments[0].type === AST_NODE_TYPES.TemplateLiteral) {
-            const source = context.getSourceCode().getText(node.arguments[0]);
+            const source = context.sourceCode.getText(node.arguments[0]);
             if (source.includes('"'))
               context.report({
                 node: node.arguments[0],

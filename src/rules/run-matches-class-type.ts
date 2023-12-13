@@ -35,7 +35,7 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
 
               if (classDeclaration) {
                 // get the text for the two nodes
-                const sourceCode = context.getSourceCode();
+                const sourceCode = context.sourceCode;
                 const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeParameters?.params[0]);
                 const classType = sourceCode.getText(classDeclaration.superTypeParameters?.params[0]);
 

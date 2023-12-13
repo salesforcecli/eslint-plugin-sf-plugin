@@ -34,7 +34,7 @@ export const noOclifFlagsCommandImport = RuleCreator.withoutDocs({
                     node: specifier,
                     messageId: 'flags',
                     fix: (fixer) => {
-                      const comma = context.getSourceCode().getTokenAfter(specifier);
+                      const comma = context.sourceCode.getTokenAfter(specifier);
                       return comma?.value === ','
                         ? fixer.removeRange([specifier.range[0], specifier.range[1] + 1])
                         : fixer.remove(specifier);
@@ -46,7 +46,7 @@ export const noOclifFlagsCommandImport = RuleCreator.withoutDocs({
                     node: specifier,
                     messageId: 'command',
                     fix: (fixer) => {
-                      const comma = context.getSourceCode().getTokenAfter(specifier);
+                      const comma = context.sourceCode.getTokenAfter(specifier);
                       return comma?.value === ','
                         ? fixer.removeRange([specifier.range[0], specifier.range[1] + 1])
                         : fixer.remove(specifier);

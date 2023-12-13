@@ -62,10 +62,10 @@ export const noThisFlags = RuleCreator.withoutDocs({
                     ? runMethod.value.body?.body.find(
                         (b) =>
                           b.type === AST_NODE_TYPES.VariableDeclaration &&
-                          context.getSourceCode().getText(b).includes('this.parse')
+                          context.sourceCode.getText(b).includes('this.parse')
                       )
                     : undefined;
-                const source = context.getSourceCode().getText();
+                const source = context.sourceCode.getText();
                 if (!source.includes('this.flags = ') && flagsParse) {
                   context.report({
                     node,

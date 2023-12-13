@@ -36,7 +36,7 @@ export const shouldParseFlags = RuleCreator.withoutDocs({
                 classDeclaration?.body?.body?.some((prop) => isFlagsStaticProperty(prop))
               ) {
                 // get the text for the two nodes
-                const sourceCode = context.getSourceCode();
+                const sourceCode = context.sourceCode;
                 const runBody = sourceCode.getText(node.value.body);
                 const className = classDeclaration.id?.name;
 
