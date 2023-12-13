@@ -77,16 +77,7 @@ export const esmMessageImport = RuleCreator.withoutDocs({
               const replacementSpecifiers = node.specifiers.filter(
                 (s) => s.local.name !== 'dirname' && s.local.name !== 'fileURLToPath'
               );
-              const replacementText = replacementSpecifiers.map((s) => context.sourceCode.getText(s)).join(', ');
 
-              const replacementRange = [
-                node.specifiers[0].range[0],
-                node.specifiers[node.specifiers.length - 1].range[1],
-                // +
-                // (replacementSpecifiers.every(ASTUtils.isNodeOfType(AST_NODE_TYPES.ImportDefaultSpecifier))
-                //   ? 0
-                //   : 1)
-              ] as const;
               return context.report({
                 node,
                 messageId: 'unnecessaryImport',
@@ -96,7 +87,10 @@ export const esmMessageImport = RuleCreator.withoutDocs({
                         node,
                         `import ${replacementSpecifiers[0].local.name} from '${node.source.value}'`
                       )
-                    : fixer.replaceTextRange(replacementRange, replacementText),
+                    : fixer.replaceTextRange(
+                        [node.specifiers[0].range[0], node.specifiers[node.specifiers.length - 1].range[1]],
+                        replacementSpecifiers.map((s) => context.sourceCode.getText(s)).join(', ')
+                      ),
               });
             }
           }
