@@ -1,3 +1,16 @@
+# [1.17.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.16.16-qa.0...1.17.0) (2023-12-14)
+
+
+
+## [1.16.16-qa.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.16.15...1.16.16-qa.0) (2023-12-14)
+
+
+### Features
+
+* simplify ESM message imports ([e749190](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/e749190cca7927dc8c2554b3b576dd86128ca665))
+
+
+
 ## [1.16.15](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.16.14...1.16.15) (2023-11-12)
 
 
