@@ -4,17 +4,18 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
 import { getCalleePropertyByName, isFlag } from '../../shared/flags';
 
 const builtInFlagTypes = ['verbose', 'concise', 'quiet'];
 
-export const noBuiltinFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const noBuiltinFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: "Handling for sfdxCommand's flags.builtin",
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: 'Built-in flags are not available on sfCommand.  Use a boolean and add your own summary message',

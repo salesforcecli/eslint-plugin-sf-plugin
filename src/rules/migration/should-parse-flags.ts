@@ -4,15 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { isInCommandDirectory, getSfCommand, isRunMethod } from '../../shared/commands';
 import { isFlagsStaticProperty } from '../../shared/flags';
 
-export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const shouldParseFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'The run method should call this.parse when there are flags',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       summary: 'The run method should call this.parse when there are flags',
@@ -36,7 +36,7 @@ export const shouldParseFlags = ESLintUtils.RuleCreator.withoutDocs({
                 classDeclaration?.body?.body?.some((prop) => isFlagsStaticProperty(prop))
               ) {
                 // get the text for the two nodes
-                const sourceCode = context.getSourceCode();
+                const sourceCode = context.sourceCode;
                 const runBody = sourceCode.getText(node.value.body);
                 const className = classDeclaration.id?.name;
 

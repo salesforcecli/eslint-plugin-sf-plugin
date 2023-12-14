@@ -4,7 +4,8 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import {
   isInCommandDirectory,
   ancestorsContainsSfCommand,
@@ -37,11 +38,11 @@ const propertyMap = new Map<
   ],
 ]);
 
-export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
+export const noUsernameProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Convert requiresUsername and supportusername to username flags',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       requires:
@@ -69,7 +70,7 @@ export const noUsernameProperties = ESLintUtils.RuleCreator.withoutDocs({
 
                 // ensure the import exists
                 const ancestors = context.getAncestors();
-                const source = context.getSourceCode();
+                const source = context.sourceCode;
                 const importDeclaration = getSfImportFromProgram(ancestors[0]);
                 if (importDeclaration && !source.getText(importDeclaration).includes(mappedMetadata.flag)) {
                   const fixedImport = source

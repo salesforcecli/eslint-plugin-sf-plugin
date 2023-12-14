@@ -4,15 +4,17 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const flagMinMaxDefault = ESLintUtils.RuleCreator.withoutDocs({
+export const flagMinMaxDefault = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce that flags with min/max values have a default value',
-      recommended: 'warn',
+      recommended: 'stylistic',
     },
     messages: {
       message: 'If your flag has a min or max value, it should have a default value.  Otherwise, it will be undefined',

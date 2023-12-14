@@ -4,15 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const flagSummary = ESLintUtils.RuleCreator.withoutDocs({
+export const flagSummary = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce that flags have a summary property and that longDescription is renamed to description',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: 'Flags should have a summary property',

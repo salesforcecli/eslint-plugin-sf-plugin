@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlag, resolveFlagName } from '../shared/flags';
 
@@ -14,11 +14,11 @@ const toLowerKebabCase = (str: string): string =>
     .replace(/[\s_]+/g, '-')
     .toLowerCase();
 
-export const flagCasing = ESLintUtils.RuleCreator.withoutDocs({
+export const flagCasing = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce lowercase kebab-case flag names',
-      recommended: 'error',
+      recommended: 'strict',
     },
     messages: {
       message: 'Flag {{flagName}} should be lowercase and use kebab-case to separate words',

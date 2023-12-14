@@ -4,17 +4,18 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { extendsSfCommand, isInCommandDirectory } from '../shared/commands';
 
 const falseProps = ['requiresProject', 'hidden'];
 const emptyProps = ['aliases'];
 
-export const noUnnecessaryProperties = ESLintUtils.RuleCreator.withoutDocs({
+export const noUnnecessaryProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Boolean properties are false by default, so they should not be set to false',
-      recommended: 'warn',
+      recommended: 'recommended',
     },
     messages: {
       messageFalse: 'The {{prop}} property can be omitted since it is false by default',

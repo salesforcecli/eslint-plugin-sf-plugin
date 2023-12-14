@@ -4,9 +4,8 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
-import { RuleFix } from '@typescript-eslint/utils/dist/ts-eslint';
 import {
   ancestorsContainsSfCommand,
   getRunMethod,
@@ -16,11 +15,11 @@ import {
 } from '../../shared/commands';
 import { MemberExpressionIsThisDotFoo } from '../../shared/expressions';
 
-export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const noThisFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Fix references to this.org (property on SfdxCommand)',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       noThisFlags: 'SfCommand does not have a this.flags property.  Make sure you parse the flag.',
@@ -63,10 +62,10 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                     ? runMethod.value.body?.body.find(
                         (b) =>
                           b.type === AST_NODE_TYPES.VariableDeclaration &&
-                          context.getSourceCode().getText(b).includes('this.parse')
+                          context.sourceCode.getText(b).includes('this.parse')
                       )
                     : undefined;
-                const source = context.getSourceCode().getText();
+                const source = context.sourceCode.getText();
                 if (!source.includes('this.flags = ') && flagsParse) {
                   context.report({
                     node,
@@ -91,11 +90,11 @@ export const noThisFlags = ESLintUtils.RuleCreator.withoutDocs({
                   suggest: [
                     {
                       messageId: 'useFlags',
-                      fix: (fixer): RuleFix => fixer.replaceText(node, 'flags'),
+                      fix: (fixer) => fixer.replaceText(node, 'flags'),
                     },
                     {
                       messageId: 'instanceProp',
-                      fix: (fixer): RuleFix =>
+                      fix: (fixer) =>
                         fixer.insertTextBefore(
                           runMethod,
                           `private flags: Interfaces.InferredFlags<typeof ${classAbove.id?.name}.flags>;`

@@ -4,13 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 
-export const noExecCmdDoubleQuotes = ESLintUtils.RuleCreator.withoutDocs({
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+
+export const noExecCmdDoubleQuotes = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not use double quotes in NUT examples.  They will not work on windows',
-      recommended: 'warn',
+      recommended: 'strict',
     },
     messages: {
       message:
@@ -35,7 +37,7 @@ export const noExecCmdDoubleQuotes = ESLintUtils.RuleCreator.withoutDocs({
               messageId: 'message',
             });
           } else if (node.arguments[0].type === AST_NODE_TYPES.TemplateLiteral) {
-            const source = context.getSourceCode().getText(node.arguments[0]);
+            const source = context.sourceCode.getText(node.arguments[0]);
             if (source.includes('"'))
               context.report({
                 node: node.arguments[0],

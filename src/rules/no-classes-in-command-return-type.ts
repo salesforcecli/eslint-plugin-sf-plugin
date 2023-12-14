@@ -4,15 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils, ParserServices } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES, ParserServices, ESLintUtils } from '@typescript-eslint/utils';
 import * as ts from 'typescript';
 import { isRunMethod } from '../shared/commands';
 
-export const noClassesInCommandReturnType = ESLintUtils.RuleCreator.withoutDocs({
+export const noClassesInCommandReturnType = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'The return type of the run method should not contain a class.',
-      recommended: 'error',
+      recommended: 'strict',
     },
     messages: {
       summary:
@@ -52,7 +53,7 @@ export const noClassesInCommandReturnType = ESLintUtils.RuleCreator.withoutDocs(
 
 const hasOrIsClass = (tn: ts.TypeNode | ts.TypeElement, parserServices: ParserServices): boolean => {
   // get the TS for this node
-  const checker = parserServices.program.getTypeChecker();
+  const checker = parserServices.program!.getTypeChecker();
   // follow the type to where it came from
   const underlyingNode = checker.getSymbolAtLocation(tn.getChildAt(0));
   const declaration = underlyingNode?.getDeclarations()?.[0];

@@ -5,10 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import path from 'path';
-import { ESLintUtils } from '@typescript-eslint/utils';
-import { dashO } from '../../src/rules/dash-o';
 
-const ruleTester = new ESLintUtils.RuleTester({
+import { dashO } from '../../src/rules/dash-o';
+import { RuleTester } from '@typescript-eslint/rule-tester';
+
+const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
 });
 

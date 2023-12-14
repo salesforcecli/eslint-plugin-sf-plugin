@@ -12,7 +12,7 @@ on:
       command:
         required: false
         type: string
-        default: yarn eslint "src/**/*.ts"
+        default: yarn eslint "src/**/*.ts" --fix
         description: 'command to execute (ex: yarn lint)'
       preBuildCommands:
         required: false
@@ -39,6 +39,9 @@ jobs:
         with:
           node-version: ${{ inputs.nodeVersion }}
       - run: git clone ${{ inputs.externalProjectGitUrl}} $(pwd)
+      - run: npm install -g yarn-deduplicate
+      - uses: salesforcecli/github-workflows/.github/actions/yarnInstallWithRetries@main
+      - run: npx yarn-deduplicate
       - uses: salesforcecli/github-workflows/.github/actions/yarnInstallWithRetries@main
       - name: swap this dependency for the version on this branch
         run: |

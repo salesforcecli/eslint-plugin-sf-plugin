@@ -5,18 +5,18 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 /* eslint-disable complexity */
-
-import { ASTUtils, AST_NODE_TYPES, ESLintUtils, ParserServices, TSESTree } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { ASTUtils, AST_NODE_TYPES, ParserServices, TSESTree, ESLintUtils } from '@typescript-eslint/utils';
 import { Messages, SfError, StructuredMessage } from '@salesforce/core';
 import * as ts from 'typescript';
 
 const methods = ['createError', 'createWarning', 'createInfo', 'getMessage', 'getMessages'] as const;
 
-export const noMissingMessages = ESLintUtils.RuleCreator.withoutDocs({
+export const noMissingMessages = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Checks core Messages usage for correct usage of named messages and message tokens',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       missing: 'the message "{{messageKey}}" does not exist in the messages file {{fileKey}}',
@@ -147,11 +147,11 @@ const getTokensCount = (parserServices: ParserServices, node?: TSESTree.Node): n
   if (!node) {
     return 0;
   }
-  if (ASTUtils.isNodeOfType(AST_NODE_TYPES.ArrayExpression)(node)) {
+  if (node.type === AST_NODE_TYPES.ArrayExpression) {
     return node.elements.length ?? 0;
   }
   const realNode = parserServices.esTreeNodeToTSNodeMap.get(node);
-  const checker = parserServices.program.getTypeChecker();
+  const checker = parserServices.program!.getTypeChecker();
 
   const underlyingNode = checker.getSymbolAtLocation(realNode)?.getDeclarations()?.[0];
   // the literal value might not be an array, but it might a reference to an array

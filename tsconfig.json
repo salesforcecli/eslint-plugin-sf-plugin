@@ -3,12 +3,13 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "target": "es2019",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "esModuleInterop": true,
-    "module": "commonjs",
     "declaration": false,
     "declarationMap": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "src/index.js"]
 }

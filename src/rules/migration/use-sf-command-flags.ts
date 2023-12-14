@@ -4,15 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
 
-export const useSfCommandFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const useSfCommandFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use Flags export from sf-plugins-core',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: 'for SfCommand, each flag definition should use "Flags", not "flags"',
@@ -38,12 +38,11 @@ export const useSfCommandFlags = ESLintUtils.RuleCreator.withoutDocs({
               context.report({
                 node,
                 messageId: 'message',
-                fix: (fixer) => 
+                fix: (fixer) =>
                   // TS isn't using the type narrowing done above.
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore, eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-                   fixer.replaceTextRange(range, 'Flags')
-                ,
+                  fixer.replaceTextRange(range, 'Flags'),
               });
             }
           },

@@ -4,17 +4,18 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../../shared/commands';
 import { isFlag } from '../../shared/flags';
 
 const timeFlags = ['seconds', 'minutes', 'milliseconds'];
 
-export const noTimeFlags = ESLintUtils.RuleCreator.withoutDocs({
+export const noTimeFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Migrate time flags to Flags.duration',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       message: 'flags for {{time}} should use the Flags.duration (and specify the unit)',
@@ -36,7 +37,7 @@ export const noTimeFlags = ESLintUtils.RuleCreator.withoutDocs({
                 node.value.callee.property.type === AST_NODE_TYPES.Identifier &&
                 timeFlags.includes(node.value.callee.property.name)
               ) {
-                const original = context.getSourceCode().getText(node);
+                const original = context.sourceCode.getText(node);
                 const unit = node.value.callee.property.name;
                 const fixed = original
                   .replace(`Flags.${unit}({`, `Flags.duration({ unit: '${unit}',`)

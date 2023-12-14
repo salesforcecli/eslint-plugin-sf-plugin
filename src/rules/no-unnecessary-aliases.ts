@@ -5,15 +5,16 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { isInCommandDirectory, ancestorsContainsSfCommand, getCommandNameParts } from '../shared/commands';
 
-export const noUnnecessaryAliases = ESLintUtils.RuleCreator.withoutDocs({
+export const noUnnecessaryAliases = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description:
         'Mark when an alias is unnecessary because its only an order permutation, not really a different name',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       summary: 'the Salesforce CLI will match the command words in any order, so this alias is unnecessary',
@@ -46,7 +47,7 @@ export const noUnnecessaryAliases = ESLintUtils.RuleCreator.withoutDocs({
                   node,
                   messageId: 'summary',
                   fix: (fixer) => {
-                    const comma = context.getSourceCode().getTokenAfter(node);
+                    const comma = context.sourceCode.getTokenAfter(node);
                     if (parentLength === 1 && node.parent?.parent) {
                       return fixer.remove(node.parent.parent);
                     }

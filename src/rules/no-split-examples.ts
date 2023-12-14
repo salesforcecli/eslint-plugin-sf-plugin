@@ -4,14 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { extendsSfCommand, isInCommandDirectory } from '../shared/commands';
 
-export const noSplitExamples = ESLintUtils.RuleCreator.withoutDocs({
+export const noSplitExamples = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Arrays of messags should use getMessages instead of getMessage followed by EOL splitting',
-      recommended: 'error',
+      recommended: 'strict',
     },
     messages: {
       message: 'use getMessages',

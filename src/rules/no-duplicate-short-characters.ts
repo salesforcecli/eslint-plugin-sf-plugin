@@ -4,15 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ESLintUtils, AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { isFlagsStaticProperty, resolveFlagName, flagPropertyIsNamed } from '../shared/flags';
 
-export const noDuplicateShortCharacters = ESLintUtils.RuleCreator.withoutDocs({
+export const noDuplicateShortCharacters = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Prevent duplicate use of short characters or conflicts between aliases and flags',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       flagCollision: 'Flag {{flag1}} has a name already in use as the name or alias of {{flag2}}',

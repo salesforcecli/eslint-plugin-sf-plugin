@@ -41,6 +41,14 @@ yarn build
 yarn add --dev file:/absolute/path/to/eslint-plugin-sf-plugin
 ```
 
+If you're using @salesforce/dev-scripts, add the plugin in your `.sfdevrc.json` file to keep dev-scripts from trying to enforce version minimums
+
+```json
+{
+  "devDepOverrides": ["eslint-plugin-sf-plugin"]
+}
+```
+
 To get changes in your IDE, restart the eslint server.
 
 include in the plugin's `eslint.rc`

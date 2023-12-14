@@ -4,16 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ASTUtils, AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils';
-import { RuleFix, RuleFixer } from '@typescript-eslint/utils/dist/ts-eslint';
+import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
+import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
-export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
+export const idFlagSuggestions = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Create better salesforceId flags with length and startsWith properties',
-      recommended: 'warn',
+      recommended: 'stylistic',
     },
     hasSuggestions: true,
     messages: {
@@ -48,7 +48,7 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                 const hasLength = argProps.some((property) => flagPropertyIsNamed(property, 'length'));
 
                 if (!hasStartsWith || !hasLength) {
-                  const existing = context.getSourceCode().getText(node);
+                  const existing = context.sourceCode.getText(node);
                   const fixedStartsWith = existing.replace('salesforceId({', "salesforceId({startsWith: '000',");
                   const fixer15 = existing.replace('salesforceId({', 'salesforceId({length: 15,');
                   const fixer18 = existing.replace('salesforceId({', 'salesforceId({length: 18,');
@@ -62,7 +62,7 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                           {
                             // I think this is a TS problem in the utils
                             messageId: 'typeSuggestion' as keyof typeof idFlagSuggestions.meta.messages,
-                            fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixedStartsWith),
+                            fix: (fixer) => fixer.replaceText(node, fixedStartsWith),
                           },
                         ]
                       : []
@@ -71,15 +71,15 @@ export const idFlagSuggestions = ESLintUtils.RuleCreator.withoutDocs({
                         ? [
                             {
                               messageId: 'lengthSuggestionBoth',
-                              fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixerBoth),
+                              fix: (fixer) => fixer.replaceText(node, fixerBoth),
                             },
                             {
                               messageId: 'lengthSuggestion15',
-                              fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixer15),
+                              fix: (fixer) => fixer.replaceText(node, fixer15),
                             },
                             {
                               messageId: 'lengthSuggestion18',
-                              fix: (fixer: RuleFixer): RuleFix => fixer.replaceText(node, fixer18),
+                              fix: (fixer) => fixer.replaceText(node, fixer18),
                             },
                           ]
                         : []

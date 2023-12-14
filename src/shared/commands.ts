@@ -7,10 +7,10 @@
 
 import { sep, parse } from 'path';
 import { AST_NODE_TYPES, TSESTree, ASTUtils } from '@typescript-eslint/utils';
-import { RuleContext } from '@typescript-eslint/utils/dist/ts-eslint';
+import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 
 export const ancestorsContainsSfCommand = (ancestors: TSESTree.Node[]): boolean =>
-  ancestors.some((a) => ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)(a) && extendsSfCommand(a));
+  ancestors.some((a) => a.type === AST_NODE_TYPES.ClassDeclaration && extendsSfCommand(a));
 
 export const getSfCommand = (ancestors: TSESTree.Node[]): TSESTree.ClassDeclaration | undefined =>
   ancestors.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)).find((a) => a && extendsSfCommand(a));
