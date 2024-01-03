@@ -15,7 +15,7 @@
   "repository": "salesforcecli/eslint-plugin-sf-plugin",
   "dependencies": {
     "@salesforce/core": "^6.4.0",
-    "@typescript-eslint/utils": "^6.13.2"
+    "@typescript-eslint/utils": "^6.17.0"
   },
   "devDependencies": {
     "@salesforce/prettier-config": "^0.0.3",
@@ -23,16 +23,16 @@
     "@types/estree": "^1.0.5",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.4",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
-    "@typescript-eslint/rule-tester": "^6.13.2",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "@typescript-eslint/rule-tester": "^6.17.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^8.10.0",
     "eslint-config-salesforce": "^2.0.2",
     "eslint-config-salesforce-license": "^0.2.0",
     "eslint-config-salesforce-typescript": "^1.1.3",
     "eslint-doc-generator": "^1.6.1",
-    "eslint-plugin-eslint-plugin": "^5.1.1",
+    "eslint-plugin-eslint-plugin": "^5.2.1",
     "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-jsdoc": "^46.9.0",
