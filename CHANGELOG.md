@@ -1,3 +1,12 @@
+# [1.18.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.17.5...1.18.0) (2024-04-10)
+
+
+### Features
+
+* sfdx-core 7 ([4dd5f65](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/4dd5f65a5d59619a3d6d91530208598c657d5d69))
+
+
+
 ## [1.17.5](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.17.4...1.17.5) (2024-03-29)
 
 
