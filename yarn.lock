@@ -1968,10 +1968,10 @@ eslint-module-utils@^2.8.0:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-eslint-plugin@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-eslint-plugin/-/eslint-plugin-eslint-plugin-5.4.0.tgz#61782d2252d400451b494a3fb2db2d9c04e34745"
-  integrity sha512-79izqWfmWmvGEWse5rZQlrcqPp34g07ZE1AyzbB8qnS8dnxJvc4vltGT6xuYIPvpQoQECzW5bGeD4BvOxUYvBA==
+eslint-plugin-eslint-plugin@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-eslint-plugin/-/eslint-plugin-eslint-plugin-5.5.1.tgz#ff54b5d0a5881e6150183ad025c5a7ee554b6545"
+  integrity sha512-9AmfZzcQ7QHwpzfAQpZ7xdtwHYViylmlnruCH0aV64/tuoH3igGXg91vr0e6ShLf/mrAYGqLw5LZ/gOxJeRXnw==
   dependencies:
     eslint-utils "^3.0.0"
     estraverse "^5.3.0"
