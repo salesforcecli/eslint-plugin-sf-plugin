@@ -1,3 +1,12 @@
+## [1.18.6](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.18.5...1.18.6) (2024-06-13)
+
+
+### Bug Fixes
+
+* **deps:** bump braces from 3.0.2 to 3.0.3 ([e1ffaac](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/e1ffaac30613608d77b57594f2d7628fc85e5d19))
+
+
+
 ## [1.18.5](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.18.4...1.18.5) (2024-05-26)
 
 
