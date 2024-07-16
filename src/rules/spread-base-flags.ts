@@ -13,14 +13,14 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description:
-        'When not directly extending SfCommand, baseFlags must be spread like Flags = {...<super>.baseFlags}',
+        "When not directly extending SfCommand, the parent's flags must be spread like flags = {...{{parent}}.flags}",
       recommended: 'recommended',
     },
     messages: {
-      message: 'When not directly extending SfCommand, baseFlags must be spread like Flags = {...<super>.baseFlags}',
+      message:
+        "When not directly extending SfCommand, the parent's flags must be spread like flags = {...{{parent}}.flags}",
     },
     type: 'problem',
-    fixable: 'code',
     schema: [],
   },
   defaultOptions: [],
@@ -37,6 +37,8 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
               context.report({
                 loc: flagsProperty.loc,
                 messageId: 'message',
+                // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
+                data: { parent: node.superClass?.name },
               });
             }
           },
