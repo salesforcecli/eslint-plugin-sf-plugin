@@ -30,6 +30,20 @@ export default class Top extends Base<ScratchCreateResponse> {
 }
 `,
     },
+    {
+      name: 'does not apply to SfCommand',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class Top extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      char: 'a'
+    })
+  }
+}
+`,
+    },
   ],
   invalid: [
     {

@@ -32,13 +32,14 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
             if (!flagsProperty) return;
             // @ts-ignore
             const flag = flagsProperty.value?.properties?.find((f) => f.type === 'SpreadElement');
+            // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
+            const parent = node.superClass?.name;
 
-            if (!ancestorsContainsSfCommand(context.getAncestors()) && !flag) {
+            if (parent !== 'SfCommand' && !flag) {
               context.report({
                 loc: flagsProperty.loc,
                 messageId: 'message',
-                // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
-                data: { parent: node.superClass?.name },
+                data: { parent },
               });
             }
           },
