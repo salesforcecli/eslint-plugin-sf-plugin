@@ -53,7 +53,7 @@ module.exports = {
 ✈️ Set in the `migration` configuration.\
 ✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
-💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
+💡 Manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 
 | Name                                                                                   | Description                                                                                                                      | 💼      | ⚠️   | 🚫      | 🔧 | 💡 |
 | :------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :------ | :--- | :------ | :- | :- |
@@ -71,6 +71,7 @@ module.exports = {
 | [no-args-parse-without-strict-false](docs/rules/no-args-parse-without-strict-false.md) | If you parse args/argv, the class should have strict set to false                                                                | ✈️ ✅    |      |         | 🔧 |    |
 | [no-builtin-flags](docs/rules/no-builtin-flags.md)                                     | Handling for sfdxCommand's flags.builtin                                                                                         | ✈️      |      |         | 🔧 |    |
 | [no-classes-in-command-return-type](docs/rules/no-classes-in-command-return-type.md)   | The return type of the run method should not contain a class.                                                                    | ✈️ ✅    |      |         | 🔧 |    |
+| [no-default-and-depends-on-flags](docs/rules/no-default-and-depends-on-flags.md)       | Do not allow creation of a flag with default value and dependsOn                                                                 | ✈️ ✅    |      |         |    |    |
 | [no-deprecated-properties](docs/rules/no-deprecated-properties.md)                     | Removes non-existent properties left over from SfdxCommand                                                                       | ✈️      |      |         | 🔧 |    |
 | [no-duplicate-short-characters](docs/rules/no-duplicate-short-characters.md)           | Prevent duplicate use of short characters or conflicts between aliases and flags                                                 | ✈️ ✅    |      |         |    |    |
 | [no-execcmd-double-quotes](docs/rules/no-execcmd-double-quotes.md)                     | Do not use double quotes in NUT examples.  They will not work on windows                                                         |         |      | 📚 ✈️ ✅ | 🔧 |    |
