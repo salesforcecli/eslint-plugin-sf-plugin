@@ -44,7 +44,7 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
               const dependsOnFlagDefaultValue = node.parent.properties
                 .find(
                   // @ts-expect-error value type on dependsOn
-                  (f) => f.type === AST_NODE_TYPES.Property && f.key.name === dependsOn?.value.elements[0].value
+                  (f) => f.type === AST_NODE_TYPES.Property && f.key.name === dependsOnProperty?.value.elements[0].value
                 )
                 ?.value.arguments[0].properties.find((p) => p.key.name === 'default');
               if (dependsOnProperty && defaultValueProperty && !dependsOnFlagDefaultValue) {
