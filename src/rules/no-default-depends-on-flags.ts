@@ -25,33 +25,37 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
   create(context) {
     return isInCommandDirectory(context)
       ? {
-        Property(node): void {
-          // is a flag
-          if (
-            isFlag(node) &&
-            ancestorsContainsSfCommand(context.getAncestors()) &&
-            node.value?.type === AST_NODE_TYPES.CallExpression &&
-            node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
-          ) {
-            const dependsOn = node.value.arguments[0].properties.find(
-              (property) =>
-                property.type === AST_NODE_TYPES.Property &&
-                flagPropertyIsNamed(property, 'dependsOn')
-            );
-            const defaultValue = node.value.arguments[0].properties.find(
-              (property) =>
-                property.type === AST_NODE_TYPES.Property &&
-                flagPropertyIsNamed(property, 'default')
-            );
-            if (dependsOn && defaultValue) {
-              context.report({
-                node: dependsOn,
-                messageId: 'message',
-              });
+          Property(node): void {
+            // is a flag
+            if (
+              isFlag(node) &&
+              ancestorsContainsSfCommand(context.getAncestors()) &&
+              node.value?.type === AST_NODE_TYPES.CallExpression &&
+              node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
+            ) {
+              const dependsOnProperty = node.value.arguments[0].properties.find(
+                (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'dependsOn')
+              );
+              const defaultValueProperty = node.value.arguments[0].properties.find(
+                (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'default')
+              );
+
+              // @ts-expect-error from the node (flag), go up a level (parent) and find the dependsOn flag definition, see if it has a default
+              const dependsOnFlagDefaultValue = node.parent.properties
+                .find(
+                  // @ts-expect-error value type on dependsOn
+                  (f) => f.type === AST_NODE_TYPES.Property && f.key.name === dependsOn?.value.elements[0].value
+                )
+                ?.value.arguments[0].properties.find((p) => p.key.name === 'default');
+              if (dependsOnProperty && defaultValueProperty && !dependsOnFlagDefaultValue) {
+                context.report({
+                  node: dependsOnProperty,
+                  messageId: 'message',
+                });
+              }
             }
-          }
-        },
-      }
+          },
+        }
       : {};
   },
 });

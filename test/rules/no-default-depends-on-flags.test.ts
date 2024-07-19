@@ -7,7 +7,7 @@
 import path from 'path';
 import { RuleTester } from '@typescript-eslint/rule-tester';
 
-import { noDefaultDependsOnFlags } from "../../src/rules/no-default-depends-on-flags";
+import { noDefaultDependsOnFlags } from '../../src/rules/no-default-depends-on-flags';
 
 const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
@@ -27,6 +27,27 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     })
   }
 }
+`,
+    },
+    {
+      name: 'does not block flag with a default value depending on another flag with a default value',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      default: 'a',
+      dependsOn: ['balias'],
+      char: 'a'
+    }),
+    balias: Flags.string({
+      summary: 'baz',
+      default: 'b',
+      char: 'b'
+    })
+  }
+}
 
 `,
     },
@@ -43,6 +64,28 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       char: 'h',
       default: true,
       dependsOn: ['myOtherFlag']
+    })
+  }
+}
+`,
+    },
+
+    {
+      name: 'uses dependsOn and dependsOn doesnt have a default',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [{ messageId: 'message' }],
+      code: `
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      default: 'a',
+      dependsOn: ['balias'],
+      char: 'a'
+    }),
+    balias: Flags.string({
+      summary: 'baz',
+      char: 'b'
     })
   }
 }
