@@ -43,8 +43,9 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
               // @ts-expect-error from the node (flag), go up a level (parent) and find the dependsOn flag definition, see if it has a default
               const dependsOnFlagDefaultValue = node.parent.properties
                 .find(
-                  // @ts-expect-error value type on dependsOn
-                  (f) => f.type === AST_NODE_TYPES.Property && f.key.name === dependsOnProperty?.value.elements[0].value
+                  (f) =>
+                    // @ts-expect-error value type on dependsOn
+                    f.type === AST_NODE_TYPES.Property && f.key.name === dependsOnProperty?.value.elements?.at(0)?.value
                 )
                 ?.value.arguments[0].properties.find((p) => p.key.name === 'default');
               if (dependsOnProperty && defaultValueProperty && !dependsOnFlagDefaultValue) {
