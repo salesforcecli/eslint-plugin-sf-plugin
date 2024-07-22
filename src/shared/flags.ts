@@ -25,6 +25,15 @@ export const isFlagsStaticProperty = (node: TSESTree.Node): node is TSESTree.Pro
   node.key.name === 'flags' &&
   ['public', 'protected'].includes(node.accessibility);
 
+export const isBaseFlagsStaticProperty = (node: TSESTree.Node): node is TSESTree.PropertyDefinition =>
+  node.type === AST_NODE_TYPES.PropertyDefinition &&
+  typeof node.accessibility === 'string' &&
+  node.static &&
+  node.value?.type === AST_NODE_TYPES.ObjectExpression &&
+  node.key.type === AST_NODE_TYPES.Identifier &&
+  node.key.name === 'baseFlags' &&
+  ['public', 'protected'].includes(node.accessibility);
+
 export const flagPropertyIsNamed = (node: TSESTree.Property, name: string): node is TSESTree.Property =>
   resolveFlagName(node) === name;
 
@@ -45,6 +54,14 @@ export const getFlagsStaticPropertyFromCommandClass = (
 ): TSESTree.PropertyDefinition | undefined => {
   if (classDeclaration.body.type === AST_NODE_TYPES.ClassBody) {
     return classDeclaration.body.body.find(isFlagsStaticProperty);
+  }
+};
+
+export const getBaseFlagsStaticPropertyFromCommandClass = (
+  classDeclaration: TSESTree.ClassDeclaration
+): TSESTree.PropertyDefinition | undefined => {
+  if (classDeclaration.body.type === AST_NODE_TYPES.ClassBody) {
+    return classDeclaration.body.body.find(isBaseFlagsStaticProperty);
   }
 };
 
