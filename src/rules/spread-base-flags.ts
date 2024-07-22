@@ -6,19 +6,23 @@
  */
 import { isInCommandDirectory, ancestorsContainsSfCommand, getSfCommand } from '../shared/commands';
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
-import { getFlagsStaticPropertyFromCommandClass, isFlagsStaticProperty } from '../shared/flags';
+import {
+  getBaseFlagsStaticPropertyFromCommandClass,
+  getFlagsStaticPropertyFromCommandClass,
+  isFlagsStaticProperty,
+} from '../shared/flags';
 import { ASTUtils, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 
 export const spreadBaseFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description:
-        "When not directly extending SfCommand, the parent's flags must be spread like flags = {...{{parent}}.flags}",
+        "When not directly extending SfCommand, the parent's flags must be spread like flags = { ...{{parent}}.{{property}} }",
       recommended: 'recommended',
     },
     messages: {
       message:
-        "When not directly extending SfCommand, the parent's flags must be spread like flags = {...{{parent}}.flags}",
+        "When not directly extending SfCommand, the parent's flags must be spread like flags = { ...{{parent}}.{{property}} }",
     },
     type: 'problem',
     schema: [],
@@ -29,18 +33,39 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
       ? {
           ClassDeclaration(node): void {
             const flagsProperty = getFlagsStaticPropertyFromCommandClass(node);
-            if (!flagsProperty) return;
-            // @ts-ignore
-            const flag = flagsProperty.value?.properties?.find((f) => f.type === 'SpreadElement');
-            // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
-            const parent = node.superClass?.name;
+            if (flagsProperty) {
+              // @ts-ignore SpreadElement (...) on property==='flags' (BaseCommand.flags)
+              const flags = flagsProperty?.value?.properties?.find(
+                (f) => f.type === 'SpreadElement' && f.argument.property.name === 'flags'
+              );
+              // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
+              const parent = node.superClass?.name;
 
-            if (parent !== 'SfCommand' && !flag) {
-              context.report({
-                loc: flagsProperty.loc,
-                messageId: 'message',
-                data: { parent },
-              });
+              if (parent !== 'SfCommand' && !flags) {
+                context.report({
+                  loc: flagsProperty.loc,
+                  messageId: 'message',
+                  data: { parent, property: 'flags' },
+                });
+              }
+            }
+
+            const baseFlagsProperty = getBaseFlagsStaticPropertyFromCommandClass(node);
+            if (baseFlagsProperty) {
+              // @ts-ignore SpreadElement (...) on property==='flags' (BaseCommand.flags)
+              const baseFlags = baseFlagsProperty.value?.properties?.find(
+                (f) => f.type === 'SpreadElement' && f.argument.property.name === 'baseFlags'
+              );
+              // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
+              const parent = node.superClass?.name;
+
+              if (parent !== 'SfCommand' && !baseFlags) {
+                context.report({
+                  loc: baseFlagsProperty.loc,
+                  messageId: 'message',
+                  data: { parent, property: 'baseFlags' },
+                });
+              }
             }
           },
         }

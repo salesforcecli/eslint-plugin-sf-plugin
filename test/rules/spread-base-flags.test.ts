@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
 ruleTester.run('spread-base-flags', spreadBaseFlags, {
   valid: [
     {
-      name: 'spreads base flags when required',
+      name: 'spreads flags when required',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class Top extends Base<ScratchCreateResponse> {
@@ -31,7 +31,40 @@ export default class Top extends Base<ScratchCreateResponse> {
 `,
     },
     {
-      name: 'does not apply to SfCommand',
+      name: 'spreads flags and baseFlags when required',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class Top extends Base<ScratchCreateResponse> {
+  public static baseFlags = {
+    ...Base.baseFlags
+  }
+  public static flags = {
+    ...Base.flags,
+    alias: Flags.string({
+      summary: 'foo',
+      char: 'a'
+    })
+  }
+}
+`,
+    },
+    {
+      name: 'spreads base flags when required',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class Top extends Base<ScratchCreateResponse> {
+  public static baseFlags = {
+    ...Base.baseFlags,
+    alias: Flags.string({
+      summary: 'foo',
+      char: 'a'
+    })
+  }
+}
+`,
+    },
+    {
+      name: 'does not apply to SfCommand.flags',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 export default class Top extends SfCommand<ScratchCreateResponse> {
@@ -44,15 +77,63 @@ export default class Top extends SfCommand<ScratchCreateResponse> {
 }
 `,
     },
+    {
+      name: 'does not apply to SfCommand baseFlags',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+export default class Top extends SfCommand<ScratchCreateResponse> {
+  public static baseFlags = {
+    alias: Flags.string({
+      summary: 'foo',
+      char: 'a'
+    })
+  }
+}
+`,
+    },
   ],
   invalid: [
+    {
+      name: 'does not spread flags, spreads baseFlags properly',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [{ messageId: 'message' }],
+      code: `
+export default class Top extends BaseCommand<Foo> {
+  public static baseFlags = {...BaseCommand.baseFlags}
+  public static flags = {
+    json: Flags.boolean({
+      char: 'h',
+      default: true,
+      dependsOn: ['myOtherFlag']
+    })
+  }
+}
+`,
+    },
     {
       name: 'does not spread base flags',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
 export default class Top extends BaseCommand<Foo> {
-  public static flags = {
+  public static baseFlags = {
+    json: Flags.boolean({
+      char: 'h',
+      default: true,
+      dependsOn: ['myOtherFlag']
+    })
+  }
+}
+`,
+    },
+    {
+      name: 'does not spread base flags, spreads flags',
+      filename: path.normalize('src/commands/foo.ts'),
+      errors: [{ messageId: 'message' }],
+      code: `
+export default class Top extends BaseCommand<Foo> {
+  public static flags={...BaseCommand.flags};
+  public static baseFlags = {
     json: Flags.boolean({
       char: 'h',
       default: true,
