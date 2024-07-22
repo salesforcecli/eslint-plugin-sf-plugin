@@ -36,7 +36,7 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
             if (flagsProperty) {
               // @ts-ignore SpreadElement (...) on property==='flags' (BaseCommand.flags)
               const flags = flagsProperty?.value?.properties?.find(
-                (f) => f.type === 'SpreadElement' && f.argument.property.name === 'flags'
+                (f) => f.type === 'SpreadElement' && f.argument.property?.name === 'flags'
               );
               // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
               const parent = node.superClass?.name;
@@ -52,9 +52,9 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
 
             const baseFlagsProperty = getBaseFlagsStaticPropertyFromCommandClass(node);
             if (baseFlagsProperty) {
-              // @ts-ignore SpreadElement (...) on property==='flags' (BaseCommand.flags)
+              // @ts-ignore SpreadElement (...) on property==='baseFlags' (BaseCommand.baseFlags)
               const baseFlags = baseFlagsProperty.value?.properties?.find(
-                (f) => f.type === 'SpreadElement' && f.argument.property.name === 'baseFlags'
+                (f) => f.type === 'SpreadElement' && f.argument.property?.name === 'baseFlags'
               );
               // @ts-ignore name will not be undefined because we're in a command class, which has to at least extend Command
               const parent = node.superClass?.name;
