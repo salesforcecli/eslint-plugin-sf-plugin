@@ -1,3 +1,12 @@
+# [1.19.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.18.12...1.19.0) (2024-07-22)
+
+
+### Features
+
+* add `spread-flags`/`only-extend-SfCommand`/`no-default-and-depends-on-flags` rules ([#440](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/440)) ([d4e7391](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/d4e739131dfcef876068415629abd01157dc4202)), closes [#441](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/441)
+
+
+
 ## [1.18.12](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.18.11...1.18.12) (2024-07-20)
 
 
