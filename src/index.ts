@@ -46,7 +46,9 @@ import { noClassesInCommandReturnType } from './rules/no-classes-in-command-retu
 import { noExecCmdDoubleQuotes } from './rules/no-execCmd-double-quotes';
 import { noMessagesLoad } from './rules/no-messages-load';
 import { esmMessageImport } from './rules/esm-message-import';
-import { noDefaultDependsOnFlags } from "./rules/no-default-depends-on-flags";
+import { noDefaultDependsOnFlags } from './rules/no-default-depends-on-flags';
+import { onlyExtendSfCommand } from './rules/only-extend-sfCommand';
+import { spreadBaseFlags } from './rules/spread-base-flags';
 
 const library = {
   plugins: ['sf-plugin'],
@@ -86,6 +88,8 @@ const recommended = {
     'sf-plugin/no-hyphens-aliases': 'error',
     'sf-plugin/no-classes-in-command-return-type': 'error',
     'sf-plugin/no-default-and-depends-on-flags': 'error',
+    'sf-plugin/only-extend-SfCommand': 'warn',
+    'sf-plugin/spread-base-flags': 'warn',
   },
 };
 
@@ -110,7 +114,8 @@ export = {
         'sf-plugin/no-id-flags': 'error',
         'sf-plugin/no-username-properties': 'error',
         'sf-plugin/no-default-and-depends-on-flags': 'error',
-        'sf-plugin/encourage-alias-deprecation': 'warn',
+        'sf-plugin/only-extend-SfCommand': 'warn',
+        'sf-plugin/spread-base-flags': 'error',
       },
     },
   },
@@ -118,6 +123,8 @@ export = {
     'esm-message-import': esmMessageImport,
     'no-h-short-char': dashH,
     'no-default-and-depends-on-flags': noDefaultDependsOnFlags,
+    'only-extend-SfCommand': onlyExtendSfCommand,
+    'spread-base-flags': spreadBaseFlags,
     'no-duplicate-short-characters': noDuplicateShortCharacters,
     'run-matches-class-type': runMatchesClassType,
     'flag-case': flagCasing,
