@@ -1,3 +1,12 @@
+## [1.19.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.19.0...1.19.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* handle import aliases ([17e392b](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/17e392bb15a3ef1d1b8695feec738f13a53e01a3))
+
+
+
 # [1.19.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.18.12...1.19.0) (2024-07-22)
 
 
