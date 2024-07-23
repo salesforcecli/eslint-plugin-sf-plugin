@@ -50,7 +50,45 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     {
       name: 'uses this.flags',
       filename: path.normalize('src/commands/foo.ts'),
-      errors: [{ messageId: 'noThisFlags' }],
+      errors: [
+        {
+          messageId: 'noThisFlags',
+          suggestions: [
+            {
+              messageId: 'useFlags',
+              output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: flags.string({ char: 'f', description: 'foo flag' }),
+  }
+  public async run(): Promise<ScratchCreateResponse> {
+    const {flags} = await this.parse(EnvCreateScratch)
+  }
+  public otherMethod() {
+    console.log(flags.foo)
+  }
+}
+`,
+            },
+            {
+              messageId: 'instanceProp',
+              output: `
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    foo: flags.string({ char: 'f', description: 'foo flag' }),
+  }
+  private flags: Interfaces.InferredFlags<typeof EnvCreateScratch.flags>;public async run(): Promise<ScratchCreateResponse> {
+    const {flags} = await this.parse(EnvCreateScratch)
+  }
+  public otherMethod() {
+    console.log(this.flags.foo)
+  }
+}
+`,
+            },
+          ],
+        },
+      ],
       code: `
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
