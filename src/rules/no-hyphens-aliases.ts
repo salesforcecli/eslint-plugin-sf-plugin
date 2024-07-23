@@ -37,7 +37,7 @@ export const noHyphenAliases = RuleCreator.withoutDocs({
               node.parent.parent.key.name === 'aliases' &&
               node.parent.parent.parent?.parent?.parent &&
               isFlag(node.parent.parent.parent?.parent?.parent) &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               context.report({
                 node,

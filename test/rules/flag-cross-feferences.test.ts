@@ -19,6 +19,7 @@ ruleTester.run('cross-references exist for dependsOn, exclusive, exactlyOne', fl
       name: 'dependent flag exists',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -33,6 +34,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'non-static definition of flags is supported',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
     export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -48,6 +50,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: '2 exclusive flags that refer to each other',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -64,6 +67,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: '2 exactlyOne flags that refer to each other',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -80,6 +84,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/foo.ts'),
       name: 'anything is ok outside the commands directory',
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -102,6 +107,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
 
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -122,6 +128,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -146,6 +153,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({

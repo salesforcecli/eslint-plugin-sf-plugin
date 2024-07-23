@@ -19,6 +19,7 @@ ruleTester.run('idFlagSuggestions', idFlagSuggestions, {
       name: 'salesforceId flag with length and startsWith',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     verbose: Flags.salesforceId({
@@ -42,6 +43,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'typeSuggestion',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     id: Flags.salesforceId({startsWith: '000',
@@ -53,6 +55,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'lengthSuggestionBoth',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     id: Flags.salesforceId({length: 'both',
@@ -64,6 +67,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'lengthSuggestion15',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     id: Flags.salesforceId({length: 15,
@@ -75,6 +79,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'lengthSuggestion18',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     id: Flags.salesforceId({length: 18,
@@ -87,6 +92,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     id: Flags.salesforceId({
@@ -105,6 +111,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'typeSuggestion',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     'some-flag': Flags.salesforceId({startsWith: '000',
@@ -118,6 +125,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     'some-flag': Flags.salesforceId({
@@ -137,6 +145,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'lengthSuggestionBoth',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     foo: Flags.salesforceId({length: 'both',
@@ -149,6 +158,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'lengthSuggestion15',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     foo: Flags.salesforceId({length: 15,
@@ -161,6 +171,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
             {
               messageId: 'lengthSuggestion18',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     foo: Flags.salesforceId({length: 18,
@@ -174,6 +185,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     foo: Flags.salesforceId({

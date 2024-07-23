@@ -19,6 +19,7 @@ ruleTester.run('call getConnection with version', getConnectionWithVersion, {
       name: 'passes in version',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public async run(): Promise<ScratchCreateResponse> {
     const conn = flags['target-org'].getConnection(flags['api-version']);
@@ -31,6 +32,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'not in commands dir',
       filename: path.normalize('src/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public async run(): Promise<ScratchCreateResponse> {
     const conn = flags['target-org'].getConnection(flags['api-version']);
@@ -49,6 +51,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public async run(): Promise<ScratchCreateResponse> {
     const conn = flags['target-org'].getConnection();

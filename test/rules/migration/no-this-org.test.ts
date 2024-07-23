@@ -19,6 +19,7 @@ ruleTester.run('noThisOrg', noThisOrg, {
       name: 'org from flags',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     'target-org': Flags.requiredOrgFlag(),
@@ -34,6 +35,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'top-level org prop',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   private org: Org
   public static flags = {
@@ -54,6 +56,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'setThisOrg' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   private org: Org;
   public static flags = {
@@ -66,6 +69,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   private org: Org;
   public static flags = {
@@ -88,6 +92,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'useFlags',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     'target-org': Flags.requiredOrgFlag(),
@@ -102,6 +107,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'instanceProp',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     'target-org': Flags.requiredOrgFlag(),
@@ -118,6 +124,7 @@ public async run(): Promise<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     'target-org': Flags.requiredOrgFlag(),

@@ -33,7 +33,7 @@ export const getConnectionWithVersion = RuleCreator.withoutDocs({
               node.callee?.type === AST_NODE_TYPES.MemberExpression &&
               node.callee.property.type === AST_NODE_TYPES.Identifier &&
               node.callee.property?.name === 'getConnection' &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               context.report({
                 node: node.callee.property,

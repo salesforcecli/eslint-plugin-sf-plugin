@@ -18,6 +18,7 @@ ruleTester.run('noUnnecessaryProperties', noUnnecessaryProperties, {
     {
       name: 'correct example for a command',
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static requiresProject = true
   public static notInTargetList = false
@@ -27,6 +28,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     {
       name: 'other static properties with no value',
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static org: Org
 }
@@ -35,6 +37,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     {
       name: 'populated aliases  for a command',
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static aliases = ['foo']
 }
@@ -52,6 +55,7 @@ export default class EnvCreateScratch extends somethingElse<ScratchCreateRespons
       name: 'not in the commands folder',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
    public static requiresProject = false
 }
@@ -69,11 +73,13 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = []
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   
 }
@@ -94,6 +100,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static hidden = false
   public static requiresProject = false
@@ -101,6 +108,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   
   

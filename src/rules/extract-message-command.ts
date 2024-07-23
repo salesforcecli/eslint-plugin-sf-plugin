@@ -29,7 +29,7 @@ export const extractMessageCommand = RuleCreator.withoutDocs({
       ? {
           ClassDeclaration(node): void {
             // verify it extends SfCommand
-            if (extendsSfCommand(node)) {
+            if (extendsSfCommand(node, context)) {
               node.body.body
                 .filter((prop) =>
                   // this could be `undefined` but that works okay with `.includes`

@@ -32,7 +32,7 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context.getAncestors())) {
+            if (ancestorsContainsSfCommand(context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'aliases') {
                 // but you don't have deprecateAliases = true then add id
                 if (
@@ -63,7 +63,7 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
               isFlag(node) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               const argProps = node.value.arguments[0].properties.filter(
                 ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)

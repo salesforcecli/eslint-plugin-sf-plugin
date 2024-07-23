@@ -24,11 +24,33 @@ export const onlyExtendSfCommand = RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
+    // function extendsSfCommand(node: TSESTree.ClassDeclaration, context: RuleContext<any, any>): boolean {
+    //   // Track imported classes and their aliases
+    //   const importedClasses = new Map();
+    //
+    //   for (const node of (context.sourceCode).ast.body) {
+    //     if (node.type === 'ImportDeclaration') {
+    //       node.specifiers.forEach(specifier => {
+    //         if (specifier.type === 'ImportSpecifier' && specifier.imported.name === 'SfCommand') {
+    //           importedClasses.set(specifier.local.name, 'SfCommand');
+    //         }
+    //         // Handle import aliases
+    //         else if (specifier.type === 'ImportSpecifier' && specifier.local.name !== specifier.imported.name) {
+    //           importedClasses.set(specifier.local.name, specifier.imported.name);
+    //         }
+    //       })
+    //     }
+    //   }
+    //
+    //   return node.superClass?.type === AST_NODE_TYPES.Identifier && (importedClasses.get(node.superClass.name) == 'SfCommand');
+    // }
+
     return isInCommandDirectory(context)
       ? {
         ClassDeclaration(node): void {
           // verify it extends SfCommand
-          if (!extendsSfCommand(node) && node.id) {
+          // importedClasses.has()
+          if (!extendsSfCommand(node, context) && node.id) {
               context.report({
                 node: node.id,
                 messageId: 'message',

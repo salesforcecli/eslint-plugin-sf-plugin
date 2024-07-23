@@ -40,7 +40,7 @@ export const noSplitExamples = RuleCreator.withoutDocs({
               node.value.callee.object.callee.property.name === 'getMessage' &&
               node.value.callee.property.type === AST_NODE_TYPES.Identifier &&
               node.value.callee.property.name === 'split' &&
-              extendsSfCommand(node.parent.parent)
+              extendsSfCommand(node.parent.parent, context)
             ) {
               const target = node.value;
               const fixedText = context

@@ -32,7 +32,7 @@ export const useSfCommandFlags = RuleCreator.withoutDocs({
               node.value?.callee?.type === AST_NODE_TYPES.MemberExpression &&
               node.value?.callee?.object?.type === AST_NODE_TYPES.Identifier &&
               node.value?.callee?.object?.name === 'flags' &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               const range = node.value.callee.object.range;
               context.report({

@@ -19,6 +19,7 @@ ruleTester.run('useSfCommandFlags', useSfCommandFlags, {
       name: 'sf flags',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
     foo: Flags.boolean()
@@ -31,6 +32,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'Not in commands dir',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<string> {
   public static flagsConfig: FlagsConfig = {
     foo: flags.boolean()
@@ -46,6 +48,7 @@ export default class EnvCreateScratch extends SfCommand<string> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     foo: flags.boolean()
@@ -53,6 +56,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     foo: Flags.boolean()

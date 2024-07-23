@@ -21,6 +21,7 @@ ruleTester.run('commandSummary', commandSummary, {
       code:
         // example with different chars
         `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly summary = 'foo'
   public static readonly examples = 'baz'
@@ -68,6 +69,7 @@ export abstract class StagedProgress<T> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly examples = 'baz'
 }
@@ -84,12 +86,14 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       // allow formatter to handle the newline/indent stuff
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly summary = 'bar';public static readonly description = 'bar'
   public static readonly examples = 'baz'
 }
 `,
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'bar'
   public static readonly examples = 'baz'

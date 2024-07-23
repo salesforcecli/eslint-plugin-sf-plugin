@@ -18,6 +18,7 @@ ruleTester.run('noSplitExamples', noSplitExamples, {
     {
       name: 'correct examples with getMessages',
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly examples = messages.getMessages('examples')
 }
@@ -35,6 +36,7 @@ export default class EnvCreateScratch extends somethingElse<ScratchCreateRespons
       name: 'not in the commands folder',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly examples = message.getMessage('examples').split(EOL)
 }
@@ -51,11 +53,13 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly examples = message.getMessage('examples').split(EOL);
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly examples = message.getMessages('examples');
 }

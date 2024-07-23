@@ -23,6 +23,7 @@ ruleTester.run('noClassesInCommandReturnType', noClassesInCommandReturnType, {
       name: 'return a type',
       code: `
 export type FooReturn = { foo: string }
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<FooReturn> {
   public async run(): Promise<FooReturn> {
     return {foo: 'bar'}
@@ -34,6 +35,7 @@ export default class EnvCreateScratch extends SfCommand<FooReturn> {
       name: 'return an interface',
       code: `
 export interface FooReturn { foo: string }
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<FooReturn> {
   public async run(): Promise<FooReturn> {
     return {foo: 'bar'}
@@ -48,6 +50,7 @@ export default class EnvCreateScratch extends SfCommand<FooReturn> {
       errors: [{ messageId: 'summary' }],
       code: `
 export class FooReturn {}
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<FooReturn> {
   public async run(): Promise<FooReturn> {
     return new Foo();
@@ -64,6 +67,7 @@ export class FooClass {}
 export interface FooReturn {
   foo: FooClass
 }
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<FooReturn> {
   public async run(): Promise<FooReturn> {
     return {
@@ -82,6 +86,7 @@ export class FooClass {}
 export type FooReturn = {
   foo: FooClass
 }
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<FooReturn> {
   public async run(): Promise<FooReturn> {
     return {
@@ -100,6 +105,7 @@ import { Messages } from '@salesforce/core';
 export type FooReturn = {
   foo: Messages
 }
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<FooReturn> {
   public async run(): Promise<FooReturn> {
     return {

@@ -19,6 +19,7 @@ ruleTester.run('no hardcoded summary/description on command', extractMessageComm
       name: 'messages for command description and summary',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = messages.getMessage('description');
   public static readonly summary = messages.getMessage('summary');
@@ -29,6 +30,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'messages for command description',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
  public static readonly description = messages.getMessage('description');
 }
@@ -38,6 +40,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'messages for command summary',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
    public static readonly summary = messages.getMessage('summary');
 }
@@ -57,6 +60,7 @@ export default class EnvCreateScratch extends SomethingElse<ScratchCreateRespons
       name: 'not in the commands folder',
       filename: path.normalize('src/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'foo';
   public static readonly summary = 'bar';
@@ -74,6 +78,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
  public static readonly description = 'foo';
  public static readonly summary = messages.getMessage('summary');
@@ -93,6 +98,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
 
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
  public static readonly description = 'foo';
  public static readonly summary = 'bar';

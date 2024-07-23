@@ -27,7 +27,7 @@ export const commandSummary = RuleCreator.withoutDocs({
       ? {
           ClassDeclaration(node): void {
             // verify it extends SfCommand
-            if (extendsSfCommand(node) && node.id) {
+            if (extendsSfCommand(node, context) && node.id) {
               if (!node.body.body.some((member) => getClassPropertyIdentifierName(member) === 'summary')) {
                 const descriptionNode = node.body.body.find(
                   (member) => getClassPropertyIdentifierName(member) === 'description'

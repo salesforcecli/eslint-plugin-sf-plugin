@@ -67,6 +67,7 @@ export default class Top extends Base<ScratchCreateResponse> {
       name: 'does not apply to SfCommand.flags',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class Top extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -81,6 +82,7 @@ export default class Top extends SfCommand<ScratchCreateResponse> {
       name: 'does not apply to SfCommand baseFlags',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class Top extends SfCommand<ScratchCreateResponse> {
   public static baseFlags = {
     alias: Flags.string({

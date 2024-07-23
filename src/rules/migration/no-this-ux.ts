@@ -35,7 +35,7 @@ export const noThisUx = RuleCreator.withoutDocs({
           MemberExpression(node): void {
             if (
               MemberExpressionContainsMemberExpressionThisDotFoo(node, 'ux') &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               // spinner cases
               if (node.property.type === AST_NODE_TYPES.Identifier && spinnerMigration.has(node.property.name)) {

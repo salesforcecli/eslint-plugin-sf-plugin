@@ -19,6 +19,7 @@ ruleTester.run('no duplicate short characters', noDuplicateShortCharacters, {
       name: 'all flags use different chars',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -39,6 +40,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'some flags have no char',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -56,6 +58,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'not in commands dir',
       filename: path.normalize('src/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -81,6 +84,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.string({
@@ -103,6 +107,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.string({
@@ -126,6 +131,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.string({
@@ -150,6 +156,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.string({
@@ -174,6 +181,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.string({

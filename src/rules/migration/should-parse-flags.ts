@@ -30,7 +30,7 @@ export const shouldParseFlags = RuleCreator.withoutDocs({
             if (isRunMethod(node) && node.value?.body?.body) {
               // OK, looks like a run method has a type annotation
               const ancestors = context.getAncestors();
-              const classDeclaration = getSfCommand(ancestors);
+              const classDeclaration = getSfCommand(context);
               if (
                 // and it has flags to be parsed
                 classDeclaration?.body?.body?.some((prop) => isFlagsStaticProperty(prop))

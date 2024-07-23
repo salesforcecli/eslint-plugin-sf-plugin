@@ -37,9 +37,9 @@ export const noThisFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           MemberExpression(node): void {
-            if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context)) {
               // it's ok if there's a this.flags on the class...
-              const classAbove = getSfCommand(context.getAncestors());
+              const classAbove = getSfCommand(context);
               if (!classAbove) {
                 return;
               }

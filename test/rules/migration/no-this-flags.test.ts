@@ -19,6 +19,7 @@ ruleTester.run('noThisFlags', noThisFlags, {
       name: 'Custom Type',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -34,6 +35,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'Not in commands dir',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -52,6 +54,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'noThisFlags' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -71,6 +74,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'instanceProp' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -83,6 +87,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -100,6 +105,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'noThisFlags' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -111,6 +117,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),

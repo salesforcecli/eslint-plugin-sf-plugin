@@ -19,7 +19,25 @@ ruleTester.run('only-extend-SfCommand', onlyExtendSfCommand, {
       name: 'extends SfCommand directly',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static flags = {
+    alias: Flags.string({
+      summary: 'foo',
+      char: 'a'
+    })
+  }
+}
+
+`,
+    },
+    {
+      name: 'extends SfCommand directly, import alias',
+      filename: path.normalize('src/commands/foo.ts'),
+      code: `
+import {SfCommand as SfCmd} from '@salesforce/sf-plugins-core';
+
+export default class EnvCreateScratch extends SfCmd<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
       summary: 'foo',

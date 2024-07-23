@@ -27,7 +27,7 @@ export const flagMinMaxDefault = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
               if (
                 node.value?.type === AST_NODE_TYPES.CallExpression &&
                 node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&

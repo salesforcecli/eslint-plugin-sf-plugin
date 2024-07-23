@@ -30,7 +30,7 @@ export const dashO = RuleCreator.withoutDocs({
             // is a flag
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context.getAncestors()) &&
+              ancestorsContainsSfCommand(context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
               node.value.callee.property.type === AST_NODE_TYPES.Identifier &&

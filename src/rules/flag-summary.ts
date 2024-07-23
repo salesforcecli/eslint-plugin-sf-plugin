@@ -30,7 +30,7 @@ export const flagSummary = RuleCreator.withoutDocs({
           Property(node): void {
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context.getAncestors()) &&
+              ancestorsContainsSfCommand(context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {

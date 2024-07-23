@@ -20,6 +20,7 @@ ruleTester.run('noUsernameProperties', noUsernameProperties, {
       filename: path.normalize('src/commands/foo.ts'),
       code: `
 import { SfCommand, Flags, requiredOrgFlagWithDeprecations } from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
     'target-org': Flags.requiredOrgFlag(),
@@ -32,6 +33,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'Not in commands dir',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<string> {
   public static readonly requiresUsername = true;
 }
@@ -46,6 +48,7 @@ export default class EnvCreateScratch extends SfCommand<string> {
       errors: [{ messageId: 'requires' }, { messageId: 'requires' }],
       code: `
 import {Flags, SfCommand} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly requiresUsername = true;
     public static readonly flags = {
@@ -54,6 +57,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }`,
       output: `
 import {Flags, SfCommand, requiredOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly requiresUsername = true;
     public static readonly flags = {'target-org': requiredOrgFlagWithDeprecations,
@@ -67,6 +71,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       errors: [{ messageId: 'requires' }],
       output: `
 import {Flags, SfCommand, requiredOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     
     public static readonly flags = {'target-org': requiredOrgFlagWithDeprecations,
@@ -75,6 +80,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }`,
       code: `
 import {Flags, SfCommand, requiredOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly requiresUsername = true;
     public static readonly flags = {'target-org': requiredOrgFlagWithDeprecations,
@@ -90,6 +96,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       code: `
 import {foo} from 'bar';
 import {Flags, SfCommand} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly supportsUsername = true;
     public static readonly flags = {
@@ -99,6 +106,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       output: `
 import {foo} from 'bar';
 import {Flags, SfCommand, optionalOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly supportsUsername = true;
     public static readonly flags = {'target-org': optionalOrgFlagWithDeprecations,
@@ -112,6 +120,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       errors: [{ messageId: 'supports' }],
       output: `
 import {Flags, SfCommand, optionalOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     
     public static readonly flags = {'target-org': optionalOrgFlagWithDeprecations,
@@ -120,6 +129,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }`,
       code: `
 import {Flags, SfCommand, optionalOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly supportsUsername = true;
     public static readonly flags = {'target-org': optionalOrgFlagWithDeprecations,
@@ -133,6 +143,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       errors: [{ messageId: 'requiresHub' }, { messageId: 'requiresHub' }],
       code: `
 import {Flags, SfCommand} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly requiresDevhubUsername = true;
     public static readonly flags = {
@@ -141,6 +152,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }`,
       output: `
 import {Flags, SfCommand, requiredHubFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly requiresDevhubUsername = true;
     public static readonly flags = {'target-dev-hub': requiredHubFlagWithDeprecations,
@@ -154,6 +166,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       errors: [{ messageId: 'requiresHub' }],
       output: `
 import {Flags, SfCommand, requiredHubFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     
     public static readonly flags = {'target-dev-hub': requiredHubFlagWithDeprecations,
@@ -162,6 +175,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }`,
       code: `
 import {Flags, SfCommand, requiredHubFlagWithDeprecations} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly requiresDevhubUsername = true;
     public static readonly flags = {'target-dev-hub': requiredHubFlagWithDeprecations,
