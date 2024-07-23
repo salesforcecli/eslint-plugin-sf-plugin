@@ -9,14 +9,32 @@ import { sep, parse } from 'path';
 import { AST_NODE_TYPES, TSESTree, ASTUtils } from '@typescript-eslint/utils';
 import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 
-export const ancestorsContainsSfCommand = (ancestors: TSESTree.Node[]): boolean =>
-  ancestors.some((a) => a.type === AST_NODE_TYPES.ClassDeclaration && extendsSfCommand(a));
+export const ancestorsContainsSfCommand = (context: RuleContext<any,any>): boolean =>
+  context.getAncestors().some((a) => a.type === AST_NODE_TYPES.ClassDeclaration && extendsSfCommand(a,context));
 
-export const getSfCommand = (ancestors: TSESTree.Node[]): TSESTree.ClassDeclaration | undefined =>
-  ancestors.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)).find((a) => a && extendsSfCommand(a));
+export const getSfCommand = (context: RuleContext<any, any>): TSESTree.ClassDeclaration | undefined =>
+  context.getAncestors().filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)).find((a) => a && extendsSfCommand(a,context));
 
-export const extendsSfCommand = (node: TSESTree.ClassDeclaration): boolean =>
-  node.superClass?.type === AST_NODE_TYPES.Identifier && node.superClass.name === 'SfCommand';
+export const extendsSfCommand = (node: TSESTree.ClassDeclaration, context: RuleContext<any, any>): boolean => {
+  // Track imported classes and their aliases
+  const importedClasses = new Map();
+
+  for (const node of (context.sourceCode).ast.body) {
+    if (node.type === 'ImportDeclaration') {
+      node.specifiers.forEach(specifier => {
+        if (specifier.type === 'ImportSpecifier' && specifier.imported.name === 'SfCommand') {
+          importedClasses.set(specifier.local.name, 'SfCommand');
+        }
+        // Handle import aliases
+        else if (specifier.type === 'ImportSpecifier' && specifier.local.name !== specifier.imported.name) {
+          importedClasses.set(specifier.local.name, specifier.imported.name);
+        }
+      })
+    }
+  }
+
+  return node.superClass?.type === AST_NODE_TYPES.Identifier && (importedClasses.get(node.superClass.name) == 'SfCommand');
+}
 
 export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): string | undefined =>
   node.type === AST_NODE_TYPES.PropertyDefinition && node.key.type === AST_NODE_TYPES.Identifier

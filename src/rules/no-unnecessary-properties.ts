@@ -36,7 +36,7 @@ export const noUnnecessaryProperties = RuleCreator.withoutDocs({
               node.parent?.type === AST_NODE_TYPES.ClassBody &&
               node.parent.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
               node.value &&
-              extendsSfCommand(node.parent.parent)
+              extendsSfCommand(node.parent.parent, context)
             ) {
               // properties that default to false
               if (

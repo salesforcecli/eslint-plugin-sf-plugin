@@ -27,7 +27,7 @@ export const noNumberFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
               const toReplace = getCalleePropertyByName(node, 'number');
               if (toReplace) {
                 context.report({

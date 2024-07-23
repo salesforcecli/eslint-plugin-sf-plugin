@@ -19,6 +19,8 @@ ruleTester.run('noDefaultDependsOnFlags', noDefaultDependsOnFlags, {
       name: 'does not use default and dependsOn',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -33,6 +35,8 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'does not block flag with a default value depending on another flag with a default value',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -58,6 +62,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     json: Flags.boolean({
@@ -75,6 +80,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     alias: Flags.string({

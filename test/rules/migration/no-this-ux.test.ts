@@ -19,6 +19,7 @@ ruleTester.run('noThisUx', noThisUx, {
       name: 'Custom Type',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public async run(): Promise<ScratchCreateResponse> {
     this.log('hi')
@@ -31,6 +32,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'Not in commands dir',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<string> {
   public async run(): Promise<string> {
     this.ux.log('hi')
@@ -46,6 +48,7 @@ export default class EnvCreateScratch extends SfCommand<string> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }, { messageId: 'message' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public async run(): Promise<Bar> {
     this.ux.log('ui');
@@ -54,6 +57,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public async run(): Promise<Bar> {
     this.log('ui');
@@ -67,6 +71,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'spinner' }, { messageId: 'spinner' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Bar> {
   public async run(): Promise<Bar> {
     this.ux.startSpinner('go');
@@ -74,6 +79,7 @@ export default class EnvCreateScratch extends SfCommand<Bar> {
   }
 }`,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Bar> {
   public async run(): Promise<Bar> {
     this.spinner.start('go');
@@ -86,12 +92,14 @@ export default class EnvCreateScratch extends SfCommand<Bar> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Bar> {
   public async run(): Promise<Bar> {
     this.ux.logJson('blah');
   }
 }`,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Bar> {
   public async run(): Promise<Bar> {
     this.styledJSON('blah');

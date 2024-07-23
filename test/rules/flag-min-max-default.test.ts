@@ -19,6 +19,7 @@ ruleTester.run('flagMinMaxDefault', flagMinMaxDefault, {
       name: 'has min, max, default',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.integer({
@@ -36,6 +37,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'not commands directory',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.integer({
@@ -53,6 +55,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'correct setup for a Duration flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.duration({
@@ -76,6 +79,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.integer({
@@ -94,6 +98,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.duration({
@@ -112,6 +117,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
 
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.integer({
@@ -130,6 +136,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
 
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: Flags.integer({

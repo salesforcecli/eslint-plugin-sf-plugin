@@ -19,6 +19,7 @@ ruleTester.run('runMatchesClassType', runMatchesClassType, {
       name: 'Custom Type',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public async run(): Promise<ScratchCreateResponse> {
     console.log('hi')
@@ -31,6 +32,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'standard type',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<string> {
   public async run(): Promise<string> {
     console.log('hi')
@@ -46,6 +48,7 @@ export default class EnvCreateScratch extends SfCommand<string> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'summary' }, { messageId: 'summary' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public async run(): Promise<Bar> {
     console.log('hi')
@@ -59,12 +62,14 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'summary' }],
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Bar> {
   public async run(): Promise<Bar> {
     console.log('hi')
   }
 }`,
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<unknown> {
   public async run(): Promise<Bar> {
     console.log('hi')

@@ -35,7 +35,7 @@ export const readOnlyProperties = RuleCreator.withoutDocs({
               props.includes(node.key.name) &&
               node.parent?.type === AST_NODE_TYPES.ClassBody &&
               node.parent.parent?.type === AST_NODE_TYPES.ClassDeclaration &&
-              extendsSfCommand(node.parent.parent)
+              extendsSfCommand(node.parent.parent,context)
             ) {
               if (!node.readonly) {
                 context.report({

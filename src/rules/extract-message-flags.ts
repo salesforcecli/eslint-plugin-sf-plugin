@@ -37,7 +37,7 @@ export const extractMessageFlags = RuleCreator.withoutDocs({
               node.key.type === AST_NODE_TYPES.Identifier &&
               (node.key.name === 'summary' || node.key.name === 'description') &&
               ancestors.some((a) => isFlag(a)) &&
-              ancestorsContainsSfCommand(ancestors)
+              ancestorsContainsSfCommand(context)
             ) {
               if (node.value.type === AST_NODE_TYPES.Literal) {
                 context.report({

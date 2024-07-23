@@ -34,7 +34,7 @@ export const noUnnecessaryAliases = RuleCreator.withoutDocs({
               node.parent.parent.key.type === AST_NODE_TYPES.Identifier &&
               node.parent.parent.key.name === 'aliases' &&
               context.getPhysicalFilename &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               const parentLength = node.parent.elements.length;
               const cmdParts = getCommandNameParts(context.getPhysicalFilename());

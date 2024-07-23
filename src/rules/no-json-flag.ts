@@ -26,7 +26,7 @@ export const jsonFlag = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'json') {
                 context.report({
                   node,

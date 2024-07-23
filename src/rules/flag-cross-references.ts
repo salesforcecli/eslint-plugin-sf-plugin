@@ -35,7 +35,7 @@ export const flagCrossReferences = RuleCreator.withoutDocs({
               node.value.type === AST_NODE_TYPES.ArrayExpression &&
               node.value.elements.every((e) => e?.type === AST_NODE_TYPES.Literal && e?.raw) &&
               propertyNames.includes(node.key.name) &&
-              ancestorsContainsSfCommand(ancestors) &&
+              ancestorsContainsSfCommand(context) &&
               ancestors.some((a) => isFlag(a))
             ) {
               const flagsNode = ancestors

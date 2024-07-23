@@ -28,7 +28,7 @@ export const onlyExtendSfCommand = RuleCreator.withoutDocs({
       ? {
         ClassDeclaration(node): void {
           // verify it extends SfCommand
-          if (!extendsSfCommand(node) && node.id) {
+          if (!extendsSfCommand(node, context) && node.id) {
               context.report({
                 node: node.id,
                 messageId: 'message',

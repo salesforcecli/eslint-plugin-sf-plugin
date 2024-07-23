@@ -28,7 +28,7 @@ export const commandExamples = createRule({
       ? {
           ClassDeclaration(node): void {
             // verify it extends SfCommand
-            if (extendsSfCommand(node) && node.id) {
+            if (extendsSfCommand(node,context) && node.id) {
               if (!node.body.body.some((member) => getClassPropertyIdentifierName(member) === 'examples')) {
                 context.report({
                   node: node.id,

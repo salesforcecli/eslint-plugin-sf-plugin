@@ -19,6 +19,7 @@ ruleTester.run('no hyphen aliases', noHyphenAliases, {
       name: 'aliases without hyphens',
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -40,6 +41,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -50,6 +52,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -69,6 +72,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -79,6 +83,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -102,6 +107,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -112,6 +118,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({

@@ -31,7 +31,7 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
             if (isRunMethod(node) && node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference) {
               // OK, run method has a type annotation.  Now we need to check if the class extends SfCommand and get the <type parameter>
               const ancestors = context.getAncestors();
-              const classDeclaration = getSfCommand(ancestors);
+              const classDeclaration = getSfCommand(context);
 
               if (classDeclaration) {
                 // get the text for the two nodes

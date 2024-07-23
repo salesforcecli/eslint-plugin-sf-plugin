@@ -30,7 +30,7 @@ export const noDuplicateShortCharacters = RuleCreator.withoutDocs({
           PropertyDefinition(node): void {
             // is "public static flags" property
             if (
-              ancestorsContainsSfCommand(context.getAncestors()) &&
+              ancestorsContainsSfCommand(context) &&
               node.value?.type === AST_NODE_TYPES.ObjectExpression &&
               isFlagsStaticProperty(node)
             ) {

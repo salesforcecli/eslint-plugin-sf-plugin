@@ -43,8 +43,7 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
               )
             ) {
               // Verify that the class has strict = false
-              const ancestors = context.getAncestors();
-              const sfCommand = getSfCommand(ancestors);
+              const sfCommand = getSfCommand(context);
               if (!sfCommand) {
                 return;
               }

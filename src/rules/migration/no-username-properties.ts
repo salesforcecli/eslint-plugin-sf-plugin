@@ -61,7 +61,7 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context.getAncestors())) {
+            if (ancestorsContainsSfCommand(context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && propertyMap.has(node.key.name)) {
                 const mappedMetadata = propertyMap.get(node.key.name);
                 if (!mappedMetadata) {
@@ -85,7 +85,7 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
 
                 // add the flag if not already present
 
-                const outerClass = getSfCommand(ancestors);
+                const outerClass = getSfCommand(context);
                 if (!outerClass) {
                   return;
                 }

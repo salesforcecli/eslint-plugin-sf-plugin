@@ -25,7 +25,7 @@ export const noDeprecatedProperties = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context.getAncestors())) {
+            if (ancestorsContainsSfCommand(context)) {
               if (
                 node.key.type === AST_NODE_TYPES.Identifier &&
                 ['supportsDevhubUsername', 'varargs'].includes(node.key.name)

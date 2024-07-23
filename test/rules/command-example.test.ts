@@ -18,6 +18,7 @@ ruleTester.run('commandExamples', commandExamples, {
     {
       name: 'correct example for a command',
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly summary = 'foo'
   public static readonly examples = 'baz'
@@ -37,6 +38,7 @@ export default class EnvCreateScratch extends somethingElse<ScratchCreateRespons
       name: 'not in the commands folder',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'bar'
   public static readonly summary = 'baz'
@@ -54,6 +56,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly description = 'bar'
   public static readonly summary = 'baz'

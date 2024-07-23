@@ -28,7 +28,7 @@ export const sfdxFlagsProperty = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context.getAncestors())) {
+            if (ancestorsContainsSfCommand(context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'flagsConfig') {
                 context.report({
                   node,

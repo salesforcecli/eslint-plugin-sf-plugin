@@ -19,6 +19,7 @@ ruleTester.run('dashO', dashO, {
       name: 'does not use -o',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     alias: Flags.string({
@@ -33,6 +34,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'uses -o for an org-like flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     hub: Flags.requiredOrgFlag({
@@ -47,6 +49,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'uses -o for an hub-like flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     hub: Flags.requiredHubFlag({
@@ -61,6 +64,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'not in commands directory',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     json: Flags.boolean({
@@ -77,6 +81,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message' }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     json: Flags.boolean({

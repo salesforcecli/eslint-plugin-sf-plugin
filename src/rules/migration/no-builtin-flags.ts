@@ -33,7 +33,7 @@ export const noBuiltinFlags = RuleCreator.withoutDocs({
               isFlag(node) &&
               node.key.type === AST_NODE_TYPES.Identifier &&
               builtInFlagTypes.includes(node.key.name) &&
-              ancestorsContainsSfCommand(context.getAncestors())
+              ancestorsContainsSfCommand(context)
             ) {
               const toReplace = getCalleePropertyByName(node, 'builtin');
               if (toReplace) {

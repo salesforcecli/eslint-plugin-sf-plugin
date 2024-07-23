@@ -19,6 +19,7 @@ ruleTester.run('no unnecessary aliases', noUnnecessaryAliases, {
       name: 'aliases are not a permutation',
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['bar:baz', 'bar:qux'];
 }
@@ -29,6 +30,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'not in commands dir',
       filename: path.normalize('src/shared/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['foo:baz:bar'];
 }
@@ -45,11 +47,13 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['bar:baz:foo', 'bar:qux'];
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = [ 'bar:qux'];
 }
@@ -64,11 +68,13 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['bar:baz:foo'];
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   
 }
@@ -86,11 +92,13 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       filename: path.normalize('src/commands/foo/bar/baz.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['bar:baz:foo', 'baz:bar:foo'];
 }
 `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = [ ];
 }

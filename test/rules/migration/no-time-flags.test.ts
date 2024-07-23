@@ -19,6 +19,7 @@ ruleTester.run('noTimeFlags', noTimeFlags, {
       name: 'duration flag',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     wait: Flags.duration({
@@ -37,6 +38,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'not in command directory',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags = {
     wait: Flags.minutes({
@@ -55,6 +57,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'message', data: { time: 'minutes' } }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
     export default class EnvCreateScratch extends SfCommand<Foo> {
       public static flags = {
         wait: Flags.minutes({
@@ -66,6 +69,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
     }
     `,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
     export default class EnvCreateScratch extends SfCommand<Foo> {
       public static flags = {
         wait: Flags.duration({ unit: 'minutes',

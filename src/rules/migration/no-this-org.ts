@@ -32,9 +32,9 @@ export const noThisOrg = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           MemberExpression(node): void {
-            if (MemberExpressionIsThisDotFoo(node, 'org') && ancestorsContainsSfCommand(context.getAncestors())) {
+            if (MemberExpressionIsThisDotFoo(node, 'org') && ancestorsContainsSfCommand(context)) {
               // it's ok if there's a this.org on the class...
-              const classAbove = getSfCommand(context.getAncestors());
+              const classAbove = getSfCommand(context);
               if (!classAbove) {
                 return;
               }

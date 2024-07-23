@@ -19,6 +19,7 @@ ruleTester.run('encourageAliasDeprecation', encourageAliasDeprecation, {
       name: 'alias with deprecation',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['foo'];
   public static readonly deprecateAliases = true;
@@ -28,6 +29,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'Not in commands dir',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<string> {
   public static readonly aliases = ['foo'];
 }`,
@@ -36,6 +38,7 @@ export default class EnvCreateScratch extends SfCommand<string> {
       name: 'flag alias with deprecation',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
     foo: Flags.string({
@@ -58,6 +61,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'command',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly deprecateAliases = true;public static readonly aliases = ['foo'];
 }`,
@@ -67,6 +71,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       ],
       output: null,
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly aliases = ['foo'];
 }`,
@@ -81,6 +86,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'flag',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
     foo: Flags.string({
@@ -93,6 +99,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
         },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
     foo: Flags.string({

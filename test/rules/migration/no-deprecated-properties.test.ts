@@ -19,6 +19,7 @@ ruleTester.run('noDeprecatedProperties', noDeprecatedProperties, {
       name: 'sf flags',
       filename: path.normalize('src/commands/foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static readonly flags = {
         foo: Flags.boolean()
@@ -31,6 +32,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
       name: 'Not in commands dir',
       filename: path.normalize('foo.ts'),
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<string> {
   public static readonly args = true;
 }
@@ -45,11 +47,13 @@ export default class EnvCreateScratch extends SfCommand<string> {
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'property', data: { property: 'varargs' } }],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static readonly varargs = 'foo';
   public static ok = true;
 }`,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   
   public static ok = true;
@@ -63,12 +67,14 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
         { messageId: 'property', data: { property: 'supportsDevhubUsername' } },
       ],
       code: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static readonly varargs = true;
   public static readonly supportsDevhubUsername = true;
   public static readonly requiresProject = true;
 }`,
       output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   
   
