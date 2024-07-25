@@ -9,7 +9,7 @@ jobs:
     uses: salesforcecli/github-workflows/.github/workflows/lockFileCheck.yml@main
   linux-unit-tests:
     needs: yarn-lockfile-check
-    uses: salesforcecli/github-workflows/.github/workflows/unitTestsLinux.yml@cd/fix-bool
+    uses: salesforcecli/github-workflows/.github/workflows/unitTestsLinux.yml@main
     with:
       skipTsDepCheck: true
   windows-unit-tests:
