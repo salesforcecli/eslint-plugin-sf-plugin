@@ -59,6 +59,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'useFlags',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
@@ -75,6 +76,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
             {
               messageId: 'instanceProp',
               output: `
+import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   public static flags = {
     foo: flags.string({ char: 'f', description: 'foo flag' }),
