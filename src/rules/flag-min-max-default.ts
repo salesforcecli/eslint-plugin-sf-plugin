@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
@@ -30,24 +30,18 @@ export const flagMinMaxDefault = RuleCreator.withoutDocs({
             if (isFlag(node) && ancestorsContainsSfCommand(context)) {
               if (
                 node.value?.type === AST_NODE_TYPES.CallExpression &&
-                node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-                // has min/max
-                node.value.arguments[0].properties.some(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property &&
-                    (flagPropertyIsNamed('min')(property) || flagPropertyIsNamed('max')(property))
-                ) &&
-                !node.value.arguments[0].properties.some(
-                  (property) =>
-                    property.type === AST_NODE_TYPES.Property &&
-                    // defaultValue for DurationFlags
-                    (flagPropertyIsNamed('default')(property) || flagPropertyIsNamed('defaultValue')(property))
-                )
+                node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
               ) {
-                context.report({
-                  node,
-                  messageId: 'message',
-                });
+                const props = node.value.arguments[0].properties.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property));
+                if (
+                  props.some((p) => flagPropertyIsNamed('min')(p) || flagPropertyIsNamed('max')(p)) &&
+                  !props.some((p) => flagPropertyIsNamed('default')(p) || flagPropertyIsNamed('defaultValue')(p))
+                ) {
+                  context.report({
+                    node,
+                    messageId: 'message',
+                  });
+                }
               }
             }
           },
