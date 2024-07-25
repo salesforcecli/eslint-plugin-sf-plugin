@@ -15,6 +15,7 @@ export const onlyExtendSfCommand = RuleCreator.withoutDocs({
     docs: {
       description: 'Only allow commands that directly extend SfCommand',
       recommended: 'recommended',
+      url: 'https://github.com/salesforcecli/eslint-plugin-sf-plugin/blob/main/docs/rules/no-depends-on-boolean-flag.md',
     },
     messages: {
       message: 'In order to inherit default flags correctly, extend from SfCommand directly',
