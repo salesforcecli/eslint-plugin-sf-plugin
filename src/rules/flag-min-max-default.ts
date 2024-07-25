@@ -35,13 +35,13 @@ export const flagMinMaxDefault = RuleCreator.withoutDocs({
                 node.value.arguments[0].properties.some(
                   (property) =>
                     property.type === AST_NODE_TYPES.Property &&
-                    (flagPropertyIsNamed(property, 'min') || flagPropertyIsNamed(property, 'max'))
+                    (flagPropertyIsNamed('min')(property) || flagPropertyIsNamed('max')(property))
                 ) &&
                 !node.value.arguments[0].properties.some(
                   (property) =>
                     property.type === AST_NODE_TYPES.Property &&
                     // defaultValue for DurationFlags
-                    (flagPropertyIsNamed(property, 'default') || flagPropertyIsNamed(property, 'defaultValue'))
+                    (flagPropertyIsNamed('default')(property) || flagPropertyIsNamed('defaultValue')(property))
                 )
               ) {
                 context.report({

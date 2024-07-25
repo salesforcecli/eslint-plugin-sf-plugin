@@ -38,10 +38,8 @@ export const flagSummary = RuleCreator.withoutDocs({
                 ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
               );
 
-              if (!propertyArguments.some((property) => flagPropertyIsNamed(property, 'summary'))) {
-                const descriptionProp = propertyArguments.find((property) =>
-                  flagPropertyIsNamed(property, 'description')
-                );
+              if (!propertyArguments.some(flagPropertyIsNamed('summary'))) {
+                const descriptionProp = propertyArguments.find(flagPropertyIsNamed('description'));
 
                 const range = descriptionProp && 'key' in descriptionProp ? descriptionProp?.key.range : undefined;
                 return context.report({
@@ -55,11 +53,9 @@ export const flagSummary = RuleCreator.withoutDocs({
                     : {}),
                 });
               }
-              if (!propertyArguments.some((property) => flagPropertyIsNamed(property, 'description'))) {
+              if (!propertyArguments.some(flagPropertyIsNamed('description'))) {
                 // if there is no description, but there is a longDescription, turn that into the description
-                const longDescriptionProp = propertyArguments.find((property) =>
-                  flagPropertyIsNamed(property, 'longDescription')
-                );
+                const longDescriptionProp = propertyArguments.find(flagPropertyIsNamed('longDescription'));
                 if (!longDescriptionProp) {
                   return;
                 }

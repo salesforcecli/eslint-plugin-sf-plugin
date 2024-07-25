@@ -44,8 +44,8 @@ export const idFlagSuggestions = RuleCreator.withoutDocs({
                 const argProps = node.value.arguments[0].properties.filter(
                   ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
                 );
-                const hasStartsWith = argProps.some((property) => flagPropertyIsNamed(property, 'startsWith'));
-                const hasLength = argProps.some((property) => flagPropertyIsNamed(property, 'length'));
+                const hasStartsWith = argProps.some(flagPropertyIsNamed('startsWith'));
+                const hasLength = argProps.some(flagPropertyIsNamed('length'));
 
                 if (!hasStartsWith || !hasLength) {
                   const existing = context.sourceCode.getText(node);

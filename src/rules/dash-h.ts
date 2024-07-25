@@ -33,13 +33,9 @@ export const dashH = RuleCreator.withoutDocs({
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {
-              const hChar = node.value.arguments[0].properties.find(
-                (property) =>
-                  property.type === AST_NODE_TYPES.Property &&
-                  flagPropertyIsNamed(property, 'char') &&
-                  property.value.type === AST_NODE_TYPES.Literal &&
-                  property.value.value === 'h'
-              );
+              const hChar = node.value.arguments[0].properties
+                .filter(flagPropertyIsNamed('char'))
+                .find((property) => property.value.type === AST_NODE_TYPES.Literal && property.value.value === 'h');
               if (hChar) {
                 context.report({
                   node: hChar,

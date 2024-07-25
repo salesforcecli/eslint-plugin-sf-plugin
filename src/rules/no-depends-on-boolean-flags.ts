@@ -4,10 +4,10 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
-import { isFlag } from '../shared/flags';
+import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
 export const noDependsOnBooleanFlags = RuleCreator.withoutDocs({
   meta: {
@@ -32,13 +32,18 @@ export const noDependsOnBooleanFlags = RuleCreator.withoutDocs({
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {
-              const dependsOnFlagsProp = node.value.arguments[0].properties.find(
-                (p) => p.type === 'Property' && p.key.type === 'Identifier' && p.key.name === 'dependsOn'
-              );
+              const dependsOnFlagsProp = node.value.arguments[0].properties
+                .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property))
+                .find(flagPropertyIsNamed('dependsOn'));
 
               if (dependsOnFlagsProp) {
-                // @ts-ignore we know `dependsOn` exists/is an array
-                const dependedOnFlags = dependsOnFlagsProp.value.elements.map((l) => l.value);
+                const dependedOnFlags =
+                  'value' in dependsOnFlagsProp &&
+                  ASTUtils.isNodeOfType(AST_NODE_TYPES.ArrayExpression)(dependsOnFlagsProp.value)
+                    ? dependsOnFlagsProp.value.elements
+                        .filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Literal))
+                        .map((l) => l.value)
+                    : [];
 
                 for (const flag of dependedOnFlags) {
                   if (node.parent.type === 'ObjectExpression') {

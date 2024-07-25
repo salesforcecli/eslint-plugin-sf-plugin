@@ -61,7 +61,7 @@ export const noDuplicateShortCharacters = RuleCreator.withoutDocs({
                   );
                   // 2. has the char already been used?  If so, mark the char as a problem
                   const charNode = flagProperties.find(
-                    (p) => flagPropertyIsNamed(p, 'char') && p.value.type === AST_NODE_TYPES.Literal
+                    (p) => flagPropertyIsNamed('char')(p) && p.value.type === AST_NODE_TYPES.Literal
                   );
                   if (charNode?.value.type === AST_NODE_TYPES.Literal) {
                     const char = charNode.value.value;
@@ -81,9 +81,9 @@ export const noDuplicateShortCharacters = RuleCreator.withoutDocs({
                   }
 
                   // 3. is anything in this this flag's aliases already seen (alias or char)?  If so, mark that alias as a problem
-                  const aliasesNode = flagProperties.find(
-                    (p) => flagPropertyIsNamed(p, 'aliases') && p.value.type === AST_NODE_TYPES.ArrayExpression
-                  );
+                  const aliasesNode = flagProperties
+                    .filter(flagPropertyIsNamed('aliases'))
+                    .find((p) => p.value.type === AST_NODE_TYPES.ArrayExpression);
                   if (aliasesNode?.value.type === AST_NODE_TYPES.ArrayExpression) {
                     aliasesNode.value.elements.forEach((alias) => {
                       if (alias?.type === AST_NODE_TYPES.Literal)
