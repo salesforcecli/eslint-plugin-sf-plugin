@@ -91,7 +91,7 @@ const recommended = {
     'sf-plugin/no-default-and-depends-on-flags': 'error',
     'sf-plugin/only-extend-SfCommand': 'warn',
     'sf-plugin/spread-base-flags': 'warn',
-    'sf-plugin/no-depends-on-boolean-flag': 'error',
+    'sf-plugin/no-depends-on-boolean-flag': 'warn',
   },
 };
 
