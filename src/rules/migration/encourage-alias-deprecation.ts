@@ -32,30 +32,29 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context)) {
-              if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'aliases') {
-                // but you don't have deprecateAliases = true then add id
-                if (
-                  node.parent?.type === AST_NODE_TYPES.ClassBody &&
-                  !node.parent.body.some(
-                    (n) =>
-                      n.type === AST_NODE_TYPES.PropertyDefinition &&
-                      n.key.type === AST_NODE_TYPES.Identifier &&
-                      n.key.name === 'deprecateAliases'
-                  )
-                ) {
-                  context.report({
-                    node,
+            if (
+              ancestorsContainsSfCommand(context) &&
+              node.key.type === AST_NODE_TYPES.Identifier &&
+              node.key.name === 'aliases' &&
+              node.parent?.type === AST_NODE_TYPES.ClassBody &&
+              !node.parent.body.some(
+                (n) =>
+                  n.type === AST_NODE_TYPES.PropertyDefinition &&
+                  n.key.type === AST_NODE_TYPES.Identifier &&
+                  n.key.name === 'deprecateAliases'
+              )
+            ) {
+              // but you don't have deprecateAliases = true then add id
+              context.report({
+                node,
+                messageId: 'command',
+                suggest: [
+                  {
                     messageId: 'command',
-                    suggest: [
-                      {
-                        messageId: 'command',
-                        fix: (fixer) => fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
-                      },
-                    ],
-                  });
-                }
-              }
+                    fix: (fixer) => fixer.insertTextBefore(node, 'public static readonly deprecateAliases = true;'),
+                  },
+                ],
+              });
             }
           },
           Property(node): void {
@@ -69,8 +68,8 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
                 ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)
               );
 
-              const aliasesProperty = argProps.find((property) => flagPropertyIsNamed(property, 'aliases'));
-              if (aliasesProperty && !argProps.some((property) => flagPropertyIsNamed(property, 'deprecateAliases'))) {
+              const aliasesProperty = argProps.find(flagPropertyIsNamed('aliases'));
+              if (aliasesProperty && !argProps.some(flagPropertyIsNamed('deprecateAliases'))) {
                 context.report({
                   node: aliasesProperty,
                   messageId: 'flag',

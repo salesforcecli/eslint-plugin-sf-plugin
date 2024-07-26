@@ -49,6 +49,7 @@ import { esmMessageImport } from './rules/esm-message-import';
 import { noDefaultDependsOnFlags } from './rules/no-default-depends-on-flags';
 import { onlyExtendSfCommand } from './rules/only-extend-sfCommand';
 import { spreadBaseFlags } from './rules/spread-base-flags';
+import { noDependsOnBooleanFlags } from './rules/no-depends-on-boolean-flags';
 
 const library = {
   plugins: ['sf-plugin'],
@@ -90,6 +91,7 @@ const recommended = {
     'sf-plugin/no-default-and-depends-on-flags': 'error',
     'sf-plugin/only-extend-SfCommand': 'warn',
     'sf-plugin/spread-base-flags': 'warn',
+    'sf-plugin/no-depends-on-boolean-flag': 'warn',
   },
 };
 
@@ -124,6 +126,7 @@ export = {
     'no-h-short-char': dashH,
     'no-default-and-depends-on-flags': noDefaultDependsOnFlags,
     'only-extend-SfCommand': onlyExtendSfCommand,
+    'no-depends-on-boolean-flag': noDependsOnBooleanFlags,
     'spread-base-flags': spreadBaseFlags,
     'no-duplicate-short-characters': noDuplicateShortCharacters,
     'run-matches-class-type': runMatchesClassType,
