@@ -16,7 +16,7 @@ export const noDependsOnBooleanFlags = RuleCreator.withoutDocs({
       recommended: 'recommended',
     },
     messages: {
-      message: 'Cannot create a flag that `dependsOn` a boolean flag',
+      message: 'Depending on a boolean flag can lead to unexpected behavior. Use `flag.relationships` to check flag values instead'
     },
     type: 'problem',
     schema: [],
