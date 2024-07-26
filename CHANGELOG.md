@@ -1,3 +1,12 @@
+# [1.20.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.19.1...1.20.0) (2024-07-26)
+
+
+### Features
+
+* `no-depends-on-boolean-flag` rule ([#447](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/447)) ([bb0f816](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/bb0f8162f105a38a1faf26b5f4da6fad5bd1bac5)), closes [#448](https://github.com/salesforcecli/eslint-plugin-sf-plugin/issues/448)
+
+
+
 ## [1.19.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.19.0...1.19.1) (2024-07-23)
 
 
