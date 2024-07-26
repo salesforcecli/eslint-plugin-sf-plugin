@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ASTUtils } from '@typescript-eslint/utils';
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
@@ -33,12 +33,9 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {
-              const dependsOnProperty = node.value.arguments[0].properties.find(
-                (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'dependsOn')
-              );
-              const defaultValueProperty = node.value.arguments[0].properties.find(
-                (property) => property.type === AST_NODE_TYPES.Property && flagPropertyIsNamed(property, 'default')
-              );
+              const props = node.value.arguments[0].properties.filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.Property));
+              const dependsOnProperty = props.find(flagPropertyIsNamed('dependsOn'));
+              const defaultValueProperty = props.find(flagPropertyIsNamed('default'));
 
               // @ts-expect-error from the node (flag), go up a level (parent) and find the dependsOn flag definition, see if it has a default
               const dependsOnFlagDefaultValue = node.parent.properties
