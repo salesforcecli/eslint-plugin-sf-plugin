@@ -14,6 +14,7 @@ export const noDependsOnBooleanFlags = RuleCreator.withoutDocs({
     docs: {
       description: 'Do not allow flags to depend on boolean flags',
       recommended: 'recommended',
+      url: 'https://github.com/salesforcecli/eslint-plugin-sf-plugin/blob/main/docs/rules/no-depends-on-boolean-flag.md'
     },
     messages: {
       message: 'Depending on a boolean flag can lead to unexpected behavior. Use `flag.relationships` to check flag values instead'
