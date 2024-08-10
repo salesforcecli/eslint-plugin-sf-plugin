@@ -1,3 +1,12 @@
+## [1.20.4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.3...1.20.4) (2024-08-10)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 8.2.8 to 8.3.0 ([2aef063](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/2aef063f0865518c2b8153d448ee7ed2f6d530ce))
+
+
+
 ## [1.20.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.2...1.20.3) (2024-08-04)
 
 
