@@ -1,3 +1,12 @@
+## [1.20.13](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.12...1.20.13) (2024-11-17)
+
+
+### Bug Fixes
+
+* **deps:** bump cross-spawn from 7.0.3 to 7.0.5 ([09a2820](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/09a28202b1302eab2beb7242b44fce8ab9183c45))
+
+
+
 ## [1.20.12](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.11...1.20.12) (2024-11-16)
 
 
