@@ -14,7 +14,7 @@
   ],
   "repository": "salesforcecli/eslint-plugin-sf-plugin",
   "dependencies": {
-    "@salesforce/core": "^8.11.1",
+    "@salesforce/core": "^8.12.0",
     "@typescript-eslint/utils": "^7.18.0"
   },
   "devDependencies": {
