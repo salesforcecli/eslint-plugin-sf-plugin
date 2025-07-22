@@ -1,3 +1,12 @@
+## [1.20.29](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.28...1.20.29) (2025-07-22)
+
+
+### Bug Fixes
+
+* **deps:** bump form-data from 4.0.0 to 4.0.4 ([31c0d24](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/31c0d244c5b98fea37eb87da66480e393ad67449))
+
+
+
 ## [1.20.28](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.27...1.20.28) (2025-07-19)
 
 
