@@ -28,7 +28,7 @@
     "@typescript-eslint/rule-tester": "^7.17.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^8.10.2",
-    "eslint-config-salesforce": "^2.2.0",
+    "eslint-config-salesforce": "^2.2.1",
     "eslint-config-salesforce-license": "^0.2.0",
     "eslint-config-salesforce-typescript": "^1.1.3",
     "eslint-doc-generator": "^1.7.1",
