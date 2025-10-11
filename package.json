@@ -18,7 +18,7 @@
     "@typescript-eslint/utils": "^7.18.0"
   },
   "devDependencies": {
-    "@salesforce/prettier-config": "^0.0.3",
+    "@salesforce/prettier-config": "^0.0.4",
     "@types/eslint": "^8.56.5",
     "@types/estree": "^1.0.8",
     "@types/jest": "^29.5.14",
