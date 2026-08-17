@@ -13,7 +13,6 @@ export const esmMessageImport = RuleCreator.withoutDocs({
     docs: {
       description:
         'Looks for the verbose `Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)))` to offer a simpler alternative',
-      recommended: 'strict',
     },
     messages: {
       changeImport: 'use Messages.importMessagesDirectoryFromMetaUrl(import.meta.url) instead',

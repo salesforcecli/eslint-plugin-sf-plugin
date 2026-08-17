@@ -18,7 +18,6 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
     docs: {
       description:
         "When not directly extending SfCommand, the parent's flags must be spread like flags = { ...{{parent}}.{{property}} }",
-      recommended: 'recommended',
     },
     messages: {
       message:

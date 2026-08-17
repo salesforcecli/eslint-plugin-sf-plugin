@@ -13,7 +13,6 @@ export const extractMessageFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use loaded messages and separate files for messages.  Follow the message naming guidelines',
-      recommended: 'stylistic',
     },
     fixable: 'code',
     messages: {
@@ -32,12 +31,12 @@ export const extractMessageFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            const ancestors = context.getAncestors();
+            const ancestors = context.sourceCode.getAncestors(node);
             if (
               node.key.type === AST_NODE_TYPES.Identifier &&
               (node.key.name === 'summary' || node.key.name === 'description') &&
               ancestors.some((a) => isFlag(a)) &&
-              ancestorsContainsSfCommand(context)
+              ancestorsContainsSfCommand(node, context)
             ) {
               if (node.value.type === AST_NODE_TYPES.Literal) {
                 context.report({

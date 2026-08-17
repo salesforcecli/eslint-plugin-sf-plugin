@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noDuplicateShortCharacters } from '../../src/rules/no-duplicate-short-characters';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('no duplicate short characters', noDuplicateShortCharacters, {

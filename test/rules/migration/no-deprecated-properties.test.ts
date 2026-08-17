@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noDeprecatedProperties } from '../../../src/rules/migration/no-deprecated-properties';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noDeprecatedProperties', noDeprecatedProperties, {

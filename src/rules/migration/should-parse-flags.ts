@@ -12,7 +12,6 @@ export const shouldParseFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'The run method should call this.parse when there are flags',
-      recommended: 'recommended',
     },
     messages: {
       summary: 'The run method should call this.parse when there are flags',
@@ -29,8 +28,7 @@ export const shouldParseFlags = RuleCreator.withoutDocs({
           MethodDefinition(node): void {
             if (isRunMethod(node) && node.value?.body?.body) {
               // OK, looks like a run method has a type annotation
-              const ancestors = context.getAncestors();
-              const classDeclaration = getSfCommand(context);
+              const classDeclaration = getSfCommand(node, context);
               if (
                 // and it has flags to be parsed
                 classDeclaration?.body?.body?.some((prop) => isFlagsStaticProperty(prop))

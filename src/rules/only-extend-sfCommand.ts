@@ -14,7 +14,6 @@ export const onlyExtendSfCommand = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Only allow commands that directly extend SfCommand',
-      recommended: 'recommended',
     },
     messages: {
       message: 'In order to inherit default flags correctly, extend from SfCommand directly',

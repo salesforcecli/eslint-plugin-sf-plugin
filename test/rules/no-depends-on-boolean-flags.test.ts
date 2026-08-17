@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noDependsOnBooleanFlags } from '../../src/rules/no-depends-on-boolean-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noDependsOnBooleanFlags', noDependsOnBooleanFlags, {

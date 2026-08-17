@@ -13,7 +13,6 @@ export const noIdFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change Id flag to salesforceId',
-      recommended: 'recommended',
     },
     messages: {
       message: 'Id flags are not available on sfCommand.  Use salesforceId instead',
@@ -27,7 +26,7 @@ export const noIdFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               const toReplace = getCalleePropertyByName(node, 'id');
               if (toReplace) {
                 context.report({

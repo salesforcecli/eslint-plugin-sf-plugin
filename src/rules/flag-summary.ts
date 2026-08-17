@@ -13,7 +13,6 @@ export const flagSummary = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce that flags have a summary property and that longDescription is renamed to description',
-      recommended: 'recommended',
     },
     messages: {
       message: 'Flags should have a summary property',
@@ -30,7 +29,7 @@ export const flagSummary = RuleCreator.withoutDocs({
           Property(node): void {
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {

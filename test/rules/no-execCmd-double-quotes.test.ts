@@ -9,7 +9,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noExecCmdDoubleQuotes } from '../../src/rules/no-execCmd-double-quotes';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('call getConnection with version', noExecCmdDoubleQuotes, {

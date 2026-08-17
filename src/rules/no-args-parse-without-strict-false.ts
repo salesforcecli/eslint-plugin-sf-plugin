@@ -12,7 +12,6 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'If you parse args/argv, the class should have strict set to false',
-      recommended: 'recommended',
     },
     messages: {
       summary: 'If you parse args/argv, the class should have strict set to false',
@@ -43,7 +42,7 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
               )
             ) {
               // Verify that the class has strict = false
-              const sfCommand = getSfCommand(context);
+              const sfCommand = getSfCommand(node, context);
               if (!sfCommand) {
                 return;
               }

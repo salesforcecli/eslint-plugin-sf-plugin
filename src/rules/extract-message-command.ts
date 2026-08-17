@@ -14,7 +14,6 @@ export const extractMessageCommand = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use loaded messages and separate files for messages',
-      recommended: 'stylistic',
     },
     messages: {
       message:

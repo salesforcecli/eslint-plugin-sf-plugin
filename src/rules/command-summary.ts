@@ -12,7 +12,6 @@ export const commandSummary = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Ensure commands have a summary',
-      recommended: 'recommended',
     },
     messages: {
       summary: 'Commands should have a summary property',

@@ -9,7 +9,6 @@ import { esmMessageImport } from '../../src/rules/esm-message-import';
 import { RuleTester } from '@typescript-eslint/rule-tester';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('esmMessageImport', esmMessageImport, {
@@ -68,11 +67,15 @@ import { fileURLToPath } from 'node:url'
 Messages.importMessagesDirectory(dirname(fileURLToPath(import.meta.url)))
 `,
       // other code (ex: prettier) can handle the extra whitespaces
-      output: `
+      output: [`
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
-`,
+`, `
+
+
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url)
+`],
     },
     {
       name: 'new loader with extra imports updates the import',

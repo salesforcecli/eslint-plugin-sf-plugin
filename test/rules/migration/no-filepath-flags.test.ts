@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noFilepathFlags } from '../../../src/rules/migration/no-filepath-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noFilepathFlags', noFilepathFlags, {

@@ -10,7 +10,6 @@ import { getConnectionWithVersion } from '../../src/rules/get-connections-with-v
 import { RuleTester } from '@typescript-eslint/rule-tester';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('call getConnection with version', getConnectionWithVersion, {

@@ -13,7 +13,6 @@ export const noDependsOnBooleanFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not allow flags to depend on boolean flags',
-      recommended: 'recommended',
       url: 'https://github.com/salesforcecli/eslint-plugin-sf-plugin/blob/main/docs/rules/no-depends-on-boolean-flag.md'
     },
     messages: {
@@ -29,7 +28,7 @@ export const noDependsOnBooleanFlags = RuleCreator.withoutDocs({
           Property(node): void {
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {

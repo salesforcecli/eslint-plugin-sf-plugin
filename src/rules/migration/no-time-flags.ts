@@ -15,7 +15,6 @@ export const noTimeFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Migrate time flags to Flags.duration',
-      recommended: 'recommended',
     },
     messages: {
       message: 'flags for {{time}} should use the Flags.duration (and specify the unit)',
@@ -29,7 +28,7 @@ export const noTimeFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               if (
                 (node.key.type === AST_NODE_TYPES.Identifier || node.key.type === AST_NODE_TYPES.Literal) &&
                 node.value.type === AST_NODE_TYPES.CallExpression &&

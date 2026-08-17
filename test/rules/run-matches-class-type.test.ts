@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { runMatchesClassType } from '../../src/rules/run-matches-class-type';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('runMatchesClassType', runMatchesClassType, {

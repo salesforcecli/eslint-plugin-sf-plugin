@@ -16,7 +16,6 @@ export const noMissingMessages = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Checks core Messages usage for correct usage of named messages and message tokens',
-      recommended: 'recommended',
     },
     messages: {
       missing: 'the message "{{messageKey}}" does not exist in the messages file {{fileKey}}',

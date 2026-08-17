@@ -18,7 +18,6 @@ export const flagCasing = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce lowercase kebab-case flag names',
-      recommended: 'strict',
     },
     messages: {
       message: 'Flag {{flagName}} should be lowercase and use kebab-case to separate words',
@@ -32,7 +31,7 @@ export const flagCasing = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               const flagName = resolveFlagName(node);
               if (flagName && toLowerKebabCase(flagName) !== flagName) {
                 context.report({

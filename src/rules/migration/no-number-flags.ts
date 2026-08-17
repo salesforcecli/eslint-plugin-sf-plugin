@@ -13,7 +13,6 @@ export const noNumberFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change number flag to integer',
-      recommended: 'recommended',
     },
     messages: {
       message: 'number flags are not available on sfCommand.  Use integer instead',
@@ -27,7 +26,7 @@ export const noNumberFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               const toReplace = getCalleePropertyByName(node, 'number');
               if (toReplace) {
                 context.report({

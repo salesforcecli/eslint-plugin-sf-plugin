@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { onlyExtendSfCommand } from "../../src/rules/only-extend-sfCommand";
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('only-extend-SfCommand', onlyExtendSfCommand, {

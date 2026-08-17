@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noUnnecessaryProperties } from '../../src/rules/no-unnecessary-properties';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noUnnecessaryProperties', noUnnecessaryProperties, {

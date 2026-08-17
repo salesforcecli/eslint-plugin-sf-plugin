@@ -10,10 +10,11 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noMissingMessages } from '../../src/rules/no-missing-messages';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json',
-    tsconfigRootDir: path.join(path.join(__dirname, '..')),
+  languageOptions: {
+    parserOptions: {
+      project: './tsconfig.json',
+      tsconfigRootDir: path.join(path.join(__dirname, '..')),
+    },
   },
 });
 

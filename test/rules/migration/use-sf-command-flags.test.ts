@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { useSfCommandFlags } from '../../../src/rules/migration/use-sf-command-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('useSfCommandFlags', useSfCommandFlags, {

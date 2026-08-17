@@ -10,10 +10,9 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { extractMessageCommand } from '../../src/rules/extract-message-command';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('no hardcoded summary/description on command', extractMessageCommand, {
+ruleTester.run('no hardcoded summary-description on command', extractMessageCommand, {
   valid: [
     {
       name: 'messages for command description and summary',

@@ -13,7 +13,6 @@ export const idFlagSuggestions = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Create better salesforceId flags with length and startsWith properties',
-      recommended: 'stylistic',
     },
     hasSuggestions: true,
     messages: {
@@ -32,7 +31,7 @@ export const idFlagSuggestions = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               if (
                 (node.key.type === AST_NODE_TYPES.Identifier || node.key.type === AST_NODE_TYPES.Literal) &&
                 node.value?.type === AST_NODE_TYPES.CallExpression &&

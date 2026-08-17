@@ -19,7 +19,6 @@ export const noThisFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Fix references to this.org (property on SfdxCommand)',
-      recommended: 'recommended',
     },
     messages: {
       noThisFlags: 'SfCommand does not have a this.flags property.  Make sure you parse the flag.',
@@ -37,9 +36,9 @@ export const noThisFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           MemberExpression(node): void {
-            if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(context)) {
+            if (MemberExpressionIsThisDotFoo(node, 'flags') && ancestorsContainsSfCommand(node, context)) {
               // it's ok if there's a this.flags on the class...
-              const classAbove = getSfCommand(context);
+              const classAbove = getSfCommand(node, context);
               if (!classAbove) {
                 return;
               }
@@ -76,7 +75,7 @@ export const noThisFlags = RuleCreator.withoutDocs({
               }
               // we have no this.flags.
               // in run method, convert to parsed flags value.
-              else if (context.getAncestors().some((b) => isRunMethod(b))) {
+              else if (context.sourceCode.getAncestors(node).some((b) => isRunMethod(b))) {
                 context.report({
                   node,
                   messageId: 'noThisFlags',

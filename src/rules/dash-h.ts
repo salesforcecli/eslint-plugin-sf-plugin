@@ -13,7 +13,6 @@ export const dashH = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not allow creation of a flag with short char -h',
-      recommended: 'recommended',
     },
     messages: {
       message: '-h is reserved for help.  Choose a different short character',
@@ -29,7 +28,7 @@ export const dashH = RuleCreator.withoutDocs({
             // is a flag
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {

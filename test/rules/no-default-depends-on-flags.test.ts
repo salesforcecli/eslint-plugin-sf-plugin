@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noDefaultDependsOnFlags } from '../../src/rules/no-default-depends-on-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noDefaultDependsOnFlags', noDefaultDependsOnFlags, {

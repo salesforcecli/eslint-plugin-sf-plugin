@@ -15,7 +15,6 @@ export const noBuiltinFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: "Handling for sfdxCommand's flags.builtin",
-      recommended: 'recommended',
     },
     messages: {
       message: 'Built-in flags are not available on sfCommand.  Use a boolean and add your own summary message',
@@ -33,7 +32,7 @@ export const noBuiltinFlags = RuleCreator.withoutDocs({
               isFlag(node) &&
               node.key.type === AST_NODE_TYPES.Identifier &&
               builtInFlagTypes.includes(node.key.name) &&
-              ancestorsContainsSfCommand(context)
+              ancestorsContainsSfCommand(node, context)
             ) {
               const toReplace = getCalleePropertyByName(node, 'builtin');
               if (toReplace) {

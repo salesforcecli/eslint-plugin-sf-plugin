@@ -11,7 +11,6 @@ export const noSfdxCommandImport = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change import and base class from SfdxCommand to sfCommand',
-      recommended: 'recommended',
     },
     messages: {
       import: 'Use SfCommand from sf-plugins-core',

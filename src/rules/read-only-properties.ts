@@ -14,7 +14,6 @@ export const readOnlyProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Class-level static properties, like flags or descriptions, should be marked public and read-only',
-      recommended: 'recommended',
     },
     messages: {
       readonly: 'The {{prop}} property should be read-only',

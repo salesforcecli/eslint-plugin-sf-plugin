@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { readOnlyProperties } from '../../src/rules/read-only-properties';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('readOnlyProperties', readOnlyProperties, {
@@ -149,7 +148,7 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   }
 }
 `,
-      output: `
+      output: [`
 import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
   protected static readonly aliases = 'bar'
@@ -157,7 +156,15 @@ export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
     foo: flags.string({char: 'f', description: 'foo', aliases: ['g']}),
   }
 }
-`,
+`, `
+import {SfCommand} from '@salesforce/sf-plugins-core';
+export default class EnvCreateScratch extends SfCommand<ScratchCreateResponse> {
+  public static readonly aliases = 'bar'
+  public static readonly flags = {
+    foo: flags.string({char: 'f', description: 'foo', aliases: ['g']}),
+  }
+}
+`],
     },
   ],
 });
