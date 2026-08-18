@@ -45,7 +45,7 @@ export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): str
     : undefined;
 
 // we don't care what the types are, really any context will do
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const isInCommandDirectory = (context: RuleContext<any, any>): boolean =>
   context.physicalFilename?.includes(`src${sep}commands${sep}`) ?? false;
 

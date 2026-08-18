@@ -24,7 +24,6 @@ export const noThisFlags = RuleCreator.withoutDocs({
       noThisFlags: 'SfCommand does not have a this.flags property.  Make sure you parse the flag.',
       useFlags: 'change this.flags to flags',
       instanceProp: 'create a this.flags property on SfCommand',
-      setThisFlags: 'flags is defined on the class, but never set.  Set it equal to the parsed flags property.',
     },
     hasSuggestions: true,
     type: 'suggestion',

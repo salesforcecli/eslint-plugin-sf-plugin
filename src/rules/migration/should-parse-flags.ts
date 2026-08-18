@@ -24,7 +24,7 @@ export const shouldParseFlags = RuleCreator.withoutDocs({
   create(context) {
     return isInCommandDirectory(context)
       ? {
-          // eslint-disable-next-line complexity
+           
           MethodDefinition(node): void {
             if (isRunMethod(node) && node.value?.body?.body) {
               // OK, looks like a run method has a type annotation

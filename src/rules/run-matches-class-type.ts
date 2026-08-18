@@ -25,7 +25,7 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
   create(context) {
     return isInCommandDirectory(context)
       ? {
-          // eslint-disable-next-line complexity
+           
           MethodDefinition(node): void {
             if (isRunMethod(node) && node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference) {
               // OK, run method has a type annotation.  Now we need to check if the class extends SfCommand and get the <type parameter>

@@ -46,7 +46,7 @@ export const flagSummary = RuleCreator.withoutDocs({
                   messageId: 'message',
                   ...(range
                     ? {
-                        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                         
                         fix: (fixer) => fixer.replaceTextRange(range, 'summary'),
                       }
                     : {}),
@@ -65,7 +65,7 @@ export const flagSummary = RuleCreator.withoutDocs({
                   messageId: 'longDescription',
                   ...(range
                     ? {
-                        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+                         
                         fix: (fixer) => fixer.replaceTextRange(range, 'description'),
                       }
                     : {}),

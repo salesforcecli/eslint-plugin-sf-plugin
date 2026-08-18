@@ -42,7 +42,7 @@ export const commandSummary = RuleCreator.withoutDocs({
                             descriptionNode,
                             `public static readonly summary = ${context
                               .getSourceCode()
-                              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                               
                               .getText(descriptionNode.value!)};`
                           ),
                       }

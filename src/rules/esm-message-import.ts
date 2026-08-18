@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-/* eslint-disable complexity */
+ 
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 

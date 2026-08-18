@@ -25,7 +25,7 @@ export const noClassesInCommandReturnType = RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     return {
-      // eslint-disable-next-line complexity
+       
       MethodDefinition(node): void {
         if (
           isRunMethod(node) &&
