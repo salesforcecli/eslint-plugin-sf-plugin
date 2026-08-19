@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { flagCrossReferences } from '../../src/rules/flag-cross-references';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('cross-references exist for dependsOn, exclusive, exactlyOne', flagCrossReferences, {

@@ -15,7 +15,6 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
     docs: {
       description:
         'Commands and flags aliases probably want to deprecate their old names to provide more warnings to users',
-      recommended: 'stylistic',
     },
     messages: {
       command:
@@ -33,7 +32,7 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
       ? {
           PropertyDefinition(node): void {
             if (
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.key.type === AST_NODE_TYPES.Identifier &&
               node.key.name === 'aliases' &&
               node.parent?.type === AST_NODE_TYPES.ClassBody &&
@@ -62,7 +61,7 @@ export const encourageAliasDeprecation = RuleCreator.withoutDocs({
               isFlag(node) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression &&
-              ancestorsContainsSfCommand(context)
+              ancestorsContainsSfCommand(node, context)
             ) {
               const argProps = node.value.arguments[0].properties.filter(
                 ASTUtils.isNodeOfType(AST_NODE_TYPES.Property)

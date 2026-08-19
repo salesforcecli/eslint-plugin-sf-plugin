@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noSplitExamples } from '../../src/rules/no-split-examples';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noSplitExamples', noSplitExamples, {

@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { idFlagSuggestions } from '../../src/rules/id-flag-suggestions';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('idFlagSuggestions', idFlagSuggestions, {

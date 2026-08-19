@@ -14,7 +14,6 @@ export const noHyphenAliases = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Mark when an alias starts with a hyphen, like -f or --foo',
-      recommended: 'recommended',
     },
     messages: {
       summary: 'aliases should not start with hyphens',
@@ -37,7 +36,7 @@ export const noHyphenAliases = RuleCreator.withoutDocs({
               node.parent.parent.key.name === 'aliases' &&
               node.parent.parent.parent?.parent?.parent &&
               isFlag(node.parent.parent.parent?.parent?.parent) &&
-              ancestorsContainsSfCommand(context)
+              ancestorsContainsSfCommand(node, context)
             ) {
               context.report({
                 node,

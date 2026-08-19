@@ -13,7 +13,6 @@ export const noFilepathFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change filepath flag to file flag',
-      recommended: 'recommended',
     },
     messages: {
       message: 'filepath flags are not available on sfCommand.  Use file instead',
@@ -27,7 +26,7 @@ export const noFilepathFlags = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               const toReplace = getCalleePropertyByName(node, 'filepath');
               if (toReplace) {
                 context.report({

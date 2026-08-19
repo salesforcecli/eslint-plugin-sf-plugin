@@ -14,7 +14,6 @@ export const flagMinMaxDefault = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce that flags with min/max values have a default value',
-      recommended: 'stylistic',
     },
     messages: {
       message: 'If your flag has a min or max value, it should have a default value.  Otherwise, it will be undefined',
@@ -27,7 +26,7 @@ export const flagMinMaxDefault = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               if (
                 node.value?.type === AST_NODE_TYPES.CallExpression &&
                 node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression

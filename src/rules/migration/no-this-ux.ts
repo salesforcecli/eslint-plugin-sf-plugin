@@ -18,7 +18,6 @@ export const noThisUx = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'SfCommand does not have a ux property',
-      recommended: 'recommended',
     },
     messages: {
       message: 'SfCommand does not have a ux property.  Use methods from this like this.log() or this.table()',
@@ -35,7 +34,7 @@ export const noThisUx = RuleCreator.withoutDocs({
           MemberExpression(node): void {
             if (
               MemberExpressionContainsMemberExpressionThisDotFoo(node, 'ux') &&
-              ancestorsContainsSfCommand(context)
+              ancestorsContainsSfCommand(node, context)
             ) {
               // spinner cases
               if (node.property.type === AST_NODE_TYPES.Identifier && spinnerMigration.has(node.property.name)) {

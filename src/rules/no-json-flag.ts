@@ -13,7 +13,6 @@ export const jsonFlag = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not allow creation of json flag',
-      recommended: 'recommended',
     },
     messages: {
       message: 'It is not necessary to add a --json flag.  That flag is provided by sfCommand/oclif',
@@ -26,7 +25,7 @@ export const jsonFlag = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            if (isFlag(node) && ancestorsContainsSfCommand(context)) {
+            if (isFlag(node) && ancestorsContainsSfCommand(node, context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'json') {
                 context.report({
                   node,

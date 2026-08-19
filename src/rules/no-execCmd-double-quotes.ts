@@ -12,7 +12,6 @@ export const noExecCmdDoubleQuotes = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not use double quotes in NUT examples.  They will not work on windows',
-      recommended: 'strict',
     },
     messages: {
       message:

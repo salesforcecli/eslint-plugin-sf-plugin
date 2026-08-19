@@ -14,7 +14,6 @@ export const noUnnecessaryAliases = RuleCreator.withoutDocs({
     docs: {
       description:
         'Mark when an alias is unnecessary because its only an order permutation, not really a different name',
-      recommended: 'recommended',
     },
     messages: {
       summary: 'the Salesforce CLI will match the command words in any order, so this alias is unnecessary',
@@ -33,11 +32,11 @@ export const noUnnecessaryAliases = RuleCreator.withoutDocs({
               node.parent.parent?.type === AST_NODE_TYPES.PropertyDefinition &&
               node.parent.parent.key.type === AST_NODE_TYPES.Identifier &&
               node.parent.parent.key.name === 'aliases' &&
-              context.getPhysicalFilename &&
-              ancestorsContainsSfCommand(context)
+              context.physicalFilename &&
+              ancestorsContainsSfCommand(node, context)
             ) {
               const parentLength = node.parent.elements.length;
-              const cmdParts = getCommandNameParts(context.getPhysicalFilename());
+              const cmdParts = getCommandNameParts(context.physicalFilename);
               const aliasParts = typeof node.value === 'string' ? node.value.split(':') : [];
               if (
                 aliasParts.every((part) => cmdParts.includes(part)) &&

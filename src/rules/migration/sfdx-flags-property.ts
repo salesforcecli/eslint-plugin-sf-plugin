@@ -13,7 +13,6 @@ export const sfdxFlagsProperty = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change flag definitions to SfCommand version',
-      recommended: 'recommended',
     },
     messages: {
       flagsConfig: 'Use public readonly static flags = {',
@@ -28,7 +27,7 @@ export const sfdxFlagsProperty = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context)) {
+            if (ancestorsContainsSfCommand(node, context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && node.key.name === 'flagsConfig') {
                 context.report({
                   node,

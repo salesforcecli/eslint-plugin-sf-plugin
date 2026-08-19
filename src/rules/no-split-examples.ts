@@ -12,7 +12,6 @@ export const noSplitExamples = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Arrays of messags should use getMessages instead of getMessage followed by EOL splitting',
-      recommended: 'strict',
     },
     messages: {
       message: 'use getMessages',

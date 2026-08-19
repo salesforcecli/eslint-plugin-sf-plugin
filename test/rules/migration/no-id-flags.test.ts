@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noIdFlags } from '../../../src/rules/migration/no-id-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noIdFlags', noIdFlags, {

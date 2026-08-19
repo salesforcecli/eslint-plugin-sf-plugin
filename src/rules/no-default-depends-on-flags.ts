@@ -13,7 +13,6 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Do not allow creation of a flag with default value and dependsOn',
-      recommended: 'recommended',
     },
     messages: {
       message: 'Cannot create a flag with a default value and dependsOn',
@@ -29,7 +28,7 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
             // is a flag
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.arguments?.[0]?.type === AST_NODE_TYPES.ObjectExpression
             ) {
@@ -37,16 +36,18 @@ export const noDefaultDependsOnFlags = RuleCreator.withoutDocs({
               const dependsOnProperty = props.find(flagPropertyIsNamed('dependsOn'));
               const defaultValueProperty = props.find(flagPropertyIsNamed('default'));
 
-              // @ts-expect-error from the node (flag), go up a level (parent) and find the dependsOn flag definition, see if it has a default
-              const dependsOnFlagDefaultValue = node.parent.properties
-                .find(
-                  (f) =>
-                    // @ts-expect-error value type on dependsOn
-                    f.type === AST_NODE_TYPES.Property && f.key.name === dependsOnProperty?.value.elements?.at(0)?.value
+              if (!dependsOnProperty || !defaultValueProperty) {
+                return;
+              }
+
+              const dependsOnFlagDefaultValue = (node.parent as { properties?: Array<any> }).properties
+                ?.find(
+                  (f: any) =>
+                    f.type === AST_NODE_TYPES.Property && f.key.name === (dependsOnProperty.value as any).elements?.at(0)?.value
                 )
-                ?.value.arguments?.at(0)
-                ?.properties.find((p) => p.key.name === 'default');
-              if (dependsOnProperty && defaultValueProperty && !dependsOnFlagDefaultValue) {
+                ?.value?.arguments?.at(0)
+                ?.properties?.find((p: any) => p.key?.name === 'default');
+              if (!dependsOnFlagDefaultValue) {
                 context.report({
                   node: dependsOnProperty,
                   messageId: 'message',

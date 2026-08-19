@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noUnnecessaryAliases } from '../../src/rules/no-unnecessary-aliases';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('no unnecessary aliases', noUnnecessaryAliases, {

@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noHyphenAliases } from '../../src/rules/no-hyphens-aliases';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('no hyphen aliases', noHyphenAliases, {

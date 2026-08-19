@@ -4,9 +4,9 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-/* eslint-disable complexity */
+ 
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
-import { ASTUtils, AST_NODE_TYPES, ParserServices, TSESTree, ESLintUtils } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ParserServices, TSESTree, ESLintUtils } from '@typescript-eslint/utils';
 import { Messages, SfError, StructuredMessage } from '@salesforce/core';
 import * as ts from 'typescript';
 
@@ -16,7 +16,6 @@ export const noMissingMessages = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Checks core Messages usage for correct usage of named messages and message tokens',
-      recommended: 'recommended',
     },
     messages: {
       missing: 'the message "{{messageKey}}" does not exist in the messages file {{fileKey}}',
@@ -83,7 +82,7 @@ export const noMissingMessages = RuleCreator.withoutDocs({
             // execute some method on Messages so we can inspect the result
             // we are intentionally passing it no tokens so that we can see residual %s etc in the text
             result = loadedMessages.get(bundleConstant)?.[node.callee.property.name](messageKey);
-          } catch (e) {
+          } catch {
             // we never found the message at all, we can report and exit
             return context.report({
               node: node.arguments[0],

@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noUsernameProperties } from '../../../src/rules/migration/no-username-properties';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noUsernameProperties', noUsernameProperties, {
@@ -55,7 +54,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       foo: Flags.boolean(),
     }
 }`,
-      output: `
+      output: [`
 import {Flags, SfCommand, requiredOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
 import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
@@ -63,7 +62,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly flags = {'target-org': requiredOrgFlagWithDeprecations,
       foo: Flags.boolean(),
     }
-}`,
+}`, "\nimport {Flags, SfCommand, requiredOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';\nimport {SfCommand} from '@salesforce/sf-plugins-core';\nexport default class EnvCreateScratch extends SfCommand<Foo> {\n    \n    public static readonly flags = {'target-org': requiredOrgFlagWithDeprecations,\n      foo: Flags.boolean(),\n    }\n}"],
     },
     {
       name: 'requiresUsername removal',
@@ -103,7 +102,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       foo: Flags.boolean(),
     }
 }`,
-      output: `
+      output: [`
 import {foo} from 'bar';
 import {Flags, SfCommand, optionalOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';
 import {SfCommand} from '@salesforce/sf-plugins-core';
@@ -112,7 +111,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly flags = {'target-org': optionalOrgFlagWithDeprecations,
       foo: Flags.boolean(),
     }
-}`,
+}`, "\nimport {foo} from 'bar';\nimport {Flags, SfCommand, optionalOrgFlagWithDeprecations} from '@salesforce/sf-plugins-core';\nimport {SfCommand} from '@salesforce/sf-plugins-core';\nexport default class EnvCreateScratch extends SfCommand<Foo> {\n    \n    public static readonly flags = {'target-org': optionalOrgFlagWithDeprecations,\n      foo: Flags.boolean(),\n    }\n}"],
     },
     {
       name: 'supportsUsername removal',
@@ -150,7 +149,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
       foo: Flags.boolean(),
     }
 }`,
-      output: `
+      output: [`
 import {Flags, SfCommand, requiredHubFlagWithDeprecations} from '@salesforce/sf-plugins-core';
 import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
@@ -158,7 +157,7 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
     public static readonly flags = {'target-dev-hub': requiredHubFlagWithDeprecations,
       foo: Flags.boolean(),
     }
-}`,
+}`, "\nimport {Flags, SfCommand, requiredHubFlagWithDeprecations} from '@salesforce/sf-plugins-core';\nimport {SfCommand} from '@salesforce/sf-plugins-core';\nexport default class EnvCreateScratch extends SfCommand<Foo> {\n    \n    public static readonly flags = {'target-dev-hub': requiredHubFlagWithDeprecations,\n      foo: Flags.boolean(),\n    }\n}"],
     },
     {
       name: 'hub (requiresDevhubUsername) removal',

@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { flagMinMaxDefault } from '../../src/rules/flag-min-max-default';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('flagMinMaxDefault', flagMinMaxDefault, {

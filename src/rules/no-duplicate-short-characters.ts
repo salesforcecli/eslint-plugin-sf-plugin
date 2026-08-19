@@ -13,7 +13,6 @@ export const noDuplicateShortCharacters = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Prevent duplicate use of short characters or conflicts between aliases and flags',
-      recommended: 'recommended',
     },
     messages: {
       flagCollision: 'Flag {{flag1}} has a name already in use as the name or alias of {{flag2}}',
@@ -30,7 +29,7 @@ export const noDuplicateShortCharacters = RuleCreator.withoutDocs({
           PropertyDefinition(node): void {
             // is "public static flags" property
             if (
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.value?.type === AST_NODE_TYPES.ObjectExpression &&
               isFlagsStaticProperty(node)
             ) {

@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noOclifFlagsCommandImport } from '../../src/rules/no-oclif-flags-command-import';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noOclifFlagsCommandImport', noOclifFlagsCommandImport, {
@@ -37,11 +36,19 @@ import {Flags,Command} from '@oclif/core';
 import {Foo,Bar} from '@something';
 import {Fooz,Barz} from '@something2';
 `,
-      output: `
+      output: [`
 import {Command} from '@oclif/core';
 import {Foo,Bar} from '@something';
 import {Fooz,Barz} from '@something2';
-`,
+`, `
+import {} from '@oclif/core';
+import {Foo,Bar} from '@something';
+import {Fooz,Barz} from '@something2';
+`, `
+
+import {Foo,Bar} from '@something';
+import {Fooz,Barz} from '@something2';
+`],
     },
     {
       name: 'import Flags from @oclif/core',
@@ -55,14 +62,14 @@ import {Fooz,Barz} from '@something2';
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'flags' }],
       code: "import {Flags} from '@oclif/core'",
-      output: "import {} from '@oclif/core'",
+      output: ["import {} from '@oclif/core'", ""],
     },
     {
       name: 'import Command from @oclif/core',
       filename: path.normalize('src/commands/foo.ts'),
       errors: [{ messageId: 'command' }],
       code: "import {Command} from '@oclif/core'",
-      output: "import {} from '@oclif/core'",
+      output: ["import {} from '@oclif/core'", ""],
     },
     {
       name: 'import Command from @oclif/core',

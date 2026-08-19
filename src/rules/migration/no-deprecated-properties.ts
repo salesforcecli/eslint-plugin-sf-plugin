@@ -11,7 +11,6 @@ export const noDeprecatedProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Removes non-existent properties left over from SfdxCommand',
-      recommended: 'recommended',
     },
     messages: {
       property: 'Class property {{property}} is not available on SfCommand and should be removed',
@@ -25,7 +24,7 @@ export const noDeprecatedProperties = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context)) {
+            if (ancestorsContainsSfCommand(node, context)) {
               if (
                 node.key.type === AST_NODE_TYPES.Identifier &&
                 ['supportsDevhubUsername', 'varargs'].includes(node.key.name)

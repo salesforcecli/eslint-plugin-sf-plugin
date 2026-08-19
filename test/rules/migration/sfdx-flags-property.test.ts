@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { sfdxFlagsProperty } from '../../../src/rules/migration/sfdx-flags-property';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('sfdxFlagsProperty', sfdxFlagsProperty, {
@@ -56,14 +55,21 @@ export default class EnvCreateScratch extends SfCommand<Foo> {
   }
 }
 `,
-      output: `
+      output: [`
 import {SfCommand} from '@salesforce/sf-plugins-core';
 export default class EnvCreateScratch extends SfCommand<Foo> {
   public static flags: FlagsConfig = {
     foo: flags.boolean()
   }
 }
-`,
+`, `
+import {SfCommand} from '@salesforce/sf-plugins-core';
+export default class EnvCreateScratch extends SfCommand<Foo> {
+  public static flags = {
+    foo: flags.boolean()
+  }
+}
+`],
     },
     // next fixer to remove the FlagsConfig type
     {

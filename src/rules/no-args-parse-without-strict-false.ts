@@ -12,7 +12,6 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'If you parse args/argv, the class should have strict set to false',
-      recommended: 'recommended',
     },
     messages: {
       summary: 'If you parse args/argv, the class should have strict set to false',
@@ -25,7 +24,7 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
   create(context) {
     return isInCommandDirectory(context)
       ? {
-          // eslint-disable-next-line complexity
+           
           VariableDeclarator(node): void {
             if (
               ASTUtils.isAwaitExpression(node.init) &&
@@ -43,7 +42,7 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
               )
             ) {
               // Verify that the class has strict = false
-              const sfCommand = getSfCommand(context);
+              const sfCommand = getSfCommand(node, context);
               if (!sfCommand) {
                 return;
               }
@@ -61,7 +60,7 @@ export const noArgsParseWithoutStrictFalse = RuleCreator.withoutDocs({
                 context.report({
                   node: strictProperty,
                   messageId: 'summary',
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                   
                   fix: (fixer) => fixer.replaceText(strictProperty.value!, 'false'),
                 });
               } else if (!strictProperty) {

@@ -14,7 +14,6 @@ export const commandExamples = createRule({
   meta: {
     docs: {
       description: 'Ensure commands have a summary, description, and examples',
-      recommended: 'stylistic',
     },
     messages: {
       example: 'Commands should have an examples property',

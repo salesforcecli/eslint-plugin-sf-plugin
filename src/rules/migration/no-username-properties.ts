@@ -42,7 +42,6 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Convert requiresUsername and supportusername to username flags',
-      recommended: 'recommended',
     },
     messages: {
       requires:
@@ -61,7 +60,7 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           PropertyDefinition(node): void {
-            if (ancestorsContainsSfCommand(context)) {
+            if (ancestorsContainsSfCommand(node, context)) {
               if (node.key.type === AST_NODE_TYPES.Identifier && propertyMap.has(node.key.name)) {
                 const mappedMetadata = propertyMap.get(node.key.name);
                 if (!mappedMetadata) {
@@ -69,9 +68,8 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
                 }
 
                 // ensure the import exists
-                const ancestors = context.getAncestors();
                 const source = context.sourceCode;
-                const importDeclaration = getSfImportFromProgram(ancestors[0]);
+                const importDeclaration = getSfImportFromProgram(source.ast);
                 if (importDeclaration && !source.getText(importDeclaration).includes(mappedMetadata.flag)) {
                   const fixedImport = source
                     .getText(importDeclaration)
@@ -85,7 +83,7 @@ export const noUsernameProperties = RuleCreator.withoutDocs({
 
                 // add the flag if not already present
 
-                const outerClass = getSfCommand(context);
+                const outerClass = getSfCommand(node, context);
                 if (!outerClass) {
                   return;
                 }

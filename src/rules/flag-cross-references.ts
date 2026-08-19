@@ -16,7 +16,6 @@ export const flagCrossReferences = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Enforce flag cross references for dependOn,exclusive,exactlyOne',
-      recommended: 'recommended',
     },
     messages: {
       missingFlag: 'There is no flag named {{flagName}}',
@@ -29,13 +28,13 @@ export const flagCrossReferences = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           Property(node): void {
-            const ancestors = context.getAncestors();
+            const ancestors = context.sourceCode.getAncestors(node);
             if (
               node.key.type === AST_NODE_TYPES.Identifier &&
               node.value.type === AST_NODE_TYPES.ArrayExpression &&
               node.value.elements.every((e) => e?.type === AST_NODE_TYPES.Literal && e?.raw) &&
               propertyNames.includes(node.key.name) &&
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               ancestors.some((a) => isFlag(a))
             ) {
               const flagsNode = ancestors

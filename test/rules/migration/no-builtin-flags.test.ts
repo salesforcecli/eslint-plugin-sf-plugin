@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noBuiltinFlags } from '../../../src/rules/migration/no-builtin-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noBuiltinFlags', noBuiltinFlags, {

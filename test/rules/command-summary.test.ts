@@ -10,7 +10,6 @@ import { commandSummary } from '../../src/rules/command-summary';
 import { RuleTester } from '@typescript-eslint/rule-tester';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('commandSummary', commandSummary, {

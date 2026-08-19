@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { noArgsParseWithoutStrictFalse } from '../../src/rules/no-args-parse-without-strict-false';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('noArgsParseWithoutStrictFalse', noArgsParseWithoutStrictFalse, {

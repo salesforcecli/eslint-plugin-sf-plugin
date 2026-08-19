@@ -12,7 +12,6 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'The return type of the run method should match the Type passed to sfCommand',
-      recommended: 'recommended',
     },
     messages: {
       summary:
@@ -26,23 +25,22 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
   create(context) {
     return isInCommandDirectory(context)
       ? {
-          // eslint-disable-next-line complexity
+           
           MethodDefinition(node): void {
             if (isRunMethod(node) && node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference) {
               // OK, run method has a type annotation.  Now we need to check if the class extends SfCommand and get the <type parameter>
-              const ancestors = context.getAncestors();
-              const classDeclaration = getSfCommand(context);
+              const classDeclaration = getSfCommand(node, context);
 
               if (classDeclaration) {
                 // get the text for the two nodes
                 const sourceCode = context.sourceCode;
-                const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeParameters?.params[0]);
-                const classType = sourceCode.getText(classDeclaration.superTypeParameters?.params[0]);
+                const runType = sourceCode.getText(node.value.returnType?.typeAnnotation.typeArguments?.params[0]);
+                const classType = sourceCode.getText(classDeclaration.superTypeArguments?.params[0]);
 
                 if (runType && classType && runType !== classType) {
-                  if (classDeclaration.superTypeParameters?.params[0].type === AST_NODE_TYPES.TSUnknownKeyword) {
+                  if (classDeclaration.superTypeArguments?.params[0].type === AST_NODE_TYPES.TSUnknownKeyword) {
                     // When Class Type is "unknown", but the run method has a return type, we can make the Class match the method.
-                    const target = classDeclaration.superTypeParameters?.params[0].range;
+                    const target = classDeclaration.superTypeArguments?.params[0].range;
                     context.report({
                       node,
                       messageId: 'summary',
@@ -53,7 +51,7 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
                       fix: (fixer) => fixer.replaceTextRange(target, runType),
                     });
                   } else {
-                    const targetNode = classDeclaration.superTypeParameters?.params[0];
+                    const targetNode = classDeclaration.superTypeArguments?.params[0];
                     if (targetNode) {
                       context.report({
                         node: targetNode,
@@ -64,7 +62,7 @@ export const runMatchesClassType = RuleCreator.withoutDocs({
                         },
                       });
                     }
-                    const targetNode2 = node.value.returnType?.typeAnnotation.typeParameters?.params[0];
+                    const targetNode2 = node.value.returnType?.typeAnnotation.typeArguments?.params[0];
                     if (targetNode2) {
                       context.report({
                         node: targetNode2,

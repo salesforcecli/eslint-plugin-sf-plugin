@@ -9,11 +9,11 @@ import { sep, parse } from 'path';
 import { AST_NODE_TYPES, TSESTree, ASTUtils } from '@typescript-eslint/utils';
 import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 
-export const ancestorsContainsSfCommand = (context: RuleContext<any,any>): boolean =>
-  context.getAncestors().some((a) => a.type === AST_NODE_TYPES.ClassDeclaration && extendsSfCommand(a,context));
+export const ancestorsContainsSfCommand = (node: TSESTree.Node, context: RuleContext<any,any>): boolean =>
+  context.sourceCode.getAncestors(node).some((a) => a.type === AST_NODE_TYPES.ClassDeclaration && extendsSfCommand(a,context));
 
-export const getSfCommand = (context: RuleContext<any, any>): TSESTree.ClassDeclaration | undefined =>
-  context.getAncestors().filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)).find((a) => a && extendsSfCommand(a,context));
+export const getSfCommand = (node: TSESTree.Node, context: RuleContext<any, any>): TSESTree.ClassDeclaration | undefined =>
+  context.sourceCode.getAncestors(node).filter(ASTUtils.isNodeOfType(AST_NODE_TYPES.ClassDeclaration)).find((a) => a && extendsSfCommand(a,context));
 
 export const extendsSfCommand = (node: TSESTree.ClassDeclaration, context: RuleContext<any, any>): boolean => {
   // Track imported classes and their aliases
@@ -22,12 +22,15 @@ export const extendsSfCommand = (node: TSESTree.ClassDeclaration, context: RuleC
   for (const node of (context.sourceCode).ast.body) {
     if (node.type === 'ImportDeclaration') {
       node.specifiers.forEach(specifier => {
-        if (specifier.type === 'ImportSpecifier' && specifier.imported.name === 'SfCommand') {
-          importedClasses.set(specifier.local.name, 'SfCommand');
-        }
-        // Handle import aliases
-        else if (specifier.type === 'ImportSpecifier' && specifier.local.name !== specifier.imported.name) {
-          importedClasses.set(specifier.local.name, specifier.imported.name);
+        if (specifier.type === 'ImportSpecifier') {
+          const importedName = specifier.imported.type === AST_NODE_TYPES.Identifier
+            ? specifier.imported.name
+            : specifier.imported.value;
+          if (importedName === 'SfCommand') {
+            importedClasses.set(specifier.local.name, 'SfCommand');
+          } else if (specifier.local.name !== importedName) {
+            importedClasses.set(specifier.local.name, importedName);
+          }
         }
       })
     }
@@ -42,9 +45,9 @@ export const getClassPropertyIdentifierName = (node: TSESTree.ClassElement): str
     : undefined;
 
 // we don't care what the types are, really any context will do
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const isInCommandDirectory = (context: RuleContext<any, any>): boolean =>
-  context.getPhysicalFilename?.().includes(`src${sep}commands${sep}`) ?? false; // not an sfCommand
+  context.physicalFilename?.includes(`src${sep}commands${sep}`) ?? false;
 
 export const isRunMethod = (node: TSESTree.Node): boolean =>
   node.type === AST_NODE_TYPES.MethodDefinition &&

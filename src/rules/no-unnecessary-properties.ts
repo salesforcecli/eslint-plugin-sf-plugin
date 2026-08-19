@@ -15,7 +15,6 @@ export const noUnnecessaryProperties = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Boolean properties are false by default, so they should not be set to false',
-      recommended: 'recommended',
     },
     messages: {
       messageFalse: 'The {{prop}} property can be omitted since it is false by default',

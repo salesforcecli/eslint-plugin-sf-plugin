@@ -12,7 +12,6 @@ export const noMessagesLoad = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use Messages.loadMessages() instead of Messages.load()',
-      recommended: 'recommended',
     },
     messages: {
       message: 'Use Messages.loadMessages() instead of Messages.load()',

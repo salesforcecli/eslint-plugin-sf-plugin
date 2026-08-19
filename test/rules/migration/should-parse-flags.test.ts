@@ -9,7 +9,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { shouldParseFlags } from '../../../src/rules/migration/should-parse-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('shouldParseFlags', shouldParseFlags, {

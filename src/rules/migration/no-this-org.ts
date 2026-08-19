@@ -14,7 +14,6 @@ export const noThisOrg = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Fix references to this.org (property on SfdxCommand)',
-      recommended: 'recommended',
     },
     messages: {
       noThisOrg: 'SfCommand does not have a this.org property.  Make sure you parse the org flag.',
@@ -32,9 +31,9 @@ export const noThisOrg = RuleCreator.withoutDocs({
     return isInCommandDirectory(context)
       ? {
           MemberExpression(node): void {
-            if (MemberExpressionIsThisDotFoo(node, 'org') && ancestorsContainsSfCommand(context)) {
+            if (MemberExpressionIsThisDotFoo(node, 'org') && ancestorsContainsSfCommand(node, context)) {
               // it's ok if there's a this.org on the class...
-              const classAbove = getSfCommand(context);
+              const classAbove = getSfCommand(node, context);
               if (!classAbove) {
                 return;
               }

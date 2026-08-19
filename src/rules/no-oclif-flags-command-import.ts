@@ -10,7 +10,6 @@ export const noOclifFlagsCommandImport = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Change import of flags and Command from oclif to use sf-plugins-core',
-      recommended: 'recommended',
     },
     messages: {
       flags: 'Use Flags from sf-plugins-core',

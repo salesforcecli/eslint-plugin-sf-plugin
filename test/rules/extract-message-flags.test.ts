@@ -10,10 +10,9 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { extractMessageFlags } from '../../src/rules/extract-message-flags';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('summary/description messages format', extractMessageFlags, {
+ruleTester.run('summary-description messages format', extractMessageFlags, {
   valid: [
     {
       name: 'no messages',

@@ -13,7 +13,6 @@ export const dashO = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Warn on a flag that uses -o',
-      recommended: 'strict',
     },
     messages: {
       message:
@@ -30,7 +29,7 @@ export const dashO = RuleCreator.withoutDocs({
             // is a flag
             if (
               isFlag(node) &&
-              ancestorsContainsSfCommand(context) &&
+              ancestorsContainsSfCommand(node, context) &&
               node.value?.type === AST_NODE_TYPES.CallExpression &&
               node.value.callee?.type === AST_NODE_TYPES.MemberExpression &&
               node.value.callee.property.type === AST_NODE_TYPES.Identifier &&

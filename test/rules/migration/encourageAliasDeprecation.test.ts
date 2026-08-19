@@ -10,7 +10,6 @@ import { RuleTester } from '@typescript-eslint/rule-tester';
 import { encourageAliasDeprecation } from '../../../src/rules/migration/encourage-alias-deprecation';
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
 });
 
 ruleTester.run('encourageAliasDeprecation', encourageAliasDeprecation, {

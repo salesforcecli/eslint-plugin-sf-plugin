@@ -13,7 +13,6 @@ export const noClassesInCommandReturnType = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'The return type of the run method should not contain a class.',
-      recommended: 'strict',
     },
     messages: {
       summary:
@@ -26,22 +25,22 @@ export const noClassesInCommandReturnType = RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     return {
-      // eslint-disable-next-line complexity
+       
       MethodDefinition(node): void {
         if (
           isRunMethod(node) &&
           node.value.returnType?.typeAnnotation.type === AST_NODE_TYPES.TSTypeReference &&
-          node.value.returnType?.typeAnnotation.typeParameters?.params[0].type === AST_NODE_TYPES.TSTypeReference
+          node.value.returnType?.typeAnnotation.typeArguments?.params[0].type === AST_NODE_TYPES.TSTypeReference
         ) {
           const parserServices = ESLintUtils.getParserServices(context);
-          const runType = node.value.returnType?.typeAnnotation.typeParameters.params[0];
+          const runType = node.value.returnType?.typeAnnotation.typeArguments.params[0];
 
           const realNode = parserServices.esTreeNodeToTSNodeMap.get(runType);
 
           const usesClass = hasOrIsClass(realNode, parserServices);
           if (usesClass) {
             return context.report({
-              node: node.value.returnType?.typeAnnotation.typeParameters.params[0],
+              node: node.value.returnType?.typeAnnotation.typeArguments.params[0],
               messageId: 'summary',
             });
           }

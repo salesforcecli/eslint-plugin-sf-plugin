@@ -12,7 +12,6 @@ export const useSfCommandFlags = RuleCreator.withoutDocs({
   meta: {
     docs: {
       description: 'Use Flags export from sf-plugins-core',
-      recommended: 'recommended',
     },
     messages: {
       message: 'for SfCommand, each flag definition should use "Flags", not "flags"',
@@ -32,7 +31,7 @@ export const useSfCommandFlags = RuleCreator.withoutDocs({
               node.value?.callee?.type === AST_NODE_TYPES.MemberExpression &&
               node.value?.callee?.object?.type === AST_NODE_TYPES.Identifier &&
               node.value?.callee?.object?.name === 'flags' &&
-              ancestorsContainsSfCommand(context)
+              ancestorsContainsSfCommand(node, context)
             ) {
               const range = node.value.callee.object.range;
               context.report({
