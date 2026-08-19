@@ -1,3 +1,31 @@
+# [3.0.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.33...3.0.0) (2026-08-19)
+
+
+* feat!: ESLint 9 flat config compatibility ([3fcaab8](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/3fcaab8e356d3217c5f037e118d0da9cf243ae31))
+
+
+### BREAKING CHANGES
+
+* Requires ESLint >= 9 and @typescript-eslint/utils >= 8.
+
+- Rewrite plugin exports to ESLint flat config format (plugin object with
+  meta, rules, and configs as flat config arrays)
+- Migrate all deprecated ESLint/typescript-eslint APIs:
+  - context.getAncestors() -> context.sourceCode.getAncestors(node)
+  - context.getPhysicalFilename() -> context.filename
+  - TSTypeReference.typeParameters -> typeArguments
+  - ClassDeclaration.superTypeParameters -> superTypeArguments
+- Remove 'recommended' from rule meta.docs (removed in utils v8)
+- Update @typescript-eslint/utils to ^8.33.1
+- Add eslint >= 9 as peerDependency
+- Bump version to 2.0.0
+
+Usage with flat config:
+  import sfPlugin from 'eslint-plugin-sf-plugin';
+  export default [...sfPlugin.configs.recommended, ...otherConfigs];
+
+
+
 ## [1.20.33](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.32...1.20.33) (2025-10-04)
 
 
