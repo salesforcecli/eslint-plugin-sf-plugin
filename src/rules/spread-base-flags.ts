@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
 import { isInCommandDirectory } from '../shared/commands';
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
 import {
@@ -33,7 +34,11 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
             if (flagsProperty) {
               // @ts-expect-error SpreadElement (...) on property==='flags' (BaseCommand.flags)
               const flags = flagsProperty?.value?.properties?.find(
-                (f) => f.type === 'SpreadElement' && f.argument.property?.name === 'flags'
+                (f: TSESTree.Node) =>
+                  f.type === AST_NODE_TYPES.SpreadElement &&
+                  f.argument.type === AST_NODE_TYPES.MemberExpression &&
+                  f.argument.property.type === AST_NODE_TYPES.Identifier &&
+                  f.argument.property.name === 'flags'
               );
               // @ts-expect-error name will not be undefined because we're in a command class, which has to at least extend Command
               const parent = node.superClass?.name;
@@ -51,7 +56,11 @@ export const spreadBaseFlags = RuleCreator.withoutDocs({
             if (baseFlagsProperty) {
               // @ts-expect-error SpreadElement (...) on property==='baseFlags' (BaseCommand.baseFlags)
               const baseFlags = baseFlagsProperty.value?.properties?.find(
-                (f) => f.type === 'SpreadElement' && f.argument.property?.name === 'baseFlags'
+                (f: TSESTree.Node) =>
+                  f.type === AST_NODE_TYPES.SpreadElement &&
+                  f.argument.type === AST_NODE_TYPES.MemberExpression &&
+                  f.argument.property.type === AST_NODE_TYPES.Identifier &&
+                  f.argument.property.name === 'baseFlags'
               );
               // @ts-expect-error name will not be undefined because we're in a command class, which has to at least extend Command
               const parent = node.superClass?.name;

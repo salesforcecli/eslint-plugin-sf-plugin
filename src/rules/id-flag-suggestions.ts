@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { RuleCreator } from '@typescript-eslint/utils/eslint-utils';
-import { ASTUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
+import { ASTUtils, AST_NODE_TYPES, TSESLint } from '@typescript-eslint/utils';
 import { ancestorsContainsSfCommand, isInCommandDirectory } from '../shared/commands';
 import { flagPropertyIsNamed, isFlag } from '../shared/flags';
 
@@ -61,7 +61,7 @@ export const idFlagSuggestions = RuleCreator.withoutDocs({
                           {
                             // I think this is a TS problem in the utils
                             messageId: 'typeSuggestion' as keyof typeof idFlagSuggestions.meta.messages,
-                            fix: (fixer) => fixer.replaceText(node, fixedStartsWith),
+                            fix: (fixer: TSESLint.RuleFixer) => fixer.replaceText(node, fixedStartsWith),
                           },
                         ]
                       : []
