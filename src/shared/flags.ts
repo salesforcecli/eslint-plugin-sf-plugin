@@ -36,8 +36,8 @@ export const isBaseFlagsStaticProperty = (node: TSESTree.Node): node is TSESTree
 
 export const flagPropertyIsNamed =
   (name: string) =>
-  (node: TSESTree.Property): node is TSESTree.Property =>
-    resolveFlagName(node) === name;
+  (node: TSESTree.Node): node is TSESTree.Property =>
+    node.type === AST_NODE_TYPES.Property && resolveFlagName(node) === name;
 
 /** pass in a flag Property and it gives back the key name/value depending on type */
 export const resolveFlagName = (
