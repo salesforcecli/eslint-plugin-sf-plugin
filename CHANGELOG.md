@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.0...3.0.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **deps:** bump @babel/core from 7.23.5 to 7.29.7 ([667b342](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/667b342c9bb272cf3f17df8618f74c1139f62a05))
+
+
+
 # [3.0.0](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/1.20.33...3.0.0) (2026-08-19)
 
 
