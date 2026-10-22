@@ -1,3 +1,12 @@
+## [3.0.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.1...3.0.2) (2026-10-22)
+
+
+### Bug Fixes
+
+* **deps:** bump handlebars from 4.7.9 to 4.7.10 ([c6aac41](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/c6aac41d49d3f86c86c5647d66240124f1ab4270))
+
+
+
 ## [3.0.1](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.0...3.0.1) (2026-09-30)
 
 
