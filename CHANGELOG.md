@@ -1,3 +1,12 @@
+## [3.0.4](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.3...3.0.4) (2026-10-23)
+
+
+### Bug Fixes
+
+* **deps:** bump fast-uri from 3.0.1 to 3.1.8 ([9ce442a](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/9ce442aa42cf856d576699af16ca72a28b4907b2))
+
+
+
 ## [3.0.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.2...3.0.3) (2026-10-23)
 
 
