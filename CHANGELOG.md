@@ -1,3 +1,12 @@
+## [3.0.3](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.2...3.0.3) (2026-10-23)
+
+
+### Bug Fixes
+
+* **deps:** bump fast-copy from 3.0.2 to 3.1.0 ([ffc719c](https://github.com/salesforcecli/eslint-plugin-sf-plugin/commit/ffc719ccd4740389382399196fa6aeccc4aa81d2))
+
+
+
 ## [3.0.2](https://github.com/salesforcecli/eslint-plugin-sf-plugin/compare/3.0.1...3.0.2) (2026-10-22)
 
 
